@@ -1,0 +1,10 @@
+.idea/
+*.iml
+*.iws
+*.tar.gz
+*.jpg
+*.jpeg
+*.exe
+*.dmg
+*.so
+.DS_Store
