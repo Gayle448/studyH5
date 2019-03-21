@@ -16,8 +16,9 @@
 <form method="post" action="3.href.html">
 <label for="inputcode"> 输入验证码 </label>
 <input type="text" name="inputCode" value="input"/>
-    <input type="submit" value="submit" name="submit"/>
-    <input type="reset" value="reset" name="reset"/>
+
+    <input type="submit" value="提交" name="submit"/>
+    <input type="reset" value="重置" name="reset"/>
 
     <br>
     账户:
@@ -27,9 +28,50 @@
     密码:
     <input type="password" value="123456" name="passcode"/>
 
-    <input type="checkbox" name="checkbox" value="yes"/>
+    <!--单选--多个的时候check起作用>
+    <input type="radio" value="123" name="radio"/>
+    <input type="radio" value="456" name="radio1" checked="checked" />
+    <input type="radio" value="789" name="radio2"/>
+    <!--复选-->
+    <input type="checkbox" name="checkbox" value="checkbox"/>
 
     <input type="file" value="file" placeholder="jjj"/>
+
+    <input type="search" value="search"/>
+
+
+    <br>
+    <br>
+    <label 这是一个标签 />
+
+    <textarea rows="5" cols="10">这里可以输入文本~textview </textarea>   <!--无效？-->
+
+
+
+
+    <!--下啦列表框单选～多选 multiple-->
+    <select multiple="multiple">
+        <option value="1" >旅游</option>
+        <option value="2" >看书</option>
+        <option value="3" selected="selected"> 运动</option>
+        <option value="4" >学习</option>
+        <option value="5" >自由</option>
+    </select>
+
+
+
+    <br>
+    <label for="test">你觉得呢</label>
+    <br>
+    <label for="s1">不知道</label> <input type="checkbox" value="s1" id="s1" name="test1"/>
+    <br>
+    <label for="s2">无所谓</label> <input type="checkbox" id="s2" name="test2"/>
+    <br>
+    <label for="testhaha">说出你想说的:</label>
+    <textarea rows="10" cols="10" name="input"> 输入你的心得</textarea>
+    <br>
+    <input type="email" id="email" placeholder="请输入你的邮箱"/>
+
 
 </form>
 
