@@ -5,11 +5,46 @@
     <title>我是标题</title>
 </head>
 
+<style>
+    p{
+        color: red;
+        border:1px solid red;
+        font-size: larger;
+    }
+
+    .first {
+        color: green;
+    }
+
+    #second {
+        color:blue;
+    }
+</style>
+
 <body>
-<p>我是第一段段落里的文字
+
+<!--某些样式具有继承性--其内部标签也通用他这套样式，与前面的子选择器和后代选择器----建立在同一个标签上;;;;某些样式不具有继承性，如下-->
+<p>我是第一段段落里的文字; P标签里面的color样式是具有继承性的
     <br>
-    <span>我也是第一段里面的</span>
+    <span>我也是第一段里面的，但是border里面的样式应该不继承</span>
+    <div>
+    我们在这干什么
+</div>
+<span>
+    话说我也不知道
+</span>
+
+</p>
+
+<p class="first">
+    我是第二段文字
+</p>
+
+<p id="second">
+    我是第三段文字
+
 </p>
 </body>
+
 
 </html>

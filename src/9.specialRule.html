@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试权值</title>
+</head>
+
+<!--样式的权值应该就是启用优先级吧，ID选择符》类选择符》标签选择符》继承-->
+<style>
+    p{
+        color: coral;
+    }
+    .test{
+        color: cyan;
+        /*这个优先级高些*/
+    }
+    #test1{
+        color: purple;
+    }
+</style>
+
+<body>
+<p id="test1" class="test">
+    我是中国人
+    <br>
+    <span>
+        我爱中华人民共和国
+    </span>
+</p>
+</body>
+</html>
