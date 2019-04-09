@@ -6,18 +6,34 @@
 </head>
 
 <!--样式的权值应该就是启用优先级吧，ID选择符》类选择符》标签选择符》继承-->
+<!--内联》嵌入式》外部-->
 <style>
     p{
         color: coral;
     }
     .test{
         color: cyan;
-        /*这个优先级高些*/
     }
     #test1{
         color: purple;
+        /*这个优先级高些*/
     }
+
+    <!--权值一样OR同一个标签重复定义样式，以最后面那个为准-->
+    p{
+        color: red;
+    }
+
+
+    /*浏览器默认的样式 < 网页制作者样式 < 用户自己设置的样式 < 设置为!important的样式*/
+    p{
+        color: blue !important;
+        /*注意!important前面没有；*/
+    }
+
 </style>
+
+
 
 <body>
 <p id="test1" class="test">

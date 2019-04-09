@@ -54,6 +54,14 @@
             color:red;
         }
 
+        /*标签选择器子选择器后代选择器*/
+        p span {
+            color: purple;
+        }
+        p>span {
+            color: red;
+        }
+
         /*通用选择器，针对所有标签*/
         *{
             font-size: 15px;
@@ -73,15 +81,9 @@
         }
 
 
-        /*下面两个在后面章节中看到的，是代表啥意思？？？*/
-        p span {
-            color: purple;
-        }
-        p>span {
-            color: red;
-        }
+
     </style>
-</head>
+</head>f
 <body>
 
 <h1>我是一级标题</h1>
@@ -116,7 +118,7 @@
 <span id="fontBig" class="test1">我看看我是大号字体还是超级大号呢</span>
 <br>
 <span class="test" id="fontBig">我是来测试样式的，一看颜色，二看字体</span>
-
+cf
     <!--测试子选择器-->
     <p>
         请问我是什么颜色，可以告诉一下我么
@@ -144,6 +146,12 @@
 <label>
     这三者优先级：内嵌式》嵌入式》外部式；后两者依据摆放顺序而定。
 </label>
+
+
+<p>
+    <span>i am test</span>
+</p>
+
 
 </body>
 </html>
