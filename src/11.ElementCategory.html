@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<style type="text/css">
+
+    /*CSS里面得用这种注释方式，否则会影响执行效果*/
+    /*1。块级元素--非块级元素加上block值就是块级标签效果*/
+    span{
+        display: block;
+        color:red;
+    }
+
+    /*2。内联元素--块元素可加下述代码设置为内联元素*/
+    p{
+        color: coral;
+        display: inline;
+    }
+
+    /*3。样式display设置为inline-block就可以变成内联块状元素了*/
+    a{
+        display: inline-block;
+        width:200px;/*在默认情况下宽度不起作用注意200与20的区别？*/
+        height:40px;/*在默认情况下高度不起作用*/
+        background:pink;/*设置背景颜色为粉色*/
+        text-align:center; /*设置文本居中显示*/
+    }
+</style>
+
+
+<body>
+<!--1.块级元素有以下--特点--每个块级元素单独占一行，宽高，边距可设置，元素默认宽和父元素一致-->
+<div>
+    DIV块
+</div>
+<p>
+    段落
+</p>
+<h1>
+    一级文本
+</h1>
+<form>
+    表格
+</form>
+<ul>
+    无序列表
+    <li>
+
+    </li>
+</ul>
+<span>
+    我是SPAN，我本来不是块状元素，我应该不是单独一行
+</span>
+<span>
+    我是SPAN，我本来不是块状元素，我这一行应该不是单独一行
+</span>
+
+
+
+<!--3.常见内联块状元素：和其他元素在一行上+宽高行可以设置 -->
+<span>
+    span行内元素
+</span>
+<a>
+    我是A元素，干嘛得来着？
+</a>
+<label>
+    我是一个标签
+</label>
+<strong>
+    strong元素是拿来干嘛得？
+</strong>
+<em>
+    em元素？em两个字符距离？
+</em>
+<p>
+    我是块状元素，应该单独一行，但是使用了内联元素的特性；
+</p>
+<span>
+    上面的块状--》内联元素起作用了没？我这应该是盗版块状！span是内联转块状元素～
+</span>
+
+
+<!--内联块状标签-->
+<img src="1.list.html">
+<input>
+
+</body>
+</html>
