@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style type="text/css">
+    /*1.边框----盒子模型边框设置：以下两种方式,分支别设置宽度样式颜色*/
+    div{
+        border: 12px dotted yellow;
+    }
+    p{
+        border-width: 20px;
+        border-style: solid;
+        border-color: red;
+    }
+    /*可单独为某条边框进行设置*/
+    span{
+        border-top:10px solid red;
+        border-left:15px dashed purple ;
+        border-right: 20px dashed green;
+        border-bottom: 25px solid blue;
+
+    }
+
+    /*2。宽度----盒子的总宽度包括：width(内容宽度)+2*padding(内边距)+2*border(变框宽度)+2*margin(边界宽度)*/
+    widthtest {
+        width:200px;
+        padding: 20px;
+        border: 12px solid red;
+        margin: 10px;
+    }
+
+    /*3。填充----对内边距padding-内填充进行设置*/
+    padtest1{
+        padding: 10px;
+        /*统一10*/
+    }
+    padtest2{
+        padding: 15px 20px 25px;
+        /*一次性设*/
+    }
+    padtest2{
+        padding-top: 10px;
+        padding-right: 15px;
+        padding-bottom: 20px;
+        padding-left: 25px;
+        /*分别设置*/
+    }
+
+    /*4。外部边界-margin设置：上右下左*/
+    margintest1{
+        margin:20px;
+        /*统一20PX*/
+    }
+    margintest2{
+        margin: 10px 15px 20px 25px;
+        /*一次性设*/
+    }
+    marigintest3{
+        margin:20px 40px;
+        /*上下20PX；左右40PX；*/
+    }
+    margintest4{
+        margin-top: 10px;
+        margin-right: 20px;
+        margin-bottom: 30px;
+        margin-left: 40px;
+        /*分别设置*/
+    }
+
+</style>
+
+
+<body>
+<div>
+    我是div
+</div>
+
+<p>
+    我是P标签
+</p>
+
+<span>
+    我是SPAN标签
+</span>
+
+</body>
+</html>
