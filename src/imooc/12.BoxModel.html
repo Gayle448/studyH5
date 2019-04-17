@@ -20,7 +20,7 @@
         border-top:10px solid red;
         border-left:15px dashed purple ;
         border-right: 20px dashed green;
-        border-bottom: 25px solid blue;
+        border-bottom: 25px dotted blue;
 
     }
 
@@ -68,6 +68,43 @@
         margin-bottom: 30px;
         margin-left: 40px;
         /*分别设置*/
+    }
+    margintest5{
+        margin: 10px 20px 30px;
+    /*上10 右20 下30 左20*/
+    }
+
+
+    /*2。颜色缩写:当你设置的颜色是16进制的色彩值时，如果每两位的值相同，可以缩写一半*/
+    p1{
+        color: #000000;
+    }
+    p2{
+        color: #000;
+    }
+
+    p3{
+        color: #336699;
+    }
+    p4{
+        color: #369;
+    }
+
+
+    /*3。字体缩写*/
+
+    body{
+        font-style: italic;
+        font-variant: all-small-caps;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 2em;
+        font-family: "宋体, sans-serif;
+    }
+
+    /*缩写，注意size和height用斜杠隔开，下面只是有字号、行间距、中文字体、英文字体设置。*/
+    body1{
+        font: italic all-small-caps bold 16px/1.5em "宋体",SansSerif;
     }
 
 </style>
