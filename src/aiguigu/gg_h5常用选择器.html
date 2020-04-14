@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常用选择器</title>
+    <!--样式表-->
+    <!-- 1.元素/标签选择器，选中页面中的所有对应元素/标签 -->
+    <!-- 2.id选择器 改对应ID的标签，ID是唯一的，不能分组，多个标签得用多个ID，尽管是同一个样式，所以就不够节约，所以用class选择器 -->
+    <!-- 3.class类选择器,和ID选择器，多个属性标签可用同一个class样式-->
+    <style type="text/css" >
+        p{
+            color: red;
+        }
+
+        #p1 {
+            color: yellow;
+        }
+
+        .p2 {
+            color:blue;
+        }
+
+        .p3 {
+            font-size: larger;
+        }
+
+        4.选择器分组 以上并集
+        /*p , #p1 , .p3 {*/
+            /*background-color: chartreuse;*/
+        /*}*/
+
+        /*5.通配选择器-可以选中页面中所有元素、标签*/
+        *{
+            background-color: cyan;
+        }
+
+        /*6.交集-同时满足多个选择器要求的元素,例子，即是span，又用了class 为p3的标签*/
+        span.p3 {
+            background-color: crimson;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <p>
+        我是一个元素选择器的例子
+    </p>
+
+    <p id="p1">
+        我是ID选择器的例子
+    </p>
+
+    <p class="p2 p3">
+        我是类选择器的例子
+    </p>
+<!-- class 功能强大些,可同时用多个class，用空格隔开-->
+
+
+</body>
+</html>
