@@ -40,6 +40,19 @@
         }
 
 
+        /*7.指定父子元素的 选择器 语法：祖先元素 后代元素{} */
+        div span {
+            color:green;
+        }
+        /* 后代的后代 */
+        div p span {
+            color: purple;
+        }
+         /* 只要子元素，不要子的后代 (IE6不支持)*/
+        div > span {
+            color: coral;
+        }
+
     </style>
 </head>
 <body>
@@ -56,6 +69,28 @@
         我是类选择器的例子
     </p>
 <!-- class 功能强大些,可同时用多个class，用空格隔开-->
+
+
+    <!-- 元素父子关系 -->
+    <div>
+        我是P标签的父/祖先元素；是span的祖先元素
+        <p>
+            我是span的父/祖先元素；是div的子/后代元素
+            <span>
+            我是P标签的子/后代元素
+            </span>
+        </p>
+
+        <span>
+            我是p元素的兄弟元素；是div的子/后代元素
+        </span>
+    </div>
+
+    <span>
+    我是div的兄弟元素
+    </span>
+
+
 
 
 </body>
