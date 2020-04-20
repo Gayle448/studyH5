@@ -67,12 +67,13 @@
         }
         /* before 表示元素最前边的部分，默认最前面为空格
         一般要结合content这个样式一起使用，通过content可以像before或after的位置添加一些内容
+        attr()，可以实现角标功能
         */
         p:before {
-            content: "我是最前面的内容，你不能选中我";
+            content: "我是最前面的内容，你不能选中我--";
         }
         p:after {
-            content: "我会出现在对后面的内容，你也不能选中我";
+            content: "==我会出现在对后面的内容，你也不能选中我";
         }
     </style>
 

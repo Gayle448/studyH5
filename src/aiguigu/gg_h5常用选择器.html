@@ -53,6 +53,24 @@
             color: coral;
         }
 
+        /*8，类选择器与属性选择器优先级-，两种写法一样优先*/
+        .header{
+            color: red;
+        }
+
+        [class~="header"] {
+            color: chartreuse;
+        }
+
+        /*9,ID选择器，优先级，高于属性选择器*/
+        #header {
+            color: chocolate;
+        }
+
+        [id="header"] {
+            color: cornsilk;
+        }
+
     </style>
 </head>
 <body>
@@ -91,7 +109,9 @@
     </span>
 
 
-
+    <div class="header">
+        我是测试选择器的
+    </div>
 
 </body>
 </html>

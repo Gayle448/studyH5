@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性选择器,以title属性为例</title>
+
+    <style>
+
+        /*为有title属性的对应的元素设置背景色
+        作用：可以根据属性（title）来过滤要改对应的标签，其他不改
+        语法：标签 [属性名]
+             标签 [属性名=指定属性值]
+             标签 [属性名^="指定属性名"] 属性名以什么开头的元素
+             标签 [属性名$="指定属性名"] 属性名以什么结尾的元素
+             标签 [属性名*="指定属性名"] 属性名包含什么值的元素
+             标签 [属性名~="指定属性名"] 属性名按空格分组，中一组是指定属性名的元素
+             标签 [属性名|="指定属性名"] 属性名字=指定名或者 是以指定名- 开头的元素
+            扩展：
+             标签 [属性名*="指定属性名" i] 属性名包含什么值的元素;加了个i在后面，代表忽略大小写
+             标签 :not([属性名]) 表示没有设置这个属性的所有标签,可同时配合多个使用《伪类》
+
+             前面也可不加标签，代表用了这个属性的所有符合的标签的元素！
+             复合操作：可以多个属性选择叠加！见第九个段落
+
+        */
+        /*p[title] {*/
+            /*background-color: coral;*/
+        /*}*/
+
+        /*p[title="hello"] {*/
+            /*background-color: coral;*/
+        /*}*/
+
+        /*p[title^="a"] {*/
+            /*background-color: red;*/
+        /*}*/
+
+        /*p[title$="c"] {*/
+            /*background-color: blue;*/
+        /*}*/
+
+        /*p[title*="c"] {*/
+            /*background-color: purple;*/
+        /*}*/
+
+        /*p[title~="a"] {*/
+            /*background-color: yellow;*/
+        /*}*/
+
+        /*p[title|="a"] {*/
+            /*background-color: green;*/
+        /*}*/
+
+        /*p[title][class*=test]{*/
+            /*background-color: cyan;*/
+        /*}*/
+
+        /*p[title*="bc" i] {*/
+            /*background-color: cornsilk;*/
+        /*}*/
+
+        /*p:not([title]) {*/
+            /*border:1px solid red;*/
+        /*}*/
+
+        /*高级用法：
+        浏览器自带的 title 属性延迟响应是添加一层防抖保护，避免频繁触发;
+        这里的例子，比浏览器自带的title响应更快。
+        属性选择器配合伪元素的使用
+        popTitle是自定义的一个类title的属性
+        */
+        p[popTitle]:hover::before{
+            content: attr(popTitle);
+            position: center;
+            color: red;
+            border: 2px solid blue;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!--
+    p标签的title属性：当鼠标移动到元素上时，元素中的还有title属性设置的会有提示元素
+-->
+    <p title="我是默认的提示元素">
+        我是一个段落
+    </p>
+    <p>
+        我没有提示文字
+    </p>
+    <p title="我也有提示文字">
+        我是第二个段落
+    </p>
+    <p title="hello">
+        我是第三个段落
+    </p>
+    <p title="ab">
+        我是第四个段落
+    </p>
+    <p title="bc">
+        我是第五个段落
+    </p>
+    <p title="cdef">
+        我是第六个段落
+    </p>
+    <p title="a b c d">
+        我是第七个段落
+    </p>
+    <p title="a- bc">
+        我是第八个段落
+    </p>
+    <p title="测试多个属性结合" class="test">
+        我是第九个段落
+    </p>
+    <p title="BCDE">
+        我是第十个段落
+    </p>
+
+    <p class="title" popTitle="第一行文字">
+        我是测试属性选择器+伪元素的1！
+    </p>
+
+    <p class="title" popTitle="第二行文字">
+        我是测试属性选择器+伪元素的2！
+    </p>
+</body>
+</html>
