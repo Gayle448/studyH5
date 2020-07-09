@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- TODO 标记一下，后面再来研究-->
+    <title>属性选择器配合伪元素的玩法;这个玩法暂时还不是很理解，后面自定义属性等应该更易懂些</title>
+
+    <style>
+
+        <!--图片描述-->
+        [desc1]::before,
+        [desc2]::after{
+            position: absolute;
+            opacity: 0;
+        }
+
+        [desc1]::before {
+            content: attr(desc1);
+        }
+
+        [desc2]::after {
+            content: attr(desc2);
+        }
+
+        [desc1]:hover:before,
+        [desc2]:hover:after {
+            opacity: 1;
+        }
+
+        /*下载链接*/
+        [download] {
+            position: center;
+            color: purple;
+        }
+
+        [download]:hover::before {
+            content: "点击可下载资源";
+            position: center;
+            background-color: cornsilk;
+        }
+
+        /*链接前面*/
+        a[href^="http:"]:hover:before{
+            content: "这是一个http链接";
+        }
+
+        a[href^="https:"]:hover::before {
+            content: "这是一个https链接";
+        }
+
+        /*某种格式的文件前面*/
+        a[href$=".html" i]::before {
+            content: "html";
+            background: red;
+        }
+
+        /*输入框*/
+        input[type=text][disabled]{
+            border: 1px solid red;
+            background-color: cyan;
+        }
+    </style>
+</head>
+<body>
+
+
+    <p>
+        这是一个描述文字，我要测试下载
+        <a href="gg_h5外部样式表.css" download="test">
+            测试
+        </a>
+    </p>
+
+    <a href="https://www.baidu.com"> https://www.baidu.com </a>
+
+    <p>
+        <a href="gg_h5内联框架.html">
+            Html File
+        </a>
+    </p>
+
+    <input type="text">
+
+    <input type="text" disabled>
+
+</body>
+</html>

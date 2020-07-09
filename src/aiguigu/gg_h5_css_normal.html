@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层叠样式样式CSS表基础</title>
+
+    <!--2内部样式-->
+    <!--<style type="text/css">-->
+
+        <!--p{color:blue;}-->
+
+    <!--</style>-->
+
+    <!--将样式表写到外部的css文件中，然后用link标签-自结束，将外部样式引入到当前页面
+    外部css样式，可以使结构和表现分离，在不同页面中复用同一样式，浏览器会有缓存
+    -->
+    <link rel="stylesheet" type="text/css" href="gg_h5外部样式表.css"/>
+</head>
+<body>
+
+
+        <!--
+            1.可以将CSS样式编写到标签的style属性当中；可写多个样式（内联样式），用；分开；只对当前属性标签起作用;
+            内联样式，样式与结构耦合高，不利于后期维护；
+            2.为了复用同一个样式(本页面)，将样式表编写到style标签中，然后通过css选择器选中指定标签；可使用结构html和表现css进一步分离；
+        -->
+
+        <!--1内联样式-->
+        <p style="color:red; font-size: larger;">锄禾日当午，汗滴禾下土</p>
+
+        <p>谁知盘中餐，粒粒皆辛苦</p>
+
+        <p >测试外部样式表样式</p>
+
+<!--????样式的优先级，还有其他页面复用本页面样式-->
+
+</body>
+</html>

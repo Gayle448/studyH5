@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>伪类选择器</title>
+
+    <style type="text/css">
+        /*a{*/
+            /*color:yellow;*/
+        /*}*/
+
+        /*类*/
+        .aaa {
+            color: yellow;
+        }
+        /*伪类，用来表示元素的一种特殊的状态，比如：
+        访问过的超链接，*/
+        /*1.link 正常链接*/
+        a:link{
+            color: green;
+        }
+        /*2.visited 访问过的链接，有没有访问，根据历史记录来
+        visited只能设置颜色，因为涉及到隐私问题
+        */
+        a:visited {
+            color: blue;
+        }
+        /*3.hover 鼠标移入，也适用于其他元素如P，但是要在IE6上*/
+        a:hover {
+            color: cyan;
+        }
+        p:hover {
+            color: cyan;
+        }
+        /*4.active 超链接被点击，也适用于其他元素如P，但是要在IE6上*/
+        a:active {
+            color: red;
+        }
+        p:active {
+            color: red;
+        }
+        /* 5.focus 获取焦点，文本框获取焦点后背景色为黄色*/
+        input:focus {
+            background-color: yellow;
+        }
+
+        /* 6.before 指定元素前*/
+
+        /* 7.after 指定元素后*/
+
+        /* 8. selection 选中元素，火狐里面需加 -moz-兼容*/
+        p::selection {
+            background-color: cornflowerblue;
+        }
+
+
+
+        /* 伪元素 */
+        /* first- letter 为P中第一个子设置单独样式 */
+        p:first-letter {
+            color: chocolate;
+            font-size: larger;
+        }
+        /* first - line 第一行 */
+        p:first-line {
+            background-color: darkcyan;
+        }
+        /* before 表示元素最前边的部分，默认最前面为空格
+        一般要结合content这个样式一起使用，通过content可以像before或after的位置添加一些内容
+        attr()，可以实现角标功能
+        */
+        p:before {
+            content: "我是最前面的内容，你不能选中我--";
+        }
+        p:after {
+            content: "==我会出现在对后面的内容，你也不能选中我";
+        }
+    </style>
+
+</head>
+<body>
+<!--类选择器-->
+<a class="aaa" href="http://www.baidu.com" >
+    我是链接1
+</a>
+<br />
+<br />
+
+<a href="https://www.qq.com">
+    我是链接2
+</a>
+
+<br />
+<br />
+
+<a href="https://www.wechat.com">
+    我是链接3
+</a>
+
+<p>
+    段落1
+</p>
+
+<p>
+    段落2
+</p>
+
+
+<input type="text" />
+
+</body>
+</html>

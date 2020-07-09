@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>超链接</title>
+</head>
+<body>
+<h1>测试超链接 <br> 这是我的个人博客 </h1>
+
+<!--有几个属性
+href:指向链接跳转的目的地址，可以是相对路径也可以是完整地址
+target:用来指定打开链接的位置，默认是self，表示当前窗口；
+_blank表示打开一个新标签页；
+可是设置为内联框架的name名字，则在内联框架中打开；
+-->
+<a href="https://www.baidu.com" target="_self">我是一个超链接 </a>
+<a href="#test123456">我要去底部</a>
+
+<!-- 知识点 center标签，标签中的内容会居中显示-->
+<center> hahaha我是居中样式，后面可以用CSS使用</center>
+
+<!--练习-->
+<center>
+    <h2>这是我的个人博客</h2>
+    <h3>东风破</h3>
+    <a href="https://www.baidu.com">周杰轮</a>
+    <p>
+        雨纷纷，旧故里草木深； <br>
+        我听闻，你仍旧一个人；<br>
+    </p>
+    <img src="myphoto.png" alt="测试图片"/>
+
+    <hr />
+
+    <p>
+        友情链接：
+        <a href="https://www.baidu.com">A链接</a>
+        |
+        <a href="https://www.baidu.com">B链接</a>
+        |
+        <!--链接地址设置为#则可以跳转到顶部-->
+        <a href="#" id="test123456">回到顶部</a>
+
+        <!--打开默认邮件的超链接-->
+        <a href="mailto:hahaha.com">我要去发邮件</a>
+    </p>
+
+</center>
+
+
+</body>
+</html>

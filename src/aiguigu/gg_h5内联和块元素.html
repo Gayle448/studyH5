@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内联和块元素</title>
+
+    <style type="text/css" >
+
+        div{
+            background-color: coral;
+            font-size: larger;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--块元素，div,p,h1,不论内容多少，会独占一行
+div主要对页面进行布局
+-->
+    <div>
+        第一个块
+    </div>
+
+    <div>
+        第二块
+    </div>
+
+<div>
+    我是P标签的父/祖先元素；是span的祖先元素
+    <p>
+        我是span的父/祖先元素；是div的子/后代元素
+        <span>
+            我是P标签的子/后代元素
+        </span>
+    </p>
+</div>
+
+<span>
+    我是div的兄弟元素
+</span>
+
+</body>
+</html>
