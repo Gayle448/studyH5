@@ -3,4 +3,12 @@
 
 JavaScript 是 Web 的/轻量级的 编程语言。
 所有现代的 HTML 页面都使用 JavaScript。
+
+这是一个外部JS文件
 */
+
+
+function changeTextColor() {
+    document.getElementById("demo").style.color = "#000000"
+    console.log("哈哈哈哈哈哈")
+}
