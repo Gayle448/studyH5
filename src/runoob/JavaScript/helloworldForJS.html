@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <script>
+        function displayDate(){
+
+            //（4）使用JS来处理HTML内容，如下是，查找元素+改变内容的操作；
+            //您会经常看到 document.getElementById("some id")。这个方法是 HTML DOM 中定义的。
+            // DOM (Document Object Model)（文档对象模型）是用于访问 HTML 元素的正式 W3C 标准。
+            document.getElementById("demo").innerHTML=Date();
+
+
+            // 您只能在 HTML 输出中使用 document.write - 如下面(2)。如果您在文档加载后使用该方法，会覆盖整个文档。
+            document.write("<h1>这是一个标题</h1>");
+            document.write("<p>这是一个段落2</p>");
+        }
+    </script>
+</head>
+<body>
+
+<p>(1)我的第一个 Js 程序,直接嵌入一个script标签，里面放一个函数displayDate，点击按钮的时候调用这个方法，根据P标签的id选择器，修改段落文字--innerHTML了解一下</p>
+<p id="demo">这是一个段落1</p>
+
+<button type="button" onclick="displayDate()">显示日期</button>
+<!--(3)JavaScript : 对事件的反应。alert() 函数在 JavaScript 中并不常用，但它对于代码测试非常方便。onclick 事件只是您即将在本教程中学到的众多事件之一。-->
+<button type="button" onclick="alert('欢迎光临!')">点我提示！</button>
+
+ <!--(2)JavaScript 能够直接写入 HTML 输出流中：-->
+<script>
+    document.write("<h1>这是一个标题</h1>");
+    document.write("<p>这是一个段落2</p>");
+</script>
+
+
+<!--动态改变HTML <img> 图片 -->
+<!--<img loading="lazy" id="myimage" onclick="changeImage()" src="" width="100" height="80">-->
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html> <!--声明为html5文档-->
+<html>  <!--根元素-->
+    <head>  <!--元素包含了文档的元（meta）数据-->
+        <meta charset="utf-8">
+        <!--<meta charset="utf-8"> 定义网页编码格式为 utf-8;防止有些中文乱码的情况-->
+        <title>
+            runoob.com
+        </title>
+        <style>
+            body{background: antiquewhite url("myphoto.png") no-repeat right top;}  /*属性简写*/
+            h1{font-size: 36pt}
+            p{margin-left: 50px}
+            a {text-decoration:none}
+        </style>
+    </head>
+    <body>
+        <h1>
+            第一个标题
+        </h1>
+        <h2>
+            第二个标题
+        </h2>
+        <p>
+            我是一个段落
+        </p>
+
+        <a href="https://www.baidu.com">
+            我是一个链接
+        </a>
+    </body>
+</html>
+<!--闭合标签-->
+<!--text-decoration属性主要是用来删除链接的下划线-->

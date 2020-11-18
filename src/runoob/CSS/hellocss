@@ -1,0 +1,42 @@
+<!DOCTYPE html> <!--声明为html5文档-->
+<html>  <!--根元素-->
+<head>  <!--元素包含了文档的元（meta）数据-->
+    <meta charset="utf-8">
+    <!--<meta charset="utf-8"> 定义网页编码格式为 utf-8;防止有些中文乱码的情况-->
+    <title>
+        runoob.com
+    </title>
+    <style>
+        /*  这个是css的注释:
+        CSS 规则由两个主要的部分构成：选择器，以及一条或多条声明:
+        CSS声明总是以分号(;)结束，声明总以大括号({})括起来:
+        */
+        body{background: antiquewhite}
+        h1{font-size: 36pt;color: #cc5b31}
+        p{margin-left: 50px;}
+        p.uppercase {text-transform: uppercase;}/*文本转换字母大小写：这种是属于class选择器*/
+        /*p.uppercase {text-transform:uppercase;}*/
+        p.lowercase {text-transform:lowercase;}
+        p.capitalize {text-transform:capitalize;}
+
+    </style>
+</head>
+<body>
+<h1>
+    第一个标题
+</h1>
+<h2>
+    第二个标题
+</h2>
+<p class="uppercase">
+    ABCdef我是一个段落
+</p>
+</body>
+</html>
+<!--闭合标签-->
+<!--
+CSS中，颜色值通常以以下方式定义:
+十六进制 - 如："#ff0000"
+RGB - 如："rgb(255,0,0)"
+颜色名称 - 如："red"
+-->
