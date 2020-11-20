@@ -7,6 +7,13 @@
 
 <!--JavaScript 是所有现代浏览器以及 HTML5 中的默认脚本语言。-->
 
+<!-- JavaScript 可以通过不同的方式来输出数据：
+
+使用 window.alert() 弹出警告框。
+使用 document.write() 方法将内容写到 HTML 文档中。
+使用 innerHTML 写入到 HTML 元素。
+使用 console.log() 写入到浏览器的控制台。-->
+
 <head>
     <meta charset="utf-8">
     <title>菜鸟教程(runoob.com)</title>
@@ -39,6 +46,7 @@
 <script>
     console.log('哈哈哈哈哈哈11111')
     console.log("哈哈哈哈哈哈22222")
+    console.log(16+"你好123")//666
 
     document.write("<h1>这是一个标题</h1>");
     document.write("<p>这是一个段落2</p>");
@@ -53,6 +61,7 @@
         }
     }
 
+
     // (6)改变HTML的样式
     document.getElementById("demo").style.color = "#ff0000"
 
@@ -61,16 +70,17 @@
     if (value== "" || isNaN(value)) {
         // alert("不是数字！")
     }
+
+
 </script>
 
 
 <!-- (5)动态改变HTML图像 <img> 图片 -->
 <img loading="lazy" id="myImage" onclick="changeImage(this)" src="dog.png" width="200" height="200">
 
-<!--(8) 利用外部JS文件操作修改-->
-
-<script scr="helloworld.js"></script>
-<button type="button" onclick="changeTextColor()"> 点我改变段落1的字体颜色 </button>
+<!--(8) 利用外部JS文件操作修改，似乎因为函数名字原因之前报错后面改了就好了-->
+<button type="button" onclick="changeFunction()"> 点我改变段落1的字体颜色 </button>
+<script src="helloworld.js"></script>
 
 </body>
 </html>
