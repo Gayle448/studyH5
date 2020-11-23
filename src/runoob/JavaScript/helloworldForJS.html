@@ -48,6 +48,15 @@
     console.log("哈哈哈哈哈哈22222")
     console.log(16+"你好123")//666
 
+    var E,F;
+    E = "cj";
+    F = E;
+    console.log(E);
+    console.log(F);
+    E = "hx";
+    console.log(E);
+    console.log(F);
+
     document.write("<h1>这是一个标题</h1>");
     document.write("<p>这是一个段落2</p>");
 
@@ -81,6 +90,18 @@
 <!--(8) 利用外部JS文件操作修改，似乎因为函数名字原因之前报错后面改了就好了-->
 <button type="button" onclick="changeFunction()"> 点我改变段落1的字体颜色 </button>
 <script src="helloworld.js"></script>
+
+<!--常见的HTML事件-->
+<!--
+1.onchange HTML元素改变
+2.onclick 用户点击HTML元素
+3.onmouseover 用户在一个HTML元素上移动鼠标
+4.onmouseout 用户从一个HTML元素上一开鼠标
+5.onkeydown 用户按下键盘按键
+6.onload 浏览器已完成页面的加载
+https://www.runoob.com/jsref/dom-obj-event.html
+-->
+
 
 </body>
 </html>

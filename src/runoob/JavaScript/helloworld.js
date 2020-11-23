@@ -141,7 +141,7 @@ function letTest() {
 }
 
 // Javascript声明变量的时候，虽然用var关键字声明和不用关键字声明，很多时候运行并没有问题，但是这两种方式还是有区别的。可以正常运行的代码并不代表是合适的代码。
-// num1为全局变量，num2为window的一个属性
+// num1为全局变量，num2为window的一个属性(如果您把值赋给尚未声明的变量，该变量将被自动作为 window 的一个属性.非严格模式下给未声明变量赋值创建的全局变量，是全局对象的可配置属性，可以删除。)
 var num1 = 1;
 num2 = 2;
 // delete num1;  无法删除
@@ -258,4 +258,251 @@ var one=new Demo
 
 // 调用输出
 document.write(one.age);
+
+
+//MARK：扩展 --
+//基本类型的值是存放在栈内存里的
+function baseVar() {
+    var E,F;
+    E = "cj";
+    F = E;
+    console.log(E);//cj
+    console.log(F);//cj
+    E = "hx";
+    console.log(E);//hx 改变E的值，不影响F的值
+    console.log(F);//cj
+}
+
+//引用类型的值是存在堆内存中的对象<对象只有一个，公用这个对象的内存地址-指针>
+function specialVar() {
+    var H = {name : "chenjian"};
+    var I = H ;
+    H.name = "hanxu";
+    console.log(I.name);
+    I.age = 15; //对象也可以先创建，再添加属性和属性值
+    console.log(H.age);
+    var J = {
+        name : "hanxu",
+        age : 15
+    };
+    //H 和 I 是同一个内存地址；J是另外一个内存地址。
+}
+
+//MARK：对象 -- 在 JavaScript中，几乎所有的事物都是对象。
+//对象也是一个变量，但对象可以包含多个值（多个变量）。
+// 我们通常认为 "JavaScript 对象是键值对的容器"。键值对在 JavaScript 对象通常称为 对象属性。“键”必须为字符串，“值” 可以是 JavaScript 中包括 null 和 undefined 的任意数据类型。
+//对象方法，函数作为对象的属性。
+//javaScript对象中属性具有唯一性（这里的属性包括方法），如果有两个重复的属性，则以最后赋值为准。
+var bird = {
+    name : "Amy",
+    age : 1,
+    color : "white",
+    skill : function () {
+        console.log("Fly");
+    },
+    nickname : null,
+    play : undefined
+}
+
+//MARK：函数 -- 是由事件驱动的或者当它被调用时执行的可重复使用的代码块。
+// 在调用函数时，您可以向其传递值，这些值被称为参数。这些参数可以在函数中使用。您可以发送任意多的参数，由逗号 (,) 分隔：
+//带有返回值的函数：在您仅仅希望退出函数时 ，也可使用 return 语句。返回值是可选的：
+function myFunction(a,b)
+{
+    if (a>b)
+    {
+        return;
+    }
+    x=a+b
+}
+
+// ES6 新增箭头函数，定义函数时更加简洁、易读。
+//使用箭头函数定义函数时可以省略 function关键字
+const test1 = function () {
+
+}
+
+const text2 = (...params) => {
+
+}
+
+const text3 = param => {
+    return param;
+}
+
+
+// MARK：作用域为可访问变量，对象，函数的集合。
+// 在 JavaScript 中，对象和函数都时变量。
+//局部变量：在 JavaScript 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。
+// 您可以在不同的函数中使用名称相同的局部变量，因为只有声明过该变量的函数才能识别出该变量。只要函数运行完毕，本地变量就会被删除。
+// 全局变量：在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。页面关闭后被删除。
+for (let i = 0; i < 3; i++) {
+    let i = 'abc';
+    console.log(i);
+}
+// abc
+// abc
+// abc
+// 函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。
+
+//MARK: HTML 事件是发生在 HTML 元素上的事情。当在 HTML 页面中使用 JavaScript 时， JavaScript 可以触发这些事件。HTML 事件可以是浏览器行为，也可以是用户行为。
+// <some-HTML-element some-event='JavaScript 代码'>
+// <some-HTML-element some-event="JavaScript 代码">
+//实例1：<button onclick="getElementById('demo').innerHTML=Date()">现在的时间是?</button>
+//实例2：<button onclick="this.innerHTML=Date()">现在的时间是?</button> 不推荐
+//实例3：<button id="test" onclick="changeContent()">更换内容</button> 推荐
+
+//MARK:字符串
+var carname = "volvo";
+// 使用索引位置来访问字符串中的每个字符:
+var char = carname[2];
+// 你可以在字符串中使用引号，字符串中的引号不要与字符串的引号相同:
+var hello = "I'am chenjian,she is 'chenjiao'";
+var hi = 'he is "hanxu"';
+//也可以在字符串添加转义字符来使用引号：\' 单引号，\"双引号，\\反斜杠，\n换行，\r回车，\t tab制表符，\b 退格符，\f 换页符。
+var heihei = "my name is \"chenjian\"";
+//字符串对象 -- 不要创建 String 对象。它会拖慢执行速度，并可能产生其他副作用
+var fname = "chen"; //typeof 返回string
+var lname = new String("jian") //typeof 返回object
+
+//原始值字符串，如 "John", 没有属性和方法(因为他们不是对象)。
+// 原始值可以使用 JavaScript 的属性和方法，因为 JavaScript 在执行方法和属性时可以把原始值当作对象。
+
+//对于string ,number基础数据类型比较：
+// === 为绝对相等，即数据类型 与 值都必须相等。
+// == 可为不同类型间比较； "转化成同一类型后的值" 看 "值" 是否相等。
+//对于Array ,Object等高级类型，== 和 === 比较没有区别；
+//比较 基础数据和高级数据，高级数据转为基础数据，进行"值"比较。
+//     != 为 == 的非运算，!== 为 === 的非运算
+
+//MARK：运算符
+//+ 运算符
+var xx = 5;
+var yy = 5;
+var xy = xx + yy; //10
+var sx = "10";
+var sy = "10";
+var ss = sx + sy; //"1010"
+var xs = xx + sx //"510" 如果把数字与字符串相加，结果将成为字符串！
+var tx = 5 + 5 + "20"; //"1020"
+var ts = "" + 5 + 5 + "20" ; //"5520"
+var bx = true;
+var bb = bx + 10;   //11
+var bs = bx + "10"; //"110" 字符串与布尔值相加，布尔值转化成字符串。 ?? todo
+
+//取模%运算的结果符号只与左边值的符号有关：
+var zx = 7 % (-3); // 结果为 1
+var zy = (-7) % 3; // 结果为 -1
+
+//null 与数字相加， null 转化为0
+// bool 类型与 null 类型进行累加时，视为其与整数类型累加处理。
+var xz = null + 12; //12
+var sz = null + "12"; //null12
+var xa = null + bx; //1
+
+//undefined 除了与字符串进行累加时有效（undefined 视为字符串"undefined"处理），其他情况皆返回 NaN。
+
+//条件运算符 -- 三目运算符：
+var resultx = (age < 18) ? "未成年" : "已成年";
+
+// 取反! -- 首先把数据转化为布尔值，然后取反，结果为 true 或 false。
+// 其他数据类型转换为布尔类型的规则: null、undefined、0、NaN、空字符串转换为false，其他转化为 true
+var sa = "hello";
+var ua = "";
+console.log(!sa); //false
+console.log(!ua); //true
+
+// 逻辑与 && 如果运算的第一个操作数为true,则返回第二个操作数,反之则返回第一个操作数;
+console.log(0 && "hehe"); //0
+console.log(sa && 0); //0
+
+// 逻辑或 || 如果运算的第一个操作数为 true,则返回第一个操作数,反之则返回第二个操作数
+
+// switch 语句的使用，当两种情况相同时，可以只在第二种情况中写要执行的代码;
+// switch 中 case的判断是===的判断，即数据类型和值的双重判断。判断条件可以是String 、Number、Boolean、char、枚举、null、undefined。
+
+//循环:
+function testLoop() {
+    // for - 循环代码块一定的次数
+    for (var i = 0;i < 5; i++) {
+        console.log(i);
+    }
+    for (var j = 0,len = 8; j < len; j++) {
+        console.log("for循环，初始化多个值" + j);
+    }
+    var k = 0, length = 10;
+    for (;k < length; k ++) {
+        console.log("for循环，初始化第一个参数省略" + k);
+    }
+    // 中间的条件，也可省略不写，但是在循环体里面要写break才会跳出循环；
+    // 最后修改初始值，可以省略，放到循环体里取改值
+    for (; k < length; ) {
+        console.log("for循环，初始化第一个参数还有第三个自增操作，省略" + k);
+        k ++ ;
+    }
+
+    // for/in - 循环遍历对象的属性、遍历数组
+    var person = {name:"chenjian",pinyin:"cj",age:18};
+    var totalname ;
+    for (name in person) {
+        totalname = totalname + " " + person[name];
+        console.log(totalname);
+    }
+
+    var nums = [1,2,3,4,5];
+    for (x in nums) {
+        console.log(nums[x]); //数组索引
+    }
+
+    //for...of 是 ES6 新引入的特性。它既比传统的for循环简洁，同时弥补了forEach和for-in循环的短板。
+    for (var value of nums) {
+        console.log(value); //直接遍历的是数组里面的值
+    }
+
+    var myname = "chenjiannihao";
+    for (let value of myname) { //遍历一个字符串
+        console.log(value);
+    }
+
+    //循环一个带键值对的数组
+    let map = new Map([["name","chenjian"],["xiaoname","jc"],[age,18]]);
+    for (let [key,value] of map) {
+        console.log(value);
+    }
+    for (let entry of map)) {
+        console.log(entry); //打印键值对
+    }
+
+    // 循环一个 Set
+    let iterable = new Set([1, 1, 2, 2, 3, 3]);
+
+    for (let value of iterable) {
+        console.log(value); //打印去重了数据？ todo
+    }
+
+    // 循环一个 DOM collection todo
+
+}
+
+
+// 我们可循环一个生成器(generators): todo
+function* fibonacci() { // a generator function
+    let [prev, curr] = [0, 1];
+    while (true) {
+        [prev, curr] = [curr, prev + curr];
+        yield curr;
+    }
+}
+
+for (let n of fibonacci()) {
+    console.log(n);
+    // truncate the sequence at 1000
+    if (n >= 1000) {
+        break;
+    }
+}
+
+
+//         while - 当指定的条件为 true 时循环指定的代码块
+// do/while - 同样当指定的条件为 true 时循环指定的代码块
 
