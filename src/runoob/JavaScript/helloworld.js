@@ -102,22 +102,6 @@ function programa () {
     people.action = function() {}
 
     // PS : JavaScript 变量均为对象。当您声明一个变量时，就创建了一个新的对象。
-    // 所以，就算变量定义的是数组格式，typeof 返回的数据类型还是 object。判断该对象是否为数组，使用 isArray 方法或者 使用 instanceof 操作符;
-
-    // Undefined 这个值表示变量不含有值。可以通过将变量的值设置为 null 来清空变量。
-    cars = null;
-
-    //数字类型转字符串
-    var a = 100;
-    var b = a.toString();
-    console.log(typeof(b));
-
-    //字符串转int 和 float
-    var str = "12345.30"
-    var c = parseInt(str);
-    var d = parseFloat(str);
-
-    //PS : 要把任何值转换为布尔型数据，在值的前面增加两个 !! 感叹号即可，!!0 为 False，其余的均为 True。!!
 }
 
 //MARK：
@@ -376,7 +360,7 @@ var lname = new String("jian") //typeof 返回object
 //     != 为 == 的非运算，!== 为 === 的非运算
 
 //MARK：运算符
-//+ 运算符
+//+ 运算符 + 数据类型转换：https://www.runoob.com/js/js-type-conversion.html
 var xx = 5;
 var yy = 5;
 var xy = xx + yy; //10
@@ -389,6 +373,13 @@ var ts = "" + 5 + 5 + "20" ; //"5520"
 var bx = true;
 var bb = bx + 10;   //11
 var bs = bx + "10"; //"110" 字符串与布尔值相加，布尔值转化成字符串。 ?? todo
+var sa = "5";   //字符串
+var sb = + sa;  // sb是一个数字 ,注意和上面不同
+sa = "chenjian";
+sb = + sa;  //sb 还是一个数字(NaN)
+var xb = 5 + null;  //5
+var sc = "5" + null; //"5null"
+var xc = "5" -1;    //4
 
 //取模%运算的结果符号只与左边值的符号有关：
 var zx = 7 % (-3); // 结果为 1
@@ -502,7 +493,191 @@ for (let n of fibonacci()) {
     }
 }
 
-
 //         while - 当指定的条件为 true 时循环指定的代码块
 // do/while - 同样当指定的条件为 true 时循环指定的代码块
+// 定义了数组后对数组进行赋值，中间如有某些下标未被使用（即未被赋值），在遍历的时候，采用一般的 for 循环和 for...in 循环得到的结果不同。
+// for...in 循环会自动跳过那些没被赋值的元素，而 for 循环则不会，它会显示出 undefined。
+/*
+* for : 比较适合遍历数组,字符串等等。
+* for in : 比较适合遍历对象，遍历对象时使用这个再合适不过了。
+* while : while 的话，与 for 的使用场景差不多。唯一不同的是，遍历的条件必须满足。
+* do while : 至少执行一边的循环，遍历数组和字符串也是很方便。
+* */
+
+//break 语句用于跳出循环。
+// continue 用于跳过循环中的一个迭代。
+// 正如您在 switch 语句那一章中看到的，可以对 JavaScript 语句进行标记。
+// biaoji :
+// statements
+
+// continue 语句（带有或不带标签引用）只能用在循环中。
+// break 语句（不带标签引用），只能用在循环或 switch 中。
+// break biaoji; 可用于跳出任何js代码块。
+//标签 实例：
+outerloop:
+    for (var i = 0; i < 10; i++)
+    {
+        innerloop:
+            for (var j = 0; j < 10; j++)
+            {
+                if (j > 3)
+                {
+                    break;
+                }
+                if (i == 2)
+                {
+                    break innerloop;
+                }
+                if (i == 4)
+                {
+                    break outerloop;
+                }
+                document.write("i=" + i + " j=" + j + "\n");
+            }
+    }
+
+//MARK:typeof，null，undefined
+//使用typeof 操作符来检测变量的 数据类型 ；如果对象是 JavaScript Array 或 JavaScript Date ，我们就无法通过 typeof 来判断他们的类型，因为都是 返回 object。
+typeof "jone" //string
+typeof 3 //number
+typeof false // boolean
+typeof NaN // number
+typeof  [1,2,3,4] //数组是一种特殊的对象类型。 因此 typeof [1,2,3,4] 返回 object
+typeof  {name:'chenjian',age:11} //object
+typeof new Date() //返回object
+typeof function () {} //返回function
+typeof null //返回object
+typeof  myCar //undefined myCar没有声明的时候
+
+
+// null - 是一个只有一个值的特殊类型，表示一个空对象引用，可以使用null来清空对象。使用typeof检测null，返回的object.(主动释放一个变量引用的对象，表示一个变量不再指向任何对象地址。)
+// undefined - 是一个没有设置值的变量，typeof 一个没有值的变量会返回undefined，任何变量都可以使用undefined来清空。(是所有没有赋值变量的默认值，自动赋值。)
+// if (typeof a!="undefined"){//判断一个变量是否存在}
+var person = null; //值为null(空) 但是类型为对象object。
+var person = undefined; //值为undefined，类型为undefined。
+//这两个东东，值都为空，但是类型不一样。
+null === undefined //false
+num1 == undefined //true
+
+
+//MARK:Number() 转换为数字， String() 转换为字符串， Boolean() 转换为布尔值。
+// 6种数据类型：string、number、boolean、object、function、symbol；
+// 3种对象类型：Object 、Date 、Array；
+// 2个不包含任何值的数据类型: null 、undefined。
+
+//constructor属性：返回所有 JavaScript 变量的构造函数.
+/*
+* "John".constructor                 // 返回函数 String()  { [native code] }
+*(3.14).constructor                 // 返回函数 Number()  { [native code] }
+*false.constructor                  // 返回函数 Boolean() { [native code] }
+*   [1,2,3,4].constructor              // 返回函数 Array()   { [native code] }
+*{name:'John', age:34}.constructor  // 返回函数 Object()  { [native code] }
+*new Date().constructor             // 返回函数 Date()    { [native code] }
+*function () {}.constructor         // 返回函数 Function(){ [native code] }
+* */
+// 可以使用constructor属性来查看对象是否为数组 (包含字符串 "Array");
+// 使用 constructor 属性来查看对象是否为日期 (包含字符串 "Date");
+function isArray(myArray) {
+    return myArray.constructor.toString().indexOf("Array") > -1;
+}
+
+function  changeType() {
+    // 所以，就算变量定义的是数组格式，typeof 返回的数据类型还是 object。判断该对象是否为数组，使用 isArray 方法或者 使用 instanceof 操作符;
+
+    // Undefined 这个值表示变量不含有值。可以通过将变量的值设置为 null 来清空变量。
+    cars = null;
+
+    //数字类型转字符串
+    var a = 100;
+    var b = a.toString(); // toExponential() 转换为指数计数法； toFixed ,数字转字符串，制定小数点位数；toPrecision() 把数字格式化为指定长度。
+    b = String(a+3);
+    console.log(typeof(b));
+
+    //bool值转换为字符串
+    var x = true;
+    b = x.toString();
+    b = String(x);
+
+    //将日期转换为字符串 ;更多 date方法请见：https://www.runoob.com/jsref/jsref-obj-date.html
+    b = Date(); // 返回 Thu Jul 17 2014 15:38:19 GMT+0200 (W. Europe Daylight Time)
+    b = String(new Date());  // 返回 Thu Jul 17 2014 15:38:19 GMT+0200 (W. Europe Daylight Time)
+    b = (new Date()).toString(); // 返回 Thu Jul 17 2014 15:38:19 GMT+0200 (W. Europe Daylight Time)
+
+    //字符串转int 和 float
+    var str = "12345.30"
+    var c = parseInt(str);
+    var d = parseFloat(str);
+
+    //bool 转为数字
+    var e = Number(false);
+    //PS : 要把任何值转换为布尔型数据，在值的前面增加两个 !! 感叹号即可，!!0 为 False，其余的均为 True。!!
+
+    //日期转为数字
+    var f = new Date();
+    var g = Number(f);
+
+    //null 转数字为0；undefined 转数字为NaN；都是false；
+    /*
+    NaN 是一个特殊的数值，NaN 即非数值（Not a Number），这个数值用于本来要返回数值的操作数未返回数值的情况。
+    NaN 与任何值都不相等，包括 NaN 本身。
+    可以通过 isNaN() 方法来判断某个数值是否是NaN这个特殊的数，使用 isNaN() 方法会将传入的数值如果是非数值的会将其自动转换成数值类型，若能转换成数值类型，
+    那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。
+    */
+
+    // document.getElementById("demo").innerHTML = myVar;
+    // 当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法。
+
+    //instanceof
+    var h = [1,2,3];
+    if (h instanceof Array) {
+        //h 是一个数组
+    }
+}
+
+//正则表达式:使用单个字符串来描述、匹配一系列符合某个句法规则的字符串搜索模式。可用于所有文本搜索和文本替换的操作。
+function regexTest() {
+    //语法
+    // /正则表达式主体(用于检索)/修饰符(可选，i 搜索不区分大小写，g 执行全局匹配，m 执行多行匹配)
+    /*使用字符串方法:
+    search() 方法：用于检索字符串中指定的子字符串，或者检索与正则表达式相匹配的的子字符串，并返回子串的起始位置。
+    replace（）方法：用于在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
+    */
+    var str = "hello runoob !";
+    var s = str.search(/runoob/i);   //6
+    s = str.search("runoob"); //6
+    var rstr = str.replace(/runoob/i,"chenjian"); //把runoob 替换成chenjian,这里每调用一次只会替换第一个(不区分大小写)
+    rstr = str.replace("runoob","chenjain");
+
+    /*
+    * 正则表达式模式：https://www.runoob.com/js/js-regexp.html
+    * 表达式：
+    * [abc] 查找方括号之间的任何字符；
+    * [0-9] 查找任何0-9的数字；
+    * [x|y] 查找任何以|分隔的选项；
+    * 元字符：
+    * \d 查找数字
+    * \s 查找空白字符
+    * \b 匹配单词边界
+    * \uxxxx 查找以十六进制xxxx规定的Unicode字符
+    * 量词：
+    * n+ 匹配任何包含至少一个n 的字符串
+    * n*撇配任何包含0个或者多个n 的字符串
+    * n? 匹配任何包含0个或者1个n的字符串
+    *
+    * RegExp 对象 ：十一额预定义了属性和方法的正则表达式对象；
+    * test() 方法是一个正则表达式方法。用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
+    * exec() 方法是一个正则表达式方法。用于检索字符串中国呢的正则表达式的匹配。结果返回一个数组，没有则返回null。 ?? todo ,没看到数组
+    * */
+    var ba = /e/.test("hahae") //true
+    var bb = "e"; //1
+    bb.test.test("hahae") //true
+    bb = new RegExp(/e/); //2
+    bb = /e/; //3
+    var bc = /e/.exec(hahaehehehe);
+
+
+
+    //11位手机号码?
+}
+
 
