@@ -29,7 +29,14 @@ function programa () {
     您可以在一条语句中声明很多变量。该语句以 var 开头，并使用逗号分隔变量即可;声明也可横跨多行;
     但是多个变量不可以同时赋同一个值。
 
-    常量 使用const 声明;与swift里面的let同理。
+    常量 使用const 声明;与swift里面的let同理。 -- 又说有的JS引擎把它当作变量，有的当作常量，建议不使用它。
+    const 用于声明一个或多个常量，声明时必须进行 初始化，且初始化后值 不可再修改；没有变量提升，必须先声明后使用；和let都属于块级作用域，在同作用域下，不能有重名。
+    但是const定义的对象和数组，里面的值是可变的，只是不能给整个对象重新赋值，注意。
+    重置变量：
+    在相同的作用域或块级作用域中，不能使用 const 关键字来重置 var 和 let关键字声明的变量；
+    在相同的作用域或块级作用域中，不能使用 const 关键字来重置 const 关键字声明的变量；
+    const 关键字在不同作用域，或不同块级作用域中是可以重新声明赋值的；
+    总结来就是除了var，在相同作用域中都不能重置自己，它们3不能互相重置，在不同作用域中可以重置自己，不能重置别人，总的来说就是不要最好重名！给自己找麻烦。
     */
     var x,y;
     // 声明的值没有赋值，值实际上是undefined；
@@ -43,6 +50,7 @@ function programa () {
     // 重新声明变量，该变量的值不变，还是原来的 5;后声明的，声明不会重新生成，但是赋的值会覆盖之前的。
     // 在js中，函数及变量的声明都将被提升到函数的最顶部；变量可以先使用 后声明。
     // *变量提升*：函数声明和变量声明总是会被解释器悄悄地被"提升"到方法体的最顶部。（先用，后声明，但是声明的同时初始化赋值，就不能提升了-意思不能先使用，后初始化）
+    // var定义的变量可以变量提升，let定义的不行，必须先声明后使用；
     // 最好还是，统一在头部把要用到的变量都声明了，后面再用，省的后面出问题。预编译过程会有变量提升和函数提升。
 
     /*例子1：
@@ -405,7 +413,7 @@ const text3 = param => {
 
 // MARK：作用域为可访问变量，对象，函数的集合。
 // 在 JavaScript 中，对象和函数都时变量。
-//局部变量：在 JavaScript 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。
+//局部变量：在 JavaScript 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。如果不使用 var 则是全局变量(windows属性).
 // 您可以在不同的函数中使用名称相同的局部变量，因为只有声明过该变量的函数才能识别出该变量。只要函数运行完毕，本地变量就会被删除。
 // 全局变量：在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。页面关闭后被删除。
 for (let i = 0; i < 3; i++) {
@@ -416,6 +424,59 @@ for (let i = 0; i < 3; i++) {
 // abc
 // abc
 // 函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。
+//块级作用域{};使用var声明的变量，不具备块级作用域特性，{}之外能访问，注意不是function函数的那个{};let 声明的变量具有块级作用域的特性。（ES6之后的新特性）
+//let的一个好处，就是重新声明变量的时候，var 在块内也会改变值，let确不会变，同一个名字的变量，块内是单独的值哦，上面/下面是有例子的。
+var x = 10;
+// 这里输出 x 为 10
+{
+    var x = 2;
+    // 这里输出 x 为 2
+}
+// 这里输出 x 为 2
+var x = 10;
+// 这里输出 x 为 10
+{
+    let x = 2;
+    // 这里输出 x 为 2
+}
+// 这里输出 x 为 10
+
+//循环作用域：例子
+var i = 5;
+for (var i = 0; i < 10; i++) {
+    // 一些代码...
+}
+// 这里输出 i 为 10
+
+let i = 5;
+for (let i = 0; i < 10; i++) {
+    // 一些代码...
+}
+// 这里输出 i 为 5
+// 在第一个实例中，使用了 var 关键字，它声明的变量是全局的，包括循环体内与循环体外。注意，在函数体内用var声明的变量也是局部作用域哦。
+//
+// 在第二个实例中，使用 let 关键字， 它声明的变量作用域只在循环体内，循环体外的变量不受影响。
+// 使用 var
+function myFunction() {
+    var carName = "Volvo";   // 局部作用域
+}
+
+// 使用 let
+function myFunction() {
+    let carName = "Volvo";   //  局部作用域
+}
+
+//在函数体外或代码块外使用 var 和 let 关键字声明的变量 -- 它们的作用域都是 全局的。
+//js中，全局作用域是针对JS环境；HTML中，全局作用域针对window对象；使用var声明的全局作用域属于window对象；let声明的全局作用域不属于window对象。
+/*重置变量：
+使用 var 关键字声明的变量在任何地方都可以修改；
+在相同的作用域或块级作用域中，不能使用 let 关键字来重置 var 关键字声明的变量；
+在相同的作用域或块级作用域中，不能使用 let 关键字来重置 let 关键字声明的变量；
+在相同的作用域或块级作用域中，不能使用 var 关键字来重置 let 关键字声明的变量；
+let 关键字在不同作用域，或不同块级作用域中是可以重新声明赋值的；
+*/
+
+
 
 //MARK: HTML 事件是发生在 HTML 元素上的事情。当在 HTML 页面中使用 JavaScript 时， JavaScript 可以触发这些事件。HTML 事件可以是浏览器行为，也可以是用户行为。
 // <some-HTML-element some-event='JavaScript 代码'>
@@ -823,3 +884,215 @@ for (var i = 0; i < 10; i++) {
 }
 return i;
 */
+
+//Mark:JS表单验证 （大致看了下教程：https://www.runoob.com/js/js-validation.html）
+//API：checkValidity() 验证方法；validationMessage，验证报错信息； https://www.runoob.com/js/js-validation-api.html
+
+//Mark： 保留关键字 - JS的保留关键字不可以用作变量、标签或者函数名；有些保留关键字是以后扩展使用。
+/*
+* abstract arguments boolean break byte case catch char class* const continue debugger defa;ult delete do
+* double else enum* eval export* extends* false final finally float for function goto if implements
+* import* in instanced int interface let long native new null package private protected public return
+* short static super* switch synchronized this throw throws transient（短暂的） true try typeof var void volatile（不稳定的）
+* white with yield（产量、效益、屈服、变形）
+* */
+//JS 对象、属性、方法：
+/*
+* Array Date eval function hasOwnProperty Infinity isFinite isNaN isPrototypeOf length Math NaN name
+* Number Object prototype(原型、样品) String toString undefined valueOf
+* */
+//Java保留字体：
+/*
+* getClass java JavaArray javaClass JavaObject JavaPackage
+* */
+//Windows 保留关键字 - JS可在HTML外部使用，它可在许多其他应用程序中作为编程语言使用。避免使用 HTML 和 Windows 对象和属性的名称作为 Javascript 的变量及函数名：
+/*
+* alert all anchor anchors area assign blur button checkbox clearInterval clearTimeout clientInformation
+* close closed confirm constructor(建造者) crypto(密码) decodeURI decodeURIComponent defaultStatus document
+* element elements embed embeds encodeURI encodeURIComponent escape event fielUpload focus form forms ffrrame
+* innerHeight innerWidth layer layers link location mimeTypes navigate nvaigator frames frameRate hidden
+* history image images offscreenBuffering open opener option outerHeight outerWidth pakages pageXOffset pageYOffset
+* parent parseFloat parseInt password pkcs11 plugin prpmpt(及时的，提词，提示符) propertyIsEnum radio reset screeenZX screeenY
+* scroll secure select self setInterval setTimeout status submit taint(污染) text textare top unescape untaint window
+* */
+//HTML事件句柄
+/*
+* onblur onclick onerror onfocus onkeydown onkeypress onkeup onmouseover onload onmouseup onmousedown onsubmit
+* */
+
+
+//Mark:关键字this - 表示当前对象的一个引用。不是固定不变的，它会随着执行环境的改变而改变。
+/*
+* 在对象方法中，this表示该方法所属的对象； //todo 具体搞清楚下，方法和函数的区别;我的理解是，一个对象的属性的值是一个匿名函数，这个匿名函数就叫方法哦。
+* 如果单独使用，this表示全局对象，严格模式也表示全局对象哦；
+* 在函数中，this表示全局对象；严格模式下是未定义的undefined； //todo 到底是全局对象，还是函数的所属者呢
+* 在事件中，this表示接收事件的元素；- 标签的事件"this指这个标签"
+* 类似call()和apply()方法可以将this引用到任何对象。
+* */
+
+//函数的显示绑定：在 JavaScript 中函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法。这两个方法异常强大，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象。
+// 在下面实例中，当我们使用 person2 作为参数来调用 person1.fullName 方法时, this 将指向 person2, 即便它是 person1 的方法：//
+var person1 = {
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+var person2 = {
+    firstName:"John",
+    lastName: "Doe",
+}
+person1.fullName.call(person2);  // 返回 "John Doe"
+
+//Mark：JSON -- 用于存储和传输数据的格式；通常用于服务端向网页传递数据。轻量级数据交换格式，可被任何编程语言读取及传递。
+//JSON 格式在语法上与创建JS对象代码是相同的，所以JS程序可以很容易将JSON数据转换为JS对象。（幸福！）
+
+// 首先，创建 JavaScript 字符串，字符串为 JSON 格式的数据：
+// 然后，使用 JavaScript 内置函数 JSON.parse() 将字符串转换为 JavaScript 对象:
+// 最后，在你的页面中使用新的 JavaScript 对象：
+var text = '{ "sites" : [' +
+    '{ "name":"Runoob" , "url":"www.runoob.com" },' +
+    '{ "name":"Google" , "url":"www.google.com" },' +
+    '{ "name":"Taobao" , "url":"www.taobao.com" } ]}';
+
+obj = JSON.parse(text);
+document.getElementById("demo").innerHTML = obj.sites[1].name + " " + obj.sites[1].url;
+var ctext = JSON.stringify(obj);    //将JS对象转换为json字符串；
+
+//Mark：javascript:void()，该操作符指定 要 计算（表达式会运行） 一个表达式 但是不能返回值；
+// void func()
+// javascript:void func()
+
+// void (func())
+// javascript:void (func())
+
+//别人的笔记：
+// 阻止链接跳转，URL不会有任何变化
+//      <a href="javascript:void(0)" rel="nofollow ugc">点击此处</a>
+//
+//     // 虽然阻止了链接跳转，但URL尾部会多个#，改变了当前URL。（# 主要用于配合 location.hash）
+//     <a href="#" rel="nofollow ugc">点击此处</a>
+//
+//     // 同理，# 可以的话，? 也能达到阻止页面跳转的效果，但也相同的改变了URL。（? 主要用于配合 location.search）
+//     <a href="?" rel="nofollow ugc">点击此处</a>
+//
+//     // Chrome 中即使 javascript:0; 也没变化，firefox中会变成一个字符串0
+//     <a href="javascript:0" rel="nofollow ugc">点击此处</a>
+
+//href:"#" 和href="javascript:void(0)" 的区别：
+// # 包含了一个位置信息，默认的锚是#top 也就是网页的上端。 或者指定标签的id
+// javascript:void(0), 仅仅表示一个死链接。
+
+//Mark：同步与异步 -- 同步按你的代码顺序执行，异步不按照代码顺序执行，异步的执行效率更高。异步就是从主线程发射一个子线程来完成任务。异步操作函数往往通过回调函数来实现异步任务的结果处理。
+// setTimeout 会在子线程中等待 1 秒，在 setTimeout 函数执行之后主线程并没有停止:
+setTimeout(function () {
+    console.log("1");
+}, 1000);
+console.log("2");
+//2 1
+
+//除了 setTimeout 函数以外，异步回调广泛应用于 AJAX 编程.(https://www.runoob.com/ajax/ajax-tutorial.html)
+// XMLHttpRequest 常常用于请求来自远程服务器上的 XML 或 JSON 数据。一个标准的 XMLHttpRequest 对象往往包含多个回调：
+var xhr = new XMLHttpRequest();
+
+xhr.onload = function () {
+    // 输出接收到的文字数据
+    document.getElementById("demo").innerHTML=xhr.responseText;
+}
+
+xhr.onerror = function () {
+    document.getElementById("demo").innerHTML="请求出错";
+}
+
+// 发送异步 GET 请求
+xhr.open("GET", "https://www.runoob.com/try/ajax/ajax_info.txt", true);
+xhr.send();
+
+// todo XMLHttpRequest 的 onload 和 onerror 属性都是函数，分别在它请求成功和请求失败时被调用。如果你使用完整的 jQuery 库，也可以更加优雅的使用异步 AJAX：
+$.get("https://www.runoob.com/try/ajax/demo_test.php",function(data,status){
+    alert("数据: " + data + "\n状态: " + status);
+});
+
+//Mark: Promise 是一个 ECMAScript 6 提供的类，目的是更加优雅地书写复杂的异步任务。
+// 新建一个 Promise 对象：
+new Promise(function (resolve,reject) {
+   //要做的事情
+    console.log("Run");
+});
+// 当 Promise 被构造时，起始函数会被异步执行：这段程序会直接输出 Run。
+// resolve 和 reject 都是函数，其中调用 resolve 代表一切正常，reject 是出现异常时所调用的：
+
+new Promise(function (resolve, reject) {
+    var a = 0;
+    var b = 1;
+    if (b == 0) reject("Diveide zero");
+    else resolve(a / b);
+}).then(function (value) {
+    console.log("a / b = " + value);
+}).catch(function (err) {
+    console.log(err);
+}).finally(function () {
+    console.log("End");
+});
+
+new Promise(function (resolve, reject) {
+    console.log(1111);
+    resolve(2222);
+}).then(function (value) {
+    console.log(value);
+    return 3333;
+}).then(function (value) {
+    console.log(value);
+    throw "An error";
+}).catch(function (err) {
+    console.log(err);
+});
+
+/* Promise 类有 .then() .catch() 和 .finally() 三个方法，这三个方法的参数都是一个函数，.then() 可以将参数中的函数添加到当前 Promise 的正常执行序列，
+ .catch() 则是设定 Promise 的异常处理序列，.finally() 是在 Promise 执行的最后一定会执行的序列。 .then() 传入的函数会按顺序依次执行，有任何异常都会直接跳到 catch 序列：
+ resolve() 中可以放置一个参数用于向下一个 then 传递一个值，then 中的函数也可以返回一个值传递给 then。
+ 但是，如果 then 中返回的是一个 Promise 对象，那么下一个 then 将相当于对这个返回的 Promise 进行操作，这一点从刚才的计时器的例子中可以看出来。
+ reject() 参数中一般会传递一个异常给之后的 catch 函数用于处理异常。
+
+但是请注意以下两点：
+resolve 和 reject 的作用域只有起始函数，不包括 then 以及其他序列；
+resolve 和 reject 并不能够使起始函数停止运行，别忘了 return。
+ */
+// 优化
+function print(delay, message) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            console.log(message);
+            resolve("jc");
+        }, delay);
+    });
+}
+print(1000, "First").then(function () {
+    return print(4000, "Second");
+}).then(function () {
+    print(3000, "Third");
+});
+// 这种返回值为一个 Promise 对象的函数称作 Promise 函数，它常常用于开发基于异步操作的库
+// 我们可以将这段代码变得更好看：
+async function asyncFunc() {
+    let value = await print(1000, "First");
+    console.log(value);
+    await print(4000, "Second");
+    await print(3000, "Third");
+
+    try {
+        await new Promise(function (resolve, reject) {
+            throw "Some error"; // 或者 reject("Some error")
+        });
+    } catch (err) {
+        console.log(err);
+        // 会输出 Some error
+    }
+}
+asyncFunc();
+//异步函数 async function 中可以使用 await 指令，await 指令后必须跟着一个 Promise，异步函数会在这个 Promise 运行中暂停，直到其运行结束再继续运行。
+// 异步函数实际上原理与 Promise 原生 API 的机制是一模一样的，只不过更便于程序员阅读。
+
+//HTML 与 JavaScript 尽量使用相同的命名规则 : (建议小写文件名)
+// https://www.runoob.com/html/html5-syntax.html
+// https://www.runoob.com/js/js-conventions.html
+
