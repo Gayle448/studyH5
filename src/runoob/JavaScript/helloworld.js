@@ -1096,3 +1096,190 @@ asyncFunc();
 // https://www.runoob.com/html/html5-syntax.html
 // https://www.runoob.com/js/js-conventions.html
 
+//MARK：函数
+function functionName(a,b) {
+    return a*b;
+}
+var funcv = function (a,b) {
+    return a*b;
+}
+//JS函数构造器定义 不常用；JS中，很多时候都避免使用new关键字
+var myfunv = new Function("a","b","return a*b");
+//下面为匿名自我调用的函数
+(
+    function () {
+        console.log("自动调用");
+    }
+)();
+//函数表达式要用()扩起来再跟()调用，但是赋值给变量的表达式不用扩起来。注意这个变量的值不是表达式了，而是函数返回的值。
+var auto = function () {
+    return "我是一个自动表达式的返回值";
+}();
+
+//函可数作为一个值使用：
+var monthdaya = functionName(2,3);
+//函数可作为一个表达式使用：
+var monthdayb = functionName(2,3) * 4;
+//返回函数调用过程中接收到的参数个数；
+function functionNameb(a,b) {
+    return arguments.length;
+}
+//tostring()方法将函数作为一个字符串返回：
+var monthdaystr = functionNameb.toString();
+//箭头函数：ES6新增了箭头函数，箭头函数表达式的语法比普通函数表达式更简洁；
+// (参数1，参数2，参数3) => {函数声明}
+// 参数1 => 表达式1
+// () => {没有参数，此处函数声明}
+// 上面funcv修改：
+var funcvb = (a,b) => a*b;
+(function(){})() //匿名函数自动调用表达式
+(()=>{})() //箭头函数匿名自动调用表达式
+//默认参数，形参2个，实参1个，第二个隐式参数默认：undefined；实参多于形参 只能使用arguments对象来获取对应参数。
+function functionNameC (x,y){
+    y = y || 0;
+    return x * y;
+}
+functionNameC(4); //0
+//ES6支持 参数给默认值
+function functionNameD(x,y=10) {
+    return x+y;
+}
+functionNameD(2,2); //4
+functionNameD(5); //15
+x = findMax(1, 123, 500, 115, 44, 88);
+//arguments 对象:包含了函数调用的参数数组
+function findMax() {
+    var i, max = arguments[0];
+
+    if(arguments.length < 2) return max;
+
+    for (i = 0; i < arguments.length; i++) {
+        if (arguments[i] > max) {
+            max = arguments[i];
+        }
+    }
+    return max;
+}
+// 函数仅仅只是获取值；不会修改参数值； todo ：待理解
+// 函数内部可以修改，函数外部属性值。也要是var声明的吧。。
+// functionNameE 不属于任何对象，默认是全局对象-HTML页面本身，functionNameE() = window.functionNameE();里面的this就是全局window对象。
+function functionNameE () {
+    return this; //返回window对象
+}
+//函数作为一个方法调用：
+var myObject = {
+    name : "名字",
+    first : "姓",
+    fullname : function () { //函数作为一个对象的方法使用，myObject是函数持有者,this指代myObject对象本身；
+        return this.first + " " + this.name;
+    }
+}
+//使用构造函数调用函数
+function functionnameF (a,b) { //构造函数
+    this.firstname = a;
+    this.lastname = b; //todo 注意这里的this和上面返回window对象 this的区别
+}
+var nameF = new functionnameF("陈","倩");
+nameF.firstName = "han";
+// 构造函数的调用会创建一个新的对象。新对象会继承构造函数的属性和方法。
+//构造函数中 this 关键字没有任何的值。this 的值在函数调用实例化对象(new object)时创建。
+//函数方法：JS中，函数是对象，函数有它的属性和方法。call() 和 apply() 是预定义的函数方法。 两个方法可用于调用函数，两个方法的第一个参数必须是对象本身。
+function myFunctionA(a, b) {
+    return a * b;
+}
+myObjectA = myFunctionA.call(myObjectA, 10, 2);     // 返回 20 myObjectA是一个对象，像是把一个对象传入函数里面使用。todo 待理解运用。
+myArray = [10, 2];
+myObjectB = myFunctionA.apply(myObjectB, myArray);  // 返回 20
+//实例：
+var myObject, myArray;
+myObject={
+    name: "hahaha ",
+    hsk: "en"
+};
+function myFunction(a, b) {
+    alert(this);
+    return this.name +this.hsk;
+}
+myArray = [10, 2]
+myObject = myFunction.apply(myObject, myArray);
+// document.getElementById("demo").innerHTML = myObject;
+/*
+两个方法都使用了对象本身作为第一个参数。 两者的区别在于第二个参数： apply传入的是一个参数数组，也就是将多个参数组合成为一个数组传入，而call则作为call的参数传入（从第二个参数开始）。
+在 JavaScript 严格模式(strict mode)下, 在调用函数时第一个参数会成为 this 的值， 即使该参数不是一个对象。
+在 JavaScript 非严格模式(non-strict mode)下, 如果第一个参数的值是 null 或 undefined, 它将使用全局对象替代。
+通过 call() 或 apply() 方法你可以设置 this 的值, 且作为已存在对象的新方法调用.
+*/
+
+
+/*1.函数声明后不会立即执行，会在我们需要的时候调到；分号是用来分隔可执行语句的，但是函数声明不是一个可执行语句，所以不以分号结束；
+* 2.JS函数（匿名函数）可以通过一个表达式定义：函数表达式可以存储在变量中，不需要函数名称，通常通过变量名来调用-变量作为一个函数使用；分号结尾。
+* 3.提升的定义：是JS默认将当前作用域提升到前面去的行为；提升应用到变量的声明与函数的声明；使用表达式函数时无法提升；
+* 4.函数表达式/匿名函数 可以"自调用"-自动调用，不能自动调用声明的函数，方式：表达式后面紧跟一个（），则自动调用函数。
+* 5.typeof 返回function，但是可描述函数为一个对象，函数有属性和方法；
+* 6.函数定义作为对象的属性，称之为对象方法；
+* 7.函数如果用于创建新的对象，称之为对象的构造函数。
+* 8.有的箭头函数没有自己的this，不适合定义一个 对象的方法；箭头函数中this的值和外层this是一样的，箭头函数不能 提升。
+* 9.JS函数对参数的值没有进行任何的检查；
+* 10.this关键字：指向函数执行时的当前对象；(有一个总的原则，那就是this指的是，调用函数的那个对象。)
+* 11.JS函数有4中调用方式：- 作为一个函数调用；-》 全局对象；- 函数作为方法调用； - 使用构造函数调用函数； - 作为函数方法调用函数。
+* 12.todo 自我理解 - 函数里面的属性(变量)，不能直接在外面被调用，属于私有属性，要被外面调用，函数内部要用this.，赋值？？？
+* */
+
+//JavaScript 内嵌函数:在 JavaScript 中，所有函数都能访问它们上一层的作用域。所以，嵌套函数可以访问上一层的函数变量。
+function add() {
+    var couter = 0;
+    function plus() {
+        couter+=1;
+    }
+    plus();
+    return couter;
+}
+//JavaScript 闭包 - 是一种保护私有变量的机制，在函数执行时形成私有的作用域，保护里面的私有变量不受外界干扰。直观的说就是形成一个不销毁的栈环境。
+//简单的说：闭包就是将内部嵌套函数变成外部可调用的。
+//例子1：
+var add = (function () {
+    var counter = 0;
+    return function () {return counter += 1;} //这里变成了一个匿名函数
+})();
+//闭包会持有父方法的局部变量并且不会随父方法销毁而销毁, 所以这个counter其实就是来自于第一次function执行时创建的变量。
+add();
+add();
+add();
+// 计数器为 3
+//例子2：
+var tempFunc;
+var add = (function () {
+    var counter = 0;
+    tempFunc = function () { return counter += 1; }
+    return tempFunc
+})();
+add();
+add();
+add();
+//例子3：
+function outerFunction() {
+    var counter = 0;
+    function innerFunction(){
+        return counter += 1;
+    }
+    return innerFunction;
+    /*
+     注意 typeof innerFunction 是：function；而typeof innerFunction（）是number；
+    */
+}
+var add = outerFunction();
+add();
+add();
+add();
+
+
+/* 理解：
+变量 add 指定了函数自我调用的返回字值。
+自我调用函数只执行一次。设置计数器为 0。并返回函数表达式。
+add变量可以作为一个函数使用。非常棒的部分是它可以访问函数上一层作用域的计数器。
+这个叫作 JavaScript 闭包。它使得函数拥有私有变量变成可能。
+计数器受匿名函数的作用域保护，只能通过 add 方法修改。
+
+或者说闭包就是子函数可以使用父函数的局部变量，还有父函数的参数。但是不必要的闭包会增加内存消耗。
+*/
+
