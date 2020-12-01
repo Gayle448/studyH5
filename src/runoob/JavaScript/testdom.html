@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试HTML DOM对象</title>
+</head>
+<body id="main">
+
+<!--HTML改变输出流：	绝对不要在文档(DOM)加载完成之后使用 document.write()。这会覆盖该文档。-->
+<script>
+    document.write(Date());
+</script>
+<script src="testdom.js"></script>
+<p id="test" class="classname">这是一段文字</p>
+
+<button onclick="testdomlookhtml(1)">点击我根据id修改上面的文字</button>
+<button onclick="testdomlookhtml(2)">点击我根据标签修改上面的文字</button>
+<button onclick="testdomlookhtml(3)">点击我根据类名修改上面的文字</button>
+
+<img id="image" src="beauty.png">
+
+</body>
+</html>
