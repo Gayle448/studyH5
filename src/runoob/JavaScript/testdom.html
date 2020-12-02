@@ -19,5 +19,47 @@
 
 <img id="image" src="beauty.png">
 
+<!--事件处理例子：- 点击事件 (如需向 HTML 元素分配 事件，您可以使用事件属性)-->
+<h1 onclick="this.innerHTML='你好啊！'">点击我更改文字</h1>
+<h2 id="hehe">点击我也更改文字</h2> //onclick="changeMyText(this)"
+<h3 id="haha">点击我再更改文字</h3>
+
+<!--用户点击按钮时触发监听事件：-->
+<script>
+    var x = document.getElementById("hehe");
+    x.addEventListener("click",changMyhahaText(x));
+    function changMyhahaText(haha) {
+        haha.innerHTML = "哈哈，我也是哦";
+    };
+    //todo 上面代码为啥直接显示：哈哈，我也是哦;都没有经过点击????下面的正常
+
+    //这个document.getElementById()方法必须放在控件声明之后
+    // document.getElementById("hehe").addEventListener("click", displayDate);
+    // function displayDate() {
+    //     console.log("没进入这个监听事件？？？")
+    //     document.getElementById("hehe").innerHTML = Date();
+    // }
+</script>
+
+<!--使用HTML DOM来分配事件-->
+<script>
+    document.getElementById("haha").onclick = function () {
+        changeMyAnotherText(this);
+    };
+    // document.getElementById("hehe").addEventListener("click",changMyhahaText(this));
+</script>
+
+<!--onload(可用于检测访问者的浏览器类型和浏览器版本) 和 onunload事件，会在用户进入或离开页面时被触发；可用于处理cookie-->
+<!--<body onload="checkCookies()">-->
+
+<!--onchange事件：当用户输入字段内容时，验证使用。-->
+<input type="text" id="fname" onchange="inputchange(this)">
+
+<!--onmouseover 和 onmouseout事件，可用于在用户的鼠标移至HTML元素上方或移出元素时触发函数-->
+<div onmouseover="myOmver(this)" onmouseout="myOut(this)" style="background: #cc5b31;width: 120px;height: 120px;padding: 20px;">移动到</div>
+
+<!--onmousedown(鼠标点击时) 和 onmouseup(鼠标释放时) 及 onclick(点击完成)事件-->
+
+
 </body>
 </html>
