@@ -15,6 +15,8 @@
 * 我们可以在事件发生时执行JS，比如当用户在HTML元素上点击时：onclick=JavaScript
 * HTML事件：当用户点击鼠标时、当网页已加载时、当图像已加载时、当鼠标移动到元素上时、当输入字段被改变时、当提交HTML表单时、当用户触发按键时；
 *
+* 所有的JS对象都会从一个prototype(原型对象)中继承属性和方法.
+*
 * */
 
 //测试查找P元素修改 文字
@@ -42,9 +44,9 @@ function changeMyAnotherText(haha) {
     haha.innerHTML = "嗯嗯，我也很高兴认识你！";
 }
 
-// function changMyhahaText(haha) {
-//     haha.innerHTML = "哈哈，我也是哦";
-// }
+function changMyhahaText(haha) { //OK
+    haha.innerHTML = "哈哈，我也是哦1";
+}
 
 function inputchange(input) {
     console.log("我输入了");
