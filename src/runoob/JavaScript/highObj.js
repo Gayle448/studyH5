@@ -70,6 +70,8 @@ function objTest() {
     //使用for ...in循环遍历对象的属性
     for (p in person) {
         var name = person(p); //p是属性名，根据属性名找值
+        // person.name
+        // person["name"]
         console.log(name);
     }
 
@@ -139,4 +141,172 @@ function showObject() {
     if (y == z) {} // false ，数据类型不一致
 
     //Number对象 是有属性和方法的，见：https://www.runoob.com/js/js-obj-number.html
+
+    //String 字符串对象：用于处理已有的字符块
+    //字符串中查找字符串
+    var str = "haha nihao Wo Shi chenjian";
+    var n = str.indexOf("chenjian");  //lastindexOf(从末尾开始找) ,没找到返回-1
+    var matchstr = str.match("haha"); //返回haha，查找字符串中特定的字符，找到就返回这个字符，否则返回null
+    var newstr = str.replace(matchstr,"heihei"); //replace() 方法在字符串中某些字符替换成另一些字符
+    var bigstr = str.toUpperCase(); //文本转换为大写
+    var litterstr = str.toLowerCase(); //文本转换为小写
+    var arr = str.split(" "); //使用空格分隔 生成数组
+
+    var newtxt = str.replace(/a/gi,'x'); //g代表全局替换，i代表忽略大小写
+
+    // String.prototype.trim() 脱去不必要的空格
+
+
+    //MARK : indexOf() 和 lastIndexOf()的使用区别：
+    var str = 'xxa xxa xxax';
+
+//不带参数
+    var firstA1 = str.indexOf('a');
+    firstA1 = firstA1 + 1;             //默认计算的位数实际是到a的前一位，所以+1才是a的所处位置
+
+    var endA1 = str.lastIndexOf('a')
+    endA1 = endA1 + 1;                 //同上
+
+//带参数
+    var firstA2 = str.indexOf('a',5);
+    firstA2 = firstA2 + 1;             //默认计算的位数实际是到a的前一位，所以+1才是a的所处位置
+
+    var endA2 = str.lastIndexOf('a',7)
+    endA2 = endA2 + 1;                 //同上
+
+
+    console.log('字符串总长度是>>>>>>>>>>' + str.length);
+
+    console.log('第一个a字符，在总长度中的位置是>>>>>>>>>>' + firstA1);              //输出3
+    console.log('最后一个a字符，在总长度中的位置是>>>>>>>>>>' + endA1);              //输出11
+
+
+    console.log('字符串的前5位之后，第一个a在总长度中的位置是>>>>>>>>>>' + firstA2);  //输出7
+    console.log('字符串的前7位之内，最后一个a在总长度中的位置是>>>>>>>>>>' + endA2);  //输出7
+
+    /*
+    * 1. indexOf('a', 5) 查找的是字符串前5位之后的第一个a
+    * 2. lastIndexOf('a', 7) 查找的是字符串前7位之内的最后一个a
+    * 3. 千万不要混淆把 lastIndexOf('a', 7) 理解成查找字符串倒数第7位中的a
+    * 4. 空格也是一位数
+    * 5. 带参数是为了定位，要找哪段字符串中的 a，找到这个 a 后，再从前往后数，计算并返回它在总字符串中的位置。
+    * */
 }
+
+//MARK: 日期
+function  dateTest() {
+    //初始化日期对象
+    var dateObj = new Date();
+    dateObj = new Date(value);
+    dateObj = new Date("October 13, 1975 11:13:00"); //Date(dateString);
+    dateObj = new Date(79,5,24,11,33,0) //Date(year, month, day, hours, minutes, seconds, milliseconds);
+
+    dateObj.setFullYear(2020,12,12);
+    dateObj.setDate(dateObj.getDate()+5); //将日期设置为5天后的日期;如果增加天数会改变月份或者年份，那么日期对象会自动完成这种转换。真香
+
+    var today = new Date();
+    if (dateObj > today) { //日期比较
+        alert("今天是2020.12.12之前的日子");
+    } else  {
+        alert("今天是2020.12.12之后的日子");
+    }
+
+    dateObj.getFullYear(); //获取年份
+    dateObj.getTime();  //获取1970。1。1后的毫秒数
+    dateObj.setFullYear(); //设置具体日期
+    dateObj.toUTCString(); //当前日期转换为UTC字符串日期
+    dateObj.getDay(); //返回星期几的index
+
+    alert(new Date().format("yyyy年MM月dd日"));
+    alert(new Date().format("MM/dd/yyyy"));
+    alert(new Date().format("yyyyMMdd"));
+    alert(new Date().format("yyyy-MM-dd hh:mm:ss"));
+}
+
+//数组 - 使用单独的变量来存储一系列的值
+//数组：完整手册(https://www.runoob.com/jsref/jsref-obj-array.html)
+function arrayTest() {
+    //创建
+    //1.常规
+    var myCars = new Array();
+    myCars[0] = "luhu";
+    myCars[1] = "benchi";
+    console.log(myCars[1]);
+    //2.简洁
+    myCars = new Array("baoma","volvo");
+    console.log(myCars[1]);
+    //3.字面
+    myCars = ["Haha","Daoban","ENEN"];
+    console.log(myCars[1]); //-- 变量 提升
+
+    //访问 - 索引，只能根据索引访问，不能直接根据值访问，可以根据字符串数字来访问，会自动将字符串数字转换为数字值的
+    var car = myCars[0];
+    myCars[0] = "kdlk";
+
+    //一个数组中可以有多种不同类型的对象
+
+//todo 可以给数组自定义新方法，然后全局都可以用了吗？
+    Array.prototype.myUcase=function(){
+        for (i=0;i<this.length;i++){
+            this[i]=this[i].toUpperCase();
+        }
+    }
+
+    myCars.myUcase();
+    for (i=0;i<myCars.length;i++){ //遍历1
+        console.log(myCars[i]);
+    }
+
+    /*
+    * 有的人说可以这么理解：
+    * 数组是特殊的对象。对象的属性名是字符串类型的,数组可以看做属性名是数字类型的,这样就很好理解了。数组还针对数组的特性,对对象属性的布局做了优化。
+    * 可以稍微这么理解，单丝不代表就是这样。
+    * */
+
+    //使用for ...in循环遍历对象的属性 遍历2
+    for(var key in hash) {
+        key //元素的下标名
+        hash[key] //当前元素值
+    }
+
+    //遍历3 // of:每遍历一次数组指针向后移动一位, 并得到当前数组元素的值, 处理二维数组时极为方便
+    for (let value of array) {
+        console.log((value));
+    }
+    //遍历 - 剥洋葱理论
+
+    // Js还为数组对象内置了多种迭代方法, 处理数组时极为方便
+    myCars.forEach((value, index) => {
+        //值、键 无返回值
+    })
+
+    myCars.map((value, index, array) => {
+        //返回 新的键值对，map 统一封装一个数组返回
+        return value + "test";
+    })
+
+    // 自动将字符串数字转换为数字值 来当下标索引访问
+    var a = new Array();
+    a['a'] = 1;
+    a["100"] = 2;
+    // a.length 101;
+}
+
+//布尔值 对象
+function boolTest() {
+    var myBoolean = new Boolean();
+    //如果布尔对象 无初始值或其值为：0、-0、null、""、false、undefined、NaN、"false" 那么对象的值为false，否则为true
+
+}
+
+//Math（算数）对象：执行茶馆你就爱你的算数任务 https://www.runoob.com/jsref/jsref-obj-math.html
+function MathTest() {
+    //直接Math对象调用就行了，不需要创建相应的对象来调用 todo 为什么有的函数可以直接调用里面的变量方法，有的确实要新建一个对象才能调
+
+    //生成随机数
+    var rand = (min,max) => Math.round(Math.random()*(max-min))+min;
+
+
+}
+
+

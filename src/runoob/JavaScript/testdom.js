@@ -56,9 +56,51 @@ function inputchange(input) {
 function myOmver(div) {
     div.innerHTML = "移动到里面了";
     div.style.backgroundColor = "red";
+
+    arrayTest();
 }
 
 function myOut(div) {
     div.innerHTML = "移动出去了";
     div.style.backgroundColor = "green";
+}
+
+
+//数组测试 打印实例 - 目的 拿来看效果的，实际highObj里有这个方法，可删除
+function arrayTest() {
+    //创建
+    //1.常规
+    var myCars = new Array();
+    myCars[0] = "luhu";
+    myCars[1] = "benchi";
+    console.log(myCars[1]);
+    //2.简洁
+    myCars = new Array("baoma","volvo");
+    console.log(myCars[1]);
+    //3.字面
+    myCars = ["haha","daoban","en"];
+    console.log(myCars[1]); //-- 变量 提升
+
+    //todo 可以给数组自定义新方法，然后全局都可以用了吗？
+    Array.prototype.myUcase=function(){
+        for (i=0;i<this.length;i++){
+            this[i]=this[i].toUpperCase();
+        }
+    }
+
+    myCars.myUcase();
+    for (i=0;i<myCars.length;i++){
+        console.log(myCars[i]);
+    }
+
+}
+
+function MathTest() {
+    //直接Math对象调用就行了，不需要创建相应的对象来调用 todo 为什么有的函数可以直接调用里面的变量方法，有的确实要新建一个对象才能调
+
+    console.log("调用了测试随机数的方法");
+
+    //生成随机数
+    var randvalu = (min,max) => Math.round(Math.random()*(max-min))+min;
+    document.getElementById("testRandom").innerHTML = randvalu(10,100);
 }

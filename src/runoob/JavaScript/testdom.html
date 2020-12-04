@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>测试HTML DOM对象</title>
+
+    //显示时间
+    <script>
+        function startTime() {
+            var today = new Date();
+            var hour = today.getHours();
+            var minute = today.getMinutes();
+            var second = today.getSeconds();
+
+            minute = checkTime(minute);
+            second = checkTime(second);
+            document.getElementById("time").innerHTML = hour+":"+minute+":"+second; //todo 为啥这里先找的id不会报错
+            t = setTimeout(function () {
+                startTime()
+            },1000);
+        }
+        function checkTime(time) {
+            if (time < 10) {
+                time = "0" + time;
+            }
+            return time;
+        }
+    </script>
+
 </head>
-<body id="main">
+<body id="main" onload="startTime()"> //加载完成就调用 开始时间方法
 
 <!--HTML改变输出流：	绝对不要在文档(DOM)加载完成之后使用 document.write()。这会覆盖该文档。-->
 <script>
@@ -90,7 +114,7 @@ https://www.runoob.com/jsref/dom-obj-event.html
     //addEventListener()方法允许你在HTML DOM对象添加事件监听，如：HTML元素，HTML文档，window对象。或者其他支出的事件对象如：xmlHttpRequest对象。
     //当用户重置窗口大小时添加事件监听：
     window.addEventListener("resize",function () {
-        document.getElementById("demo").innerText = 'hahahah';
+        // document.getElementById("demo").innerText = 'hahahah';
     })
 
     //跨浏览器，版本兼容方案：
@@ -191,6 +215,13 @@ https://www.runoob.com/jsref/dom-obj-event.html
 
 </script>
 
+<div id = "time">
+    我是要显示时间的
+</div>
 
+
+<button id="testRandom" onclick="MathTest()">
+    点击我生成一个随机数字
+</button>
 </body>
 </html>
