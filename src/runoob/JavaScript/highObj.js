@@ -28,6 +28,12 @@
 * 还会搜寻该对象的原型，以及该对象的原型的原型，依次层层向上搜索，直到找到一个名字匹配的属性或到达原型链的末尾。
 * 使用prototype 属性可以给 对象的构造函数添加新的属性和方法。
 *
+* JS库：jQuery、Prototype、MooTools
+* jQuery : 目前最受欢迎的JS框架；它使用CSS选择器来访问和操作网页上的HTML元素（DOM对象）；同时提供用户界面和插件。
+* Prototype : 是一种库，提供用于执行常见web任务的简单API。通过提供类和继承，实现了对JS的增强。
+* MooTools ：提供了可使常见的JS变成更为简单的API；也含一些轻量级的效果和动画函数。
+* CDN ： 包含可分享代码库的服务器网络。
+*
 * */
 
 //对象讲解
@@ -300,13 +306,41 @@ function boolTest() {
 }
 
 //Math（算数）对象：执行茶馆你就爱你的算数任务 https://www.runoob.com/jsref/jsref-obj-math.html
-function MathTest() {
+function MathTest(arg) { //测试，可删除
     //直接Math对象调用就行了，不需要创建相应的对象来调用 todo 为什么有的函数可以直接调用里面的变量方法，有的确实要新建一个对象才能调
 
-    //生成随机数
-    var rand = (min,max) => Math.round(Math.random()*(max-min))+min;
+    console.log("调用了测试随机数的方法");
 
-
+    //random 原来返回的是0-1之间的随机数，原来我理解错了
+    if (arg == 1) {
+        //生成随机数
+        var randvalu = (min,max) => Math.round(Math.random()*(max-min))+min;
+        document.getElementById("testRandom").innerHTML = randvalu(10,100);
+    } else  if (arg == 2) {
+        if (Math.random() < 0.5) {
+            return true;
+        }else {
+            return false;
+        }
+        //如果随机数小于概率值，返回true，否则返回false
+    }else  if (arg == 3) { //随机生成指定字符 todo ???
+        var length = 3;
+        var rangeMin = 0x80,rangeMax = 0x7FF;
+        var result = "";
+        while (result.length<length) {
+            result += String.fromCharCode(Math.round(
+                Math.random() * (rangeMax - rangeMin)
+            ) + rangeMin);
+            return result;
+        }
+    }else if (arg == 4) {
+        Array.prototype.pick = function(){
+            //不能为 ()=>{/*函数*/}，否则this会指向Window。
+            return this[(this.length?Math.round(Math.random()*(this.length-1)):undefined)];//如果长度为0，返回undefined。
+        }
+    }else  if (arg == 5) { //[a,b)之间的随机数
+        return Math.random()*(b-a)+a ; //<b
+    }
 }
 
 

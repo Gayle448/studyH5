@@ -477,7 +477,6 @@ let 关键字在不同作用域，或不同块级作用域中是可以重新声�
 */
 
 
-
 //MARK: HTML 事件是发生在 HTML 元素上的事情。当在 HTML 页面中使用 JavaScript 时， JavaScript 可以触发这些事件。HTML 事件可以是浏览器行为，也可以是用户行为。
 // <some-HTML-element some-event='JavaScript 代码'>
 // <some-HTML-element some-event="JavaScript 代码">
@@ -815,7 +814,7 @@ function regexTest() {
     *
     * RegExp 对象 ：十一额预定义了属性和方法的正则表达式对象；
     * test() 方法是一个正则表达式方法。用于检测一个字符串是否匹配某个模式，如果字符串中含有匹配的文本，则返回 true，否则返回 false。
-    * exec() 方法是一个正则表达式方法。用于检索字符串中国呢的正则表达式的匹配。结果返回一个数组，没有则返回null。 ?? todo ,没看到数组
+    * exec() 方法是一个正则表达式方法。用于检索字符串中国呢的正则表达式的匹配。结果返回一个数组/有的又说就是返回你查找的那个字符，没有则返回null。 ?? todo ,没看到数组
     * 常用正则示例：
     * /^[a-zA-Z]+$/ (字符串是否全部为字母)
     * /^\w+$/ 是否为数字、字母、下划线组成
@@ -829,7 +828,7 @@ function regexTest() {
     var ba = /e/.test("hahae") //true
     var bb = "e"; //1
     bb.test.test("hahae") //true
-    bb = new RegExp(/e/); //2
+    bb = new RegExp(/e/); //2 new RegExp(pattern,modifiers);
     bb = /e/; //3
     var bc = /e/.exec(hahaehehehe);
 }

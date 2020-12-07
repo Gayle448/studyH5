@@ -1,4 +1,29 @@
 <!DOCTYPE html>
+
+<!-- HTML DOM 教程
+DOM - 文档对象模型，是HTML和XML文档的编程接口。
+HTML DOM 定义了访问和操作HTML文档的标准(W3C)方法；
+DOM以树结构表达HTML文档；在HTML DOM中，所有事物都是节点。DOM是被视为节点树的HTML。
+文档节点、元素节点、文本节点、属性节点。
+节点树中的节点彼此拥有层级关系：节点父、子和同胞。
+HTML DOM方法：是我们可以在节点上执行的动作。
+HTML DOM属性：是我们可以在节点设置和修改的值。
+所有HTML元素被定义为属性，拥有对象方法和属性。
+常见方法：
+> getElementById() - 返回带有指定ID的元素
+> appendChild(node) - 插入新的子节点
+> removeChild(node) - 删除子节点
+常用属性：
+> innerHTML - 节点的文本值 ，可用于获取或修改html元素
+> parentNode - 节点的父节点
+> childNodes - 节点的子节点
+> attributes - 节点的属性节点
+> nodeName - 节点名
+> nodeValue - 节点文本值
+> nodeType - 节点的类型，只读
+
+-->
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -220,8 +245,54 @@ https://www.runoob.com/jsref/dom-obj-event.html
 </div>
 
 
-<button id="testRandom" onclick="MathTest()">
+<button id="testRandom" onclick="MathTest(1)">
     点击我生成一个随机数字
 </button>
+
+<button id="testBoolRandom" onclick="MathTest(2)">
+    点击我生成一个随机bool值
+</button>
+
+<button id="testBoolRandom" onclick="MathTest(3)">
+    点击我生成一个随机字符
+</button>
+
+//引用JS框架库 - jQuery
+<script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js">
+</script>
+
+<script>
+    function testJQ() {
+        $("#jqid").html("Hello jQuery").attr("style","color:red") //支持链式语法
+    }
+    $(document).ready(testJQ);
+</script>
+<!--相当于-->
+<!--<script>-->
+    <!--function myFunction()-->
+    <!--{-->
+        <!--var obj=document.getElementById("h01");-->
+        <!--obj.innerHTML="Hello jQuery";-->
+    <!--}-->
+    <!--onload=myFunction; 分配一个函数以处理窗口加载事件 -->
+<!--</script>-->
+
+<h3 id = "jqid">测试jquery</h3>
+
+//引用JS框架库 - Prototype
+<script src="https://cdn.staticfile.org/prototype/1.7.3/prototype.min.js">
+</script>
+<!--$() 函数接受 HTML DOM 元素的 id 值（或 DOM 元素），并会向 DOM 对象添加新的功能。-->
+<!--与 jQuery 不同，Prototype 没有用以取代 window.onload() 的 ready() 方法。相反，Prototype 会向浏览器及 HTML DOM 添加扩展。-->
+<script>
+    function testPro() {
+        $("proid").insert("hello Prototype"); //也允许链式语法；注意这里是插入，不是覆盖之前的文本
+    }
+    Event.observe(window,"load",testPro); //处理对象- dom 或 bom对象；需要处理的事件；希望调用的函数；
+</script>
+<h3 id="proid">
+    测试 Prototype
+</h3>
+
 </body>
 </html>
