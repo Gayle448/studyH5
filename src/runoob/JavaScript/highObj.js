@@ -250,6 +250,8 @@ function arrayTest() {
     myCars[0] = "kdlk";
 
     //一个数组中可以有多种不同类型的对象
+    var myarr = [1,"2",3];
+    myarr.push(4);
 
 //todo 可以给数组自定义新方法，然后全局都可以用了吗？
     Array.prototype.myUcase=function(){

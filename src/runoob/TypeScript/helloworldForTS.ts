@@ -58,5 +58,15 @@ console.log(List.C) // 3
 //never : 是其他类型（包括null 和 undefined）的子类型，代表从不会出现的值
 //any 可以赋予任意类型的值。和swift option 可选值类似吧？
 
+function addNumbers(...nums:number[]) {
+    var i;
+    var sum:number = 0;
 
+    for(i = 0;i<nums.length;i++) {
+        sum = sum + nums[i];
+    }
+    console.log("和为：",sum)
+}
+addNumbers(1,2,3)
+addNumbers(10,10,10,10,10)
 
