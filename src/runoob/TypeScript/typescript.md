@@ -652,4 +652,102 @@ var obj = new AgriLoan(10,1)
 console.log("利润为 : "+obj.interest+"，抽成为 : "+obj.rebate )
 ```
 
-### TypeScript 对象 ...
+### TypeScript 对象 是包含一组键值对的实例，值可以是标量、函数、数组、对象等。
+```typescript
+var sites = {
+    site1: "Runoob",
+    site2: "Google",
+    sayHello: function () { } // 类型模板，注意这里只声明不实现
+};
+sites.sayHello = function () {
+    console.log("hello " + sites.site1);
+};
+sites.sayHello();
+
+//对象可以作为一个参数传给函数
+var sites = { 
+    site1:"Runoob", 
+    site2:"Google",
+}; 
+var invokesites = function(obj: { site1:string, site2 :string }) { 
+    console.log("site1 :"+obj.site1) 
+    console.log("site2 :"+obj.site2) 
+} 
+invokesites(sites)
+```
+
+***[鸭子类型--没懂](https://www.runoob.com/typescript/ts-object.html)***
+
+### 命名空间 目的：解决重名问题
+```typescript
+// IShamep.ts
+namespace Drawing { 
+    export interface IShape { 
+        draw(); 
+    }
+}
+
+//Circle.ts
+/// <reference path = "IShape.ts" /> 
+namespace Drawing { 
+    export class Circle implements IShape { 
+        public draw() { 
+            console.log("Circle is drawn"); 
+        }  
+    }
+}
+
+//Triangle.ts
+/// <reference path = "IShape.ts" /> 
+namespace Drawing { 
+    export class Triangle implements IShape { 
+        public draw() { 
+            console.log("Triangle is drawn"); 
+        } 
+    } 
+}
+
+//TestShape.ts
+/// <reference path = "IShape.ts" />   
+/// <reference path = "Circle.ts" /> 
+/// <reference path = "Triangle.ts" />  
+function drawAllShapes(shape:Drawing.IShape) { 
+    shape.draw(); 
+} 
+drawAllShapes(new Drawing.Circle());
+drawAllShapes(new Drawing.Triangle());
+```
+嵌套命名空间
+```typescript
+// Invoice.ts
+namespace Runoob { 
+   export namespace invoiceApp { 
+      export class Invoice { 
+         public calculateDiscount(price: number) { 
+            return price * .40; 
+         } 
+      } 
+   } 
+}
+
+//InvoiceTest.ts
+/// <reference path = "Invoice.ts" />
+var invoice = new Runoob.invoiceApp.Invoice(); 
+console.log(invoice.calculateDiscount(500));
+```
+
+### TypeScript 模块 待理解和运用 todo
+> TypeScript 模块的设计理念是可以更换的组织代码。
+  模块是在其自身的作用域里执行，并不是在全局作用域，这意味着定义在模块里面的变量、函数和类等在模块外部是不可见的，除非明确地使用 export 导出它们。类似地，我们必须通过 import 导入其他模块导出的变量、函数、类等。
+  两个模块之间的关系是通过在文件级别上使用 import 和 export 建立的。
+  模块使用模块加载器去导入其它的模块。 在运行时，模块加载器的作用是在执行此模块代码前去查找并执行这个模块的所有依赖。 大家最熟知的JavaScript模块加载器是服务于 Node.js 的 CommonJS 和服务于 Web 应用的 Require.js。
+  此外还有有 SystemJs 和 Webpack。
+ 
+### TypeScript 声明文件
+> TypeScript 作为 JavaScript 的超集，在开发过程中不可避免要引用其他第三方的 JavaScript 的库。
+  虽然通过直接引用可以调用库的类和方法，但是却无法使用TypeScript 诸如类型检查等特性功能。
+  为了解决这个问题，需要将这些库里的函数和方法体去掉后只保留导出类型声明，而产生了一个描述 JavaScript 库和模块信息的声明文件。通过引用这个声明文件，就可以借用 TypeScript 的各种特性来使用库文件了。
+  我们需要使用 declare 关键字来定义它的类型，declare 定义的类型只会用于编译时的检查，编译结果中会被删除。
+  声明文件以 .d.ts 为后缀，声明文件或模块的语法格式如下：declare module Module_Name {}
+  类似于我们的.h文件。
+  
