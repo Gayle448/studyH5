@@ -1,0 +1,110 @@
+#keyboard {
+  width: 100%;
+  max-width: 800px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #d9d9d9;
+  padding-bottom: 0.3rem;
+  z-index: 21;
+  display: none;
+  font-family: "Microsoft YaHei"; }
+  #keyboard .title {
+    font-size: 14px;
+    height: 0.6rem;
+    position: relative;
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    align-items: center;
+    justify-content: center; }
+    #keyboard .title h3 {
+      font-weight: normal;
+      color: black; }
+    #keyboard .title #finish {
+      height: 0.6rem;
+      position: absolute;
+      right: 0.4rem;
+      line-height: 0.6rem; }
+  #keyboard #close {
+    width: 0.7rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    border-radius: 0.4rem;
+    position: absolute;
+    text-align: center;
+    font-size: 18px;
+    background-color: orange;
+    right: 0rem;
+    top: -0.35rem;
+    opacity: 0.6; }
+  #keyboard .number, #keyboard .letter_1, #keyboard .letter_2 {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    justify-content: space-around;
+    margin-bottom: 0.1rem; }
+    #keyboard .number span, #keyboard .letter_1 span, #keyboard .letter_2 span {
+      width: 8.8%;
+      height: 0.75rem;
+      font-size: 24px;
+      line-height: 0.75rem;
+      text-align: center;
+      background-color: white;
+      border-radius: 0.1rem; }
+  #keyboard .letter_2 {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 0.1rem; }
+    #keyboard .letter_2 span {
+      width: 9.7%; }
+  #keyboard .letter_3 {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    display: -moz-flex;
+    justify-content: space-around;
+    position: relative; }
+    #keyboard .letter_3 label {
+      font-size: 24px;
+      width: 12%;
+      height: 0.76rem;
+      line-height: 0.76rem;
+      text-align: center;
+      background-color: white;
+      position: absolute;
+      border-radius: 0.1rem; }
+      #keyboard .letter_3 label img {
+        height: 0.27rem; }
+    #keyboard .letter_3 .left {
+      top: 0;
+      left: 2.3%; }
+      #keyboard .letter_3 .left div {
+        width: 0.1rem;
+        height: 0.1rem;
+        background-color: aqua;
+        border-radius: 0.1rem;
+        position: absolute;
+        left: 10%;
+        top: 20%; }
+    #keyboard .letter_3 .right {
+      top: 0;
+      right: 2.3%; }
+    #keyboard .letter_3 .letter_3child {
+      width: 70%;
+      display: flex;
+      display: -webkit-flex;
+      display: -moz-flex;
+      justify-content: space-around;
+      margin: 0 auto; }
+      #keyboard .letter_3 .letter_3child span {
+        width: 12.5%;
+        height: 0.75rem;
+        font-size: 24px;
+        line-height: 0.75rem;
+        text-align: center;
+        background-color: white;
+        border-radius: 0.1rem; }
+
+/*# sourceMappingURL=jianpan.css.map */

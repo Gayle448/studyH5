@@ -1,0 +1,67 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  max-width: 640px;
+  min-width: 320px;
+  background-color: #fff;
+  margin: 0 auto;
+  font-family: "Microsoft YaHei"; }
+
+header {
+  width: 100%;
+  height: 1.2rem;
+  background-image: url("../image/logol.png");
+  background-size: 1.1rem 0.57rem;
+  background-repeat: no-repeat;
+  background-position: 0.15rem center;
+  background-color: #0099cc; }
+  header h2 {
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: 16px;
+    text-align: center;
+    color: white; }
+
+.remind {
+  background-image: url("../image/warning.png");
+  background-size: 4.33rem 0.68rem;
+  background-position: center 0.4rem;
+  background-repeat: no-repeat;
+  padding-top: 0.4rem; }
+  .remind .remindText {
+    width: 192px;
+    display: flex;
+    display: -moz-flex;
+    display: -webkit-flex;
+    height: 60px;
+    font-size: 16px;
+    color: red;
+    margin: 0 auto;
+    margin-top: 0.7rem; }
+    .remind .remindText .text1, .remind .remindText .text2, .remind .remindText .text3 {
+      align-items: center; }
+    .remind .remindText .text1 {
+      align-self: flex-start; }
+    .remind .remindText .text2 {
+      align-self: center; }
+    .remind .remindText .text3 {
+      align-self: flex-end; }
+
+.QrCode {
+  width: 4.98rem;
+  height: 4.98rem;
+  font-size: 0;
+  margin: 0 auto; }
+  .QrCode img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #f7fbfe; }
+  .QrCode span {
+    font-size: 12px;
+    padding-left: 0.34rem;
+    display: inline-block; }
+
+/*# sourceMappingURL=QrCode.css.map */

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>控制界面</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+    <style>
+        .bright {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .bright-bottom{
+            margin-bottom: .24rem;
+        }
+        input[type="range"] {
+            -webkit-box-shadow: 0 1px 0 0px #dddddd, 0 1px 0 #dddddd inset, 0px 2px 10px 0px #dddddd inset, 1px 0px 2px rgba(29, 229, 200, 0.4) inset, 0 0px 1px rgba(0, 0, 0, 0.6) inset;
+            margin-top: 2px;
+            margin-left: 5px;
+            background-color: #272728;
+            border-radius: 15px;
+            width: 3rem;
+            -webkit-appearance: none;
+            height:0.04rem;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            cursor: default;
+            height: 12px;
+            width: 12px;
+            background: none repeat scroll 0 0 #5677fc;
+            border-radius: 12px;
+            -webkit-box-shadow: 0 -1px 1px #5677fc inset;
+        }
+        .lamp{
+            width: .55rem;
+            height: .55rem;
+            margin-top: -10px
+        }
+        .brightness{
+            width: .5rem;
+            height: .5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <span class="infoLeft">点位名称:</span><span class="name"></span>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoRight">点位类型:</span><span class="type"></span>
+                </div>
+                <!--<div onclick="add()">nihao </div>-->
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    let $List = $(".list");
+    let $Info = $List.html();
+    $List.html("");
+    //查看点位列表
+    $(function () {
+        let Data={
+            "kvmap":{
+                "ischeckmap":"true",
+            }
+        };
+        console.log(Data);
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/mpointService/listPoints',
+            data:JSON.stringify(Data),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                //result = json_obj;
+                if(result.RpcMsg.code === 200 || result.RpcMsg.msg === "success"){
+                    let response = JSON.parse(result.RpcMsg.JsonData);
+                    console.log(response);
+                    for (let i in response) {
+                        console.log(response[i]);
+                        $List.append($Info);
+                        $(".listInfo").eq(i).attr("data-id",response[i].Xpoint.ID);
+                        $(".name").eq(i).text(response[i].Xpoint.XhumanName);
+                        $(".type").eq(i).text(response[i].XpointKind.PointType.KindName);
+
+
+                        let jsonsss = response[i].XpointKind.PropertyInfoMap;
+
+                        for ( let index in jsonsss) {
+                            let item = jsonsss[index];
+                            let bindInfo = response[i].XbindInfo;
+                            console.log(bindInfo);
+                            if(item.XdataType === 5){
+                                let str = '<div class="bright bright-bottom">\n' +
+                                             '<div>' +
+                                                '<span class="infoLeft">'+item.Xname+'</span>' +
+                                                '<input type="checkbox" class="isItEnable switch" data-code="'+item.Xcode+'" id="'+response[i].Xpoint.ID+index+'" onchange="lampCO(this)" disabled>' +
+                                                '<label class="green" for="'+response[i].Xpoint.ID+index+'"></label></div>\n' +
+                                             '<img class="lamp" src="image/lamp-unknown.png">\n' +
+                                          '</div>';
+
+                                $(".listInfo").eq(i).append(str);
+                                let Array = [];
+                                for( let j in bindInfo){
+                                    Array.push(j);
+                                }
+                                if(Array.length === 0){
+                                    $(".listInfo").eq(i).find(".lamp").attr('src', 'image/lamp-unknown.png');
+                                }else if(Array.length>0){
+                                    for (let k=0;k<Array.length;k++) {
+                                        if((item.MpKindCode+"."+item.Xcode) === Array[k]){
+                                            $(".listInfo").eq(i).find(".lamp").attr('src', 'image/lamp-close.png');
+                                            $(".listInfo").eq(i).find(".isItEnable").addClass("bindInput").removeAttr("disabled");
+                                        }
+                                    }
+                                }
+
+                            }
+                            if(item.XdataType === 4){
+                                let str = '<div class="bright">\n' +
+                                                '<div>\n' +
+                                                    '<span>'+item.Xname+'</span>\n' +
+                                                    '<input class="barVal" type="range" max="100" value="0" data-code="'+item.Xcode+'" onchange="barVal(this)" disabled>\n' +
+                                                '</div>\n' +
+                                                '<img class="brightness" src="image/brightnessA.png">\n' +
+                                          '</div>';
+
+                                $(".listInfo").eq(i).append(str);
+                                let Array = [];
+                                console.log("bindInfo="+ bindInfo);
+                                for( let j in bindInfo){
+                                    console.log(j);
+                                    Array.push(j);
+                                }
+                                console.log(Array);
+                                console.log(Array.length);
+                                if(Array.length>0){
+                                    for (let k=0;k<Array.length;k++) {
+                                        if((item.MpKindCode+"."+item.Xcode) === Array[k]){
+                                            $(".listInfo").eq(i).find(".barVal").addClass("bindInput").removeAttr("disabled");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    //开关灯
+    function lampCO(that) {
+        let Data={
+            "PointId":$(that).parent().parent().parent().attr("data-id"),
+            "PropertyCode":$(that).attr("data-code"),
+            "Data":$(that).prop("checked")+"",
+        };
+        console.log(Data);
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/deviceService/Set',
+            data:JSON.stringify(Data),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                if(result.code === 200 || result.msg === "success") {
+                    /*alert("操作成功！");*/
+                }else {
+                    console.log(result.errmsg);
+                    $(that).attr("checked","false");
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function barVal(that) {
+        let barVal = parseFloat($(that).val());
+
+        let Data={
+            "PointId":$(that).parent().parent().parent().attr("data-id"),
+            "PropertyCode":$(that).attr("data-code"),
+            "Data":$(that).val(),
+        };
+        console.log(Data);
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/deviceService/Set',
+            data:JSON.stringify(Data),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                if(result.code === 200 || result.msg === "success") {
+                    console.log("操作成功！");
+                }else {
+                    console.log(result.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+
+   /* function add() {
+        $('.bindInput').each(function(){
+            let Data={
+                "PointId":$(this).parent().parent().parent().attr("data-id"),
+                "PropertyCode":$(this).attr("data-code")
+            };
+            let PointId = $(this).parent().parent().parent().attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: 'http://iot.gfmint/device/deviceService/Get',
+                data: JSON.stringify(Data),
+                dataType: "JSON",
+                success: function (result) {
+                    res = JSON.parse(result.JsonData);
+                    console.log(res);
+                    if(result.code === 200 || result.msg === "success") {
+                        let response = res.Data;
+                        let types = res.Types;
+                        changeBack(types.XdataType,PointId,response.Xdata,types.Xcode);
+                    }else {
+                        console.log(result.errmsg);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+    }*/
+
+    window.setInterval(function() {
+        $('.bindInput').each(function(){
+            let Data={
+                "PointId":$(this).parent().parent().parent().attr("data-id"),
+                "PropertyCode":$(this).attr("data-code")
+            };
+            let PointId = $(this).parent().parent().parent().attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: 'http://iot.gfmint/device/deviceService/Get',
+                data: JSON.stringify(Data),
+                dataType: "JSON",
+                success: function (result) {
+                    res = JSON.parse(result.JsonData);
+                    console.log(res);
+                    if(result.code === 200 || result.msg === "success") {
+                        let response = res.Data;
+                        let types = res.Types;
+                            changeBack(types.XdataType,PointId,response.Xdata,types.Xcode);
+                    }else {
+                        console.log(result.errmsg);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+    },1000);
+
+    function changeBack(DataType,ID,Data,Code) {
+        $('.bindInput').each(function(){
+            let  DataId = $(this).parent().parent().parent().attr("data-id");
+            if(DataType === 5 && Code === "enable"){
+                if( ID === DataId) {
+                    if (Data) {
+                        $(this).parent().find(".isItEnable").prop("checked", true);
+                        $(this).parent().parent().find(".lamp").attr('src', 'image/lamp-open.png')
+                    } else {
+                        $(this).parent().find(".isItEnable").prop("checked", false);
+                        $(this).parent().parent().find(".lamp").attr('src', 'image/lamp-close.png')
+                    }
+                }
+            }
+            if(DataType === 4 && Code === "val"){
+                if( ID === DataId){
+                    if (Data === 0) {
+                        $(this).parent().find(".barVal").val(Data);
+                        $(this).parent().parent().find(".brightness").attr('src','image/brightnessA.png');
+                    } else if (Data <= 33 && Data >0) {
+                        $(this).parent().find(".barVal").val(Data);
+                        $(this).parent().parent().find(".brightness").attr('src','image/brightnessB.png');
+                    } else if (Data <= 66 && Data > 33) {
+                        $(this).parent().find(".barVal").val(Data);
+                        $(this).parent().parent().find(".brightness").attr('src','image/brightnessC.png');
+                    } else if (Data <= 99 && Data > 66) {
+                        $(this).parent().find(".barVal").val(Data);
+                        $(this).parent().parent().find(".brightness").attr('src','image/brightnessD.png');
+                    } else if (Data = 100 ) {
+                        $(this).parent().find(".barVal").val(Data);
+                        $(this).parent().parent().find(".brightness").attr('src','image/brightnessE.png');
+                    }
+                }
+            }
+        });
+    }
+
+
+
+</script>
+
+</body>
+</html>

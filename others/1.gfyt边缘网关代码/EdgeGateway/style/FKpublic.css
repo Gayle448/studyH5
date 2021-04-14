@@ -1,0 +1,314 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  * ol, * ul, * li {
+    list-style: none; }
+
+input, textarea {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text; }
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #d1d1d1 !important; }
+
+input:-moz-placeholder, textarea::-webkit-input-placeholder {
+  color: #d1d1d1 !important; }
+
+input:-ms-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #d1d1d1 !important; }
+
+body {
+  background-color: #ededed;
+  margin: 0 auto;
+  font-family: "Microsoft YaHei"; }
+
+.container {
+  width: 100%;
+  font-size: 0;
+  padding-top: 0.2rem; }
+  .container .userInfo {
+    width: 94%;
+    margin: 0 auto;
+    margin-bottom: 0.15rem;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex; }
+    .container .userInfo .textInfo {
+      flex: 1;
+      background-color: white; }
+      .container .userInfo .textInfo input, .container .userInfo .textInfo textarea, .container .userInfo .textInfo select {
+        width: 100%;
+        height: 0.6rem;
+        border: none;
+        font-size: 14px;
+        box-sizing: border-box;
+        padding-left: 0.2rem;
+        border-radius: 0.03rem;
+        outline: none;
+        background-color: transparent;
+        -moz-appearance: none;
+        -webkit-appearance: none; }
+      .container .userInfo .textInfo select, .container .userInfo .textInfo .datetime-local {
+        background-position: center right 0.08rem;
+        background-image: url("../image/tb_arrow.png");
+        background-size: 0.28rem 0.16rem;
+        background-repeat: no-repeat;
+        -moz-appearance: none;
+        -webkit-appearance: none; }
+      .container .userInfo .textInfo .datetime-local:before {
+        content: attr(placeholder);
+        color: #d1d1d1; }
+      .container .userInfo .textInfo .man, .container .userInfo .textInfo .woman {
+        padding-left: 0.2rem;
+        margin-right: 0.15rem;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: flex;
+        align-items: center; }
+        .container .userInfo .textInfo .man label, .container .userInfo .textInfo .woman label {
+          position: relative;
+          font-size: 14px; }
+          .container .userInfo .textInfo .man label .checked, .container .userInfo .textInfo .woman label .checked {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            top: 3px;
+            left: -23px;
+            z-index: 10;
+            background-color: white;
+            border: 1px solid #48aff5;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            display: flex;
+            display: -moz-flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center; }
+            .container .userInfo .textInfo .man label .checked div, .container .userInfo .textInfo .woman label .checked div {
+              width: 8px;
+              height: 8px;
+              background-color: #48aff5;
+              -webkit-border-radius: 50%;
+              -moz-border-radius: 50%; }
+          .container .userInfo .textInfo .man label .checkedFalse, .container .userInfo .textInfo .woman label .checkedFalse {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            top: 3px;
+            left: -23px;
+            z-index: 10;
+            background-color: white;
+            border: 1px solid #ababab;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%; }
+        .container .userInfo .textInfo .man input[type="radio"], .container .userInfo .textInfo .woman input[type="radio"] {
+          width: 12px;
+          height: 12px;
+          visibility: hidden; }
+      .container .userInfo .textInfo .man label .checkedFalse {
+        display: none; }
+      .container .userInfo .textInfo textarea {
+        resize: none;
+        height: 1.2rem;
+        padding-top: 0.2rem; }
+    .container .userInfo .sexChoose, .container .userInfo .visitorsNumber {
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: flex;
+      align-items: center;
+      padding-left: 0.2rem;
+      background-color: transparent;
+      background-position: center; }
+    .container .userInfo .visitorsNumber {
+      font-size: 14px; }
+      .container .userInfo .visitorsNumber .reduce {
+        background-image: url("../image/tb_reduce.png"); }
+      .container .userInfo .visitorsNumber .add {
+        background-image: url("../image/tb_add.png"); }
+      .container .userInfo .visitorsNumber .count {
+        width: 0.6rem; }
+        .container .userInfo .visitorsNumber .count input {
+          width: 100%;
+          text-align: center;
+          padding-left: 0;
+          -webkit-appearance: none;
+          -moz-appearance: none; }
+      .container .userInfo .visitorsNumber .reduce, .container .userInfo .visitorsNumber .add {
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat;
+        background-size: 16px 16px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%; }
+    .container .userInfo .carNumber {
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: flex;
+      align-items: center; }
+      .container .userInfo .carNumber .arrow {
+        width: 0.58rem;
+        height: 0.16rem;
+        background-image: url("../image/tb_arrow.png");
+        background-size: 0.28rem 0.16rem;
+        background-position: center right 0.08rem;
+        background-repeat: no-repeat; }
+      .container .userInfo .carNumber .chooseProvince {
+        width: 80%;
+        height: 4rem;
+        position: fixed;
+        background-color: #ededed;
+        border-radius: 6px;
+        z-index: 30;
+        left: 10%;
+        top: 10%;
+        display: none; }
+        .container .userInfo .carNumber .chooseProvince h2 {
+          font-size: 20px;
+          text-align: center;
+          color: #48aff5;
+          line-height: 0.6rem; }
+        .container .userInfo .carNumber .chooseProvince .carNumberInput {
+          width: 90%;
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: flex;
+          margin: 0 auto;
+          margin-top: 0.6rem;
+          justify-content: space-around; }
+          .container .userInfo .carNumber .chooseProvince .carNumberInput .province {
+            width: 12.5%;
+            background-color: white;
+            background-image: none;
+            padding: 0 3.5%;
+            border-radius: 4px; }
+            .container .userInfo .carNumber .chooseProvince .carNumberInput .province option {
+              text-align: center; }
+          .container .userInfo .carNumber .chooseProvince .carNumberInput div {
+            width: 12.5%;
+            line-height: 0.6rem;
+            background-color: white;
+            color: #333333;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 4px; }
+        .container .userInfo .carNumber .chooseProvince .confirm {
+          width: 70%;
+          font-size: 20px;
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          margin: 0 auto; }
+          .container .userInfo .carNumber .chooseProvince .confirm .yes, .container .userInfo .carNumber .chooseProvince .confirm .no {
+            width: 1.5rem;
+            line-height: 0.6rem;
+            background-color: #48aff5;
+            text-align: center;
+            border-radius: 4px;
+            color: white;
+            margin-top: 0.8rem; }
+      .container .userInfo .carNumber .bg {
+        width: 100%;
+        height: 120%;
+        background-color: #333;
+        position: fixed;
+        opacity: 0.7;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        display: none; }
+    .container .userInfo .fixed {
+      max-width: 1.55rem;
+      min-width: 1.25rem;
+      text-align: right;
+      font-size: 0;
+      line-height: 0.6rem;
+      display: flex;
+      display: -moz-flex;
+      display: -webkit-flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-sizing: border-box;
+      padding-right: 0.08rem; }
+      .container .userInfo .fixed .tb_img {
+        width: 0.24rem;
+        height: 0.24rem;
+        font-size: 0;
+        display: flex;
+        display: -moz-flex;
+        display: -webkit-flex; }
+        .container .userInfo .fixed .tb_img img {
+          width: 100%; }
+      .container .userInfo .fixed span {
+        font-size: 14px;
+        box-sizing: border-box;
+        padding-left: 0.08rem; }
+    .container .userInfo .tip {
+      -webkit-flex: 0 0 15px;
+      -ms-flex: 0 0 15px;
+      flex: 0 0 12px;
+      line-height: 0.6rem;
+      font-size: 12px;
+      color: red;
+      text-align: right; }
+  .container #mask {
+    width: 100%;
+    height: 4rem;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.05;
+    z-index: 50; }
+  .container #IdCardMask {
+    width: 100%;
+    height: 2.2rem;
+    background-color: #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.05;
+    z-index: 50; }
+  .container .IdCard {
+    box-sizing: border-box;
+    padding-left: 0.08rem;
+    font-size: 12px;
+    height: 0.3rem;
+    margin: 0.15rem; }
+  .container .myInput {
+    width: 5.3rem;
+    margin: 0 auto;
+    margin-top: 0.6rem;
+    margin-bottom: 0.4rem; }
+    .container .myInput input {
+      width: 100%;
+      height: 0.7rem;
+      background-color: #48aff5;
+      color: white;
+      border: none;
+      outline: none;
+      font-size: 18px;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0.05rem; }
+    .container .myInput .remind {
+      font-size: 12px;
+      display: flex;
+      display: -moz-flex;
+      display: -webkit-flex;
+      justify-items: center;
+      margin-top: 0.1rem; }
+      .container .myInput .remind span {
+        color: red; }
+
+/*# sourceMappingURL=FKpublic.css.map */

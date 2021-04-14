@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+
+<div>
+
+    <div id="test">
+
+        hello: {{message}}
+
+        <span>
+            download:{{message}} jijiji
+        </span>
+
+        <button v-on:click="btn_cqCount">按钮事件</button>
+    </div>
+
+    <div id="eer">
+
+        hello: {{message}}
+
+        <span id="sdown">
+            download:{{message}}
+        </span>
+
+    </div>
+
+    <button onclick="testtt()">FFF</button>
+
+
+
+</div>
+
+<script>
+    var c=0;
+
+    function testtt() {
+        c+=1;
+        var testnode = document.getElementById("eer")
+        var downnode = document.getElementById("sdown")
+        var downnodeText="download:"+c+"jijijiji";
+        downnode.innerText=downnodeText;
+        testnode.innerText=downnode.innerHTML;
+
+    }
+
+</script>
+<script>
+   // var testnode = document.getElementById("test")
+   //  testnode.append("wfefwef")
+
+   var app = new Vue({
+       el: '#test',
+       data: {
+           message: 'Hello Vue!'+123,
+           counnt:0
+       },
+       methods: {
+           btn_cqCount: function () {
+               console.log(this.message)
+               this.counnt+=1
+              // this.message="dwefwef"
+               this.message=this.counnt
+           }
+       }
+   })
+
+
+</script>
+
+</body>
+</html>

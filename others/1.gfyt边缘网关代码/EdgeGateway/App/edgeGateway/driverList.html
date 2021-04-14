@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>驱动列表</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <div><span class="infoLeft">ID:</span><span class="id"></span></div>
+                    <div><span class="infoLeft">版本：</span><span class="edition"></span></div>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoRight">名称:</span><span class="name"></span>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoRight">增加时间</span><span class="time"></span>
+                </div>
+                <div class="infoBetween">
+                    <div><span class="infoLeft">Code:</span><span class="code"></span></div>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    let $List = $(".list");
+    let $Info = $List.html();
+    $List.html("");
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/driver/driverService/list',
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if(result.code === 200 || result.msg === "success"){
+                    let response = JSON.parse(result.JsonData);
+                    console.log(response);
+                    for (let item in response) {
+                        console.log(response[item]);
+                        console.log(response[item].Xname);
+                        $List.append($Info);
+                        $(".id").eq(item).text(response[item].ID);
+                        $(".name").eq(item).text(response[item].Xname);
+                        $(".code").eq(item).text(response[item].Xcode);
+                        $(".time").eq(item).text(response[item].CreatedAt);
+                        $(".edition").eq(item).text(response[item].Xversion);
+                    }
+                }else {
+                    console.log(result.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

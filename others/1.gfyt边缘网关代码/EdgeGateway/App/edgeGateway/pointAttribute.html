@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>点位属性</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+    <style>
+        .conInfoLeft{
+            width: 1.7rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container subDevices">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <div><span class="infoRight">点位类型:</span><span class="type"></span></div>
+                </div>
+                <div class="infoBetween">
+                    <div><span class="infoLeft">点位属性名称:</span><span class="attrName"></span></div>
+                </div>
+                <div class="infoBetween">
+                    <div><span class="infoLeft">数据类型:</span><span class="attrType"></span></div>
+                </div>
+                <div class="conInfo">
+                    <div class="conInfoLeft">
+                        <span>子设备:</span>
+                    </div>
+                    <div class="conInfoRight">
+                        <select name="pronvince" class="subDevice unSelected">
+                            <option value="0">请选择子设备</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="submitBtn" data-bind="1" onclick="bindSubDevice(this)">绑定</div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    let $List = $(".list");
+    let $Info = $List.html();
+    $List.html("");
+
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = decodeURI(window.location.search).substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    let pointId = getQueryString("id"); //点位ID
+    let KindCode = getQueryString("KindCode"); //类型代码
+    let subDeviceArray = ""; // 子设备数组
+    let SubDevId = ""; //子设备val
+    let SubDevText = ""; //子设备
+    let SubDevBind = []; //已绑定的子设备
+    let subBind = "绑定";
+    let unBind = "解绑";
+    let subDeviceTotal = 0;
+
+
+    //点位类型属性查询
+    $(function () {
+        let Data={
+            "kvmap":{
+                "kindCode":KindCode,
+                //"kindCode":"analog",
+                "pointId":pointId
+            }
+        };
+        console.log(Data);
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/mpointService/QueryMngPointKind',
+            data:JSON.stringify(Data),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                if(result.code === 200 || result.msg === "success"){
+                    let response = JSON.parse(result.JsonData).PropertyList;
+                    console.log(JSON.parse(result.JsonData));
+                    let res = JSON.parse(result.JsonData).PropertySubdeviceMap;
+                    console.log(res);
+                    subDeviceTotal = response.length;
+                    for (let item in response) { // a b c
+                        $List.append($Info);
+                        let mapkey=response[item].MpKindCode + "."+response[item].Xcode;
+                        // 判断点位里面 任意一个点位属性中 有没有绑定过子设备。
+                        if (res!=undefined) {
+                            // res :
+                            // b:{ 绑定id，绑定的子设备id}
+                            let v = res[mapkey]; // mapkey=a
+                            // 当前点位的这个属性，有没有绑定子设备
+                            if (v != undefined) {
+                                console.log(v);
+                                console.log(typeof v.XsubDeviceId);
+                                console.log(item);
+                                $(".subDevice").eq(item).attr({"data-bindVal": v.XsubDeviceId, "data-ID": v.ID}).removeClass("unSelected");
+                                SubDevBind.push(v.XsubDeviceId);
+
+                            }
+                        }
+
+                        $(".listInfo").eq(item).attr("data-Xcode",response[item].Xcode);
+                        $(".type").eq(item).text(response[item].MpKindCode);
+                        $(".attrName").eq(item).text(response[item].Xname);
+                        $(".dropDownOption").eq(item).text(response[item].dropDownOption);
+
+
+
+                        // 数据类型
+                        let DataType = response[item].XdataType;
+                        let $attrType = $(".attrType").eq(item);
+                        let $subDevice = $(".subDevice ").eq(item);
+                        switch(DataType) {
+                            case 4:
+                                $attrType.text("int类型");
+                                $subDevice.addClass("dataTypeInt").attr("data-type",DataType);
+                                break;
+                            case 5:
+                                $attrType.text("bool类型");
+                                $subDevice.addClass("dataTypeBool").attr("data-type",DataType);
+                                break;
+                            default:
+                                $attrType.text("无");
+                        }
+                    }
+                }else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+
+
+        //子设备列表查询
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/device/deviceService/listSubDevice',
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if (result.RpcMsg.code === 200 || result.RpcMsg.msg === "success") {
+                    subDeviceArray = result.SubDeviceList;
+                    let response = result.SubDeviceList;
+
+                    let optionstr ='';
+                    let strInt = '';
+                    let strBool = '';
+                    for (let item in response) {
+                        console.log(response);
+                        if(response[item].DataType === 4){
+                            strInt += "<option value='" + response[item].Id.id + "'>" + response[item].HumanName + "</option>";
+                        }else if(response[item].DataType === 5){
+                            strBool += "<option value='" + response[item].Id.id + "'>" + response[item].HumanName + "</option>";
+                        }
+                    }
+                    optionstr += '<option value="">' + "请选择子设备" + '</option>';
+                    $(".dataTypeBool").html(optionstr+strBool);
+                    $(".dataTypeInt").html(optionstr+strInt);
+                    $(".subDevice").each(function(){
+                        //如果已绑定了给子设备赋值
+                        if($(this).attr("data-bindVal") !== "" && $(this).attr("data-bindVal") !== undefined){
+                            sub($(this),response);
+                            $(this).val($(this).attr("data-bindVal"));
+                            $(this).attr("disabled","disabled");
+                            $(this).parent().parent().parent().find(".submitBtn").html(unBind).attr({"data-ID":$(this).attr("data-ID"),"data-bind":2});
+                        }else {
+                            if(SubDevBind.length === 0){
+                                sub($(this),response);
+                            }else {
+                                console.log($(this).parent().parent().next().attr("data-bind"));
+                                if($(this).parent().parent().next().attr("data-bind")){
+                                    sub($(this),response);
+                                }else {
+                                    let subArray = result.SubDeviceList;
+                                    for (let item in SubDevBind) {
+                                        del(subArray, SubDevBind[item]);//删除已经绑定的设备
+                                    }
+                                    sub($(this),subArray);
+                                }
+
+                            }
+                        }
+                        /*if(SubDevBind.length === 0){
+                            sub($(this),response);
+                        }else {
+                            let response = result.SubDeviceList;
+                            sub($(this),response);
+                            if($(this).attr("data-bindVal") !== "" && $(this).attr("data-bindVal") !== undefined){
+                                $(this).val($(this).attr("data-bindVal"));
+                                $(this).attr("disabled","disabled");
+                                $(this).parent().parent().parent().find(".submitBtn").html(unBind).attr({"data-ID":$(this).attr("data-ID"),"data-bind":2});
+                            }else {
+                                let subArray = result.SubDeviceList;
+                                sub($(this),subArray);
+                                for (let item in SubDevBind) {
+                                    del(subArray, SubDevBind[item]);//删除已经绑定的设备
+                                    sub($(this),subArray);
+                                }
+
+                            }
+
+                        }*/
+                    });
+
+
+                } else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    //点位属性-子设备绑定/解绑
+    let bool=true;
+    function bindSubDevice(that) {
+        //点位属性-子设备绑定
+        console.log($(that).attr("data-bind"));
+        if($(that).attr("data-bind") === "1"){
+            //判断是否选择子设备
+            if(bool) {
+                bool = false;
+                if ($(that).parent().find(".subDevice").val() === "") {
+                    bool=true;
+                    $(that).parent().find(".subDevice").css("border","1px solid #f94441");
+                    return false;
+                }else if($(that).parent().find(".subDevice").val() !== "" ){
+                    bool=true;
+                    $(that).parent().find(".subDevice").css("border","1px solid #c5c5c5");
+                }
+            }
+
+            //绑定参数
+            let Data={
+                "SubDevId":$(that).parent().find(".subDevice").val(),
+                "Point":{
+                    "Id":{"id":pointId}
+                },
+                "Property":{
+                    "Xcode":$(that).parent().attr("data-Xcode")
+                }
+            };
+            console.log(Data);
+
+            //点位属性-子设备绑定保存
+            $.ajax({
+                type: "POST",
+                url: 'http://iot.gfmint/device/mpointService/bindSubDevice',
+                data: JSON.stringify(Data),
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result.RpcMsg.code === 200 || result.RpcMsg.msg === "success") {
+                        SubDevId = $(that).parent().find(".subDevice").val();
+                        SubDevText = $(that).parent().find(".subDevice option:selected").text();
+                        console.log(SubDevText);
+                        $(that).parent().find(".subDevice").attr("disabled","disabled").removeClass("unSelected");
+                        $(that).html(unBind).attr("data-bind",2).removeAttr("data-ID");
+                        $(".listInfo").each(function(){
+                            let dataBind = $(this).find(".submitBtn").attr("data-bind");
+                            if(dataBind === "1"){
+                                console.log(SubDevId);
+                                del(subDeviceArray,SubDevId);//删除已经绑定的设备
+                                $(".unSelected").each(function(){
+                                    console.log($(this));
+                                    $(this).find("option").remove();
+                                    sub($(this),subDeviceArray);
+                                    let optionstr ='';
+                                    let strInt = '';
+                                    let strBool = '';
+                                    console.log(subDeviceArray);
+                                    for (let item in subDeviceArray) {
+                                        if (subDeviceArray[item].DataType === 4) {
+                                            strInt += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+                                        }else if (subDeviceArray[item].DataType === 5) {
+                                            strBool += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+                                        }
+                                    }
+                                    optionstr += '<option value="">' + "请选择子设备" + '</option>';
+                                    if($(this).attr("data-type") === "4"){
+                                        $(this).html(optionstr+strInt);
+                                    }
+                                    else if($(this).attr("data-type") === "5"){
+                                        $(this).html(optionstr+strBool);
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        console.log(result.RpcMsg.errmsg);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+        else if($(that).attr("data-bind") === "2"){//点位属性-子设备接触绑定
+            //解绑参数
+            let Data={
+                "BindId":parseInt($(that).attr("data-ID")),
+            };
+            console.log(Data);
+
+            //点位属性-子设备解除绑定
+            $.ajax({
+                type: "POST",
+                url: 'http://iot.gfmint/device/mpointService/unBindSubDevice',
+                data: JSON.stringify(Data),
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                    if (result.RpcMsg.code === 200 || result.RpcMsg.msg === "success") {
+                        $(that).parent().find(".subDevice").removeAttr("disabled");
+
+                        if(subDeviceTotal !== 1){
+                            $(that).parent().find(".subDevice").addClass("unSelected");
+                            SubDevId = $(that).parent().find(".subDevice").val();
+                            SubDevText = $(that).parent().find(".subDevice option:selected").text();
+                            let Subid = {"id": SubDevId};
+                            let DataType = $(that).parent().find(".subDevice").attr("data-type");
+                            subDeviceArray.push({"Id": Subid, "HumanName": SubDevText,"DataType":DataType});//添加已经接绑的设备
+                            console.log(subDeviceArray);
+                            $(".unSelected").each(function () {
+                                console.log($(this).val());
+                                $(this).find("option").remove();
+
+
+                                let optionstr ='';
+                                let strInt = '';
+                                let strBool = '';
+                                console.log(subDeviceArray);
+                                for (let item in subDeviceArray) {
+                                    if (parseFloat(subDeviceArray[item].DataType) === 4) {
+                                        strInt += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+                                    }else if (parseFloat(subDeviceArray[item].DataType) === 5) {
+                                        strBool += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+                                    }
+                                }
+                                optionstr += '<option value="">' + "请选择子设备" + '</option>';
+                                if($(this).attr("data-type") === "4"){
+                                    $(this).html(optionstr+strInt);
+                                }
+                                else if($(this).attr("data-type") === "5"){
+                                    $(this).html(optionstr+strBool);
+                                }
+
+                            });
+                        }
+
+                        $(that).parent().find(".subDevice").val("").removeAttr("data-bindval").removeAttr("data-ID");
+                        $(that).html(subBind).attr("data-bind",1).removeAttr("data-ID");
+                    } else {
+                        console.log(result.RpcMsg.errmsg);
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+
+    }
+
+
+    function sub(that,subDeviceArray){
+        let optionstr ='';
+        let strInt = '';
+        let strBool = '';
+        console.log(subDeviceArray);
+        for (let item in subDeviceArray) {
+            if (subDeviceArray[item].DataType === 4) {
+                strInt += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+            }else if (subDeviceArray[item].DataType === 5) {
+                strBool += "<option value='" + subDeviceArray[item].Id.id + "'>" + subDeviceArray[item].HumanName + "</option>"
+            }
+        }
+        optionstr += '<option value="">' + "请选择子设备" + '</option>';
+        console.log(that.attr("data-type"));
+        if(that.attr("data-type") === "4"){
+            that.html("");
+            that.html(optionstr+strInt);
+        }
+        else if(that.attr("data-type") === "5"){
+            that.find("option").remove();
+            that.html(optionstr+strBool);
+        }
+    }
+    //删除已绑定的子设备
+    function del(arr,num) {
+        arr.forEach(function (item,index,array) {
+            //console.log(item.Id.id);
+            if (item.Id.id == num) {
+                console.log(index);
+                arr.splice(index,1);
+            }
+        });
+        if (arr.indexOf(num)!==-1) del(arr,num);
+    }
+</script>
+
+</body>
+</html>
