@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>点位列表</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+    <style>
+        .subDevices .infoLeft , .subDevices .infoRight{
+            width: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container pointList">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <div><span class="infoLeft">点位ID:</span><span class="id"></span></div>
+                    <div><span class="infoRight ">点位名称:</span><span class="name"></span></div>
+                </div>
+                <div><span class="infoLeft">点位类型:</span><span class="type"></span></div>
+                <div><span class="infoLeft">点位描述:</span><span class="describe"></span></div>
+            </li>
+        </ul>
+        <div class="viewPropDiv">
+            <div class="viewProp"  onclick="viewProp(this)">查看点位属性</div>
+        </div>
+    </div>
+</div>
+<script>
+    let $List = $(".pointList");
+    let $Info = $List.html();
+    $List.html("");
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/device/mpointService/listPoints',
+            //url: 'pointList.json',
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if (result.RpcMsg.code === 200 || result.RpcMsg.msg === "success") {
+                    let response = JSON.parse(result.RpcMsg.JsonData);
+                    console.log(response);
+                    for (let item in response) {
+                        $List.append($Info);
+                        $(".id").eq(item).text(response[item].Xpoint.ID);
+                        $(".name").eq(item).text(response[item].Xpoint.Xname);
+                        $(".type").eq(item).text(response[item].XpointKind.PointType.KindName).attr("data-KindCode",response[item].XpointKind.PointType.KindCode);
+                        $(".describe").eq(item).text(response[item].Xpoint.XhumanName);
+                    }
+                } else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    //点位属性
+    function viewProp(that) {
+        let id = $(that).parent().prev().find(".id").text();
+        let KindCode = $(that).parent().prev().find(".type").attr("data-KindCode");
+        window.location.href = "pointAttribute.html?KindCode="+KindCode+"&id="+id;
+    }
+
+    //点位属性
+    function con(that) {
+        window.location.href = "controlInterface.html";
+    }
+
+</script>
+
+</body>
+</html>

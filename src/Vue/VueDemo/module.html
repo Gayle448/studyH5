@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- 允许在HTML 里面写Vue,所有的Vue模版语法,都会被解析成合法的HTML(虚拟DOM渲染函数),所以各个浏览器都会正确解析. -->
+		<!-- 模板语法:1.插值:文本插值-双大括号法-mustache-最常见;但是这个只是单纯纯文本插入,不带HTML语法的哦;
+		v-once 表示只插一次值,后面这个变量变了该节点下对应响应无效,所有变量不会再变
+		-->
+		<span id = 'sp' v-once> 
+		{{message}} 
+		<p>
+			P标签1: {{param}}
+		</p>
+		
+		<!-- 2.插值: 插入HTML标签 -->
+		<p>p标签2:注意这里产生两个span;
+		<span v-html="param"></span>
+		</p>
+		
+		<p v-html="param">
+			p标签3:这里的文字被span覆盖了为啥? todo
+		</p>
+		<!-- 3.插值: HTML标签属性动态绑定变量值 v-bind:属性="变量" ;如下,div class属性对应一个变量,data里面定义变量值,对应css里的class 选择器名称-->
+		<div v-bind:class="divColor">
+			我要变颜色
+		</div>
+			
+			<p>
+				{{num + 1}}
+			</p>
+			<p>
+				{{really ? "yes" : "no"}}
+			</p>
+			<p>
+				{{hei.split("").reverse().join()}}
+			</p>
+		</span>
+		
+		<!-- 学会给自己设立自己想做的东西与目标,运用实践自己所学的东西,并从中发现自己的短板和未知的东西.所谓学以致用,上下求索.
+		例如下面,旭提出的九九乘法表就是这样一种思想,不要怕难不要懒,不断试错才能在关键时刻一次通过.所谓厚积薄发亦是如此 -->
+<!-- 		<div id="chenfakoujuebiao">
+			<div>乱七八糟的口诀表</div>
+			<button v-for="buttonList" itemBtn >{{itemBtn.btn_Id}}</button>
+		</div> -->
+		
+		<script>
+			var vm = new Vue({
+				el:'#sp',
+				data:{
+					message:'我是一个span',
+					param:'<span style="color:red">我是一段带有HTML标签的文本,而且有颜色-红色</span>',
+					divColor:'divClassName',
+					num:100,
+					really:5>8,
+					hei:'hello world!',
+					// buttonList: [
+					// 	{
+					// 		btn_Id:1,
+					// 		btn_rgb:{255,255,255}
+					// 	},
+					// 	{btn_Id:2}
+					// ]
+				}
+			});
+			vm.$data.message = '哈哈,我变了吗';
+		</script>
+		<style type="text/css">
+			.divClassName{
+				background-color: red;
+				font-size: 14;
+				color: aqua;
+			}
+		</style>
+	</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加设备</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="../../Javascript/rem.js"></script>
+    <script src="../../Javascript/app.js"></script>
+    <script src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <style>
+        body{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container containerPad">
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span>设备名称</span>
+            </div>
+            <div class="conInfoRight">
+                <input id="Xname" placeholder="请输入设备名称" type="text" />
+            </div>
+        </div>
+        <div class="conInfo conInfoTop">
+            <div class="conInfoLeft">
+                <span>设备Code</span>
+            </div>
+            <div class="conInfoRight">
+                <input id="XdeviceCode" placeholder="请输入设备名称" type="text" />
+            </div>
+        </div>
+        <div id="DoortoTimes" class="conInfo">
+            <div class="conInfoLeft">
+                <span>设备驱动</span>
+            </div>
+            <div class="conInfoRight">
+                <select name="" class="typeclass" id="devicesId">
+
+                </select>
+            </div>
+        </div>
+        <div class="describe">
+            设备描述
+        </div>
+        <div class="conInfo conInfoTop textareaInfo">
+            <div class="conInfoRight">
+                <textarea id="Xdescribtion" placeholder="请输入描述信息"></textarea>
+            </div>
+        </div>
+        <div class="submitBtn SaveBtn"  onclick="preservation()">保存</div>
+    </div>
+</div>
+</body>
+<script>
+    let driverCfgInfo = "";//驱动配置模板信息
+    let devicesId = "";//设备Id
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/driver/driverService/list',
+            dataType: "json",
+            success: function (result) {
+                if(result.msg === "success"){
+                    let response = JSON.parse(result.JsonData);
+                    let str = '';
+                    let optionStr = '';
+                    console.log(response);
+                    $.each(response, function (i, v) {
+                        console.log(v.Xname);
+                        str += '<option value="' + v.Xuuid + '">' + v.Xname + '</option>';
+                        driverCfgInfo = v.XdriverCfgInfo;
+                    });
+                    optionStr += '<option value="0">' + "请选择设备驱动" + '</option>' +str;
+                    $("#devicesId").html(optionStr);
+                }else {
+                    console.log(result.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    function preservation(){
+        console.log($("#Xname").val());
+        console.log($("#XdeviceCode").val());
+        console.log($("#Xdescribtion").val());
+        console.log(driverCfgInfo);
+
+        //存储驱动配置模板信息到本地
+        localStorage.setItem('EquipmentDriverCfgInfo', driverCfgInfo);
+
+        let equData={
+            "Xname":$("#Xname").val(),
+            "XdeviceCode":$("#XdeviceCode").val(),
+            "Xdescribtion":$("#Xdescribtion").val(),
+        };
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/deviceService/createDevice',
+            data:JSON.stringify(equData),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                devicesId =  result.Device.ID.id;
+                dialogFunc();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+
+    //跳转到创建设备运行配置
+    function dialogFunc() {
+        window.location.href = "createConfiguration.html?XUuid="+$("#devicesId").val()+"&devicesId=" +devicesId;
+    }
+</script>
+
+</html>

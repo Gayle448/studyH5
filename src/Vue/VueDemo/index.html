@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>你们好呀</title>
+    <script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+	</div>
+	<script type="text/javascript">
+		var vue = new Vue({
+			el:'#app',
+			data:{
+				msg:"你好,我是第一个div---"
+			}
+		});
+	</script>
+	
+	<!-- 下面为问题代码 -->
+	<div id= "test1">
+		{{a}}
+	</div>
+	<div id='test1'>
+		{{b}}
+	</div>
+	<!-- 当vue的实例被创建时,会将data对象中所有的property加入到vue的响应式系统中
+	 当这些property发生改变时,视图也会“响应”重新渲染,参考的MVVM.
+	 记得 new Vue()对象之前,声明好property 变量哦(只有当实例被创建时就已经存在于 data 中的 property 才是响应式的)
+	 Vue的实例 属性和方法前面加$符号,区分直接调data里面的property;
+	 -->
+	<script type="text/javascript">
+		var data2 = '嘿嘿嘿';
+		var data1 = {a:'哈哈哈',b:data2};//一个对象 变量
+		// var data2 = '嘿嘿嘿';
+		// Object.freeze(data2);
+		
+		var vm = new Vue({
+			el:'#test1',
+			data:data1,
+		});
+		// data1.a = 'hehehe';
+		// vm.a = 'xixi'; 效果同上
+		vm.$watch('a',function(newVal,oldVal){
+			console.log(newVal,oldVal);
+		});
+		vm.$data.a = 'wao';
+	</script>
+	
+	<!-- 以上想要多个节点共有一份vue数据,这样是不行的,1,id不能重复,只能唯一哦;2,el也只能定义一个;上面就要搞两个id和两个Vue实例;
+	 想要达到目的,旭提供了如下代码:+++++++++++ Vue()实例的作用是,代表该节点下的所有代码又Vue来管理,管有{{}}括起来的对象.
+	 -->
+	 <div id="rootNode">
+	 		<div>
+	 			{{a}}
+	 		</div>
+	 		
+	 		<div>
+	 			{{b}}
+	 		</div>
+	 </div>
+	 
+	 <!-- 当vue的实例被创建时,会将data对象中所有的property加入到vue的响应式系统中
+	  当这些property发生改变时,视图也会“响应”重新渲染,参考的MVVM.
+	  记得 new Vue()对象之前,声明好property 变量哦(只有当实例被创建时就已经存在于 data 中的 property 才是响应式的)
+	  Vue的实例 属性和方法前面加$符号,区分直接调data里面的property;
+	  -->
+	 <script type="text/javascript">
+	 	var data2 = '嘿嘿嘿';
+	 	var data1 = {a:'哈哈哈',b:data2};//一个对象 变量
+	 	// var data2 = '嘿嘿嘿';
+	 	Object.freeze(data1); //加了这个方法就没法响应式了
+	 	
+	 	var vm = new Vue({
+	 		el:'#rootNode',
+	 		data:data1,
+	 	});
+	 	// data1.a = 'hehehe';
+	 	// vm.a = 'xixi'; 效果同上
+	 	vm.$watch('a',function(newVal,oldVal){
+	 		console.log(newVal,oldVal);
+	 	});
+	 	vm.$data.a = 'wao';
+		vm.$data.b = '呵呵';
+	 </script>
+	 
+</body>
+</html>

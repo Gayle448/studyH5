@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>设备列表</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="container">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <div><span class="infoLeft">ID:</span><span class="id"></span></div>
+                    <div><span class="infoRight">名称:</span><span class="name"></span></div>
+                </div>
+                <div class="infoBetween">
+                   <span class="infoLeft">设备Code:</span><span class="code"></span>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoLeft eqDescribeSpan">设备描述信息：</span><span class="eqDescribe"></span>
+                </div>
+                <!--<div><span class="infoLeft">是否启用：</span><input type="checkbox" class="isItEnable"><label class="green"></label></div>-->
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    let $List = $(".list");
+    let $Info = $List.html();
+    $List.html("");
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/device/deviceService/list',
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if(result.RpcMsg.code === 200 || result.RpcMsg.msg === "success"){
+                    let response = result.Device;
+                    console.log(response);
+                    for (let item in response) {
+                        console.log(response[item]);
+                        console.log(response[item].Xname);
+                        $List.append($Info);
+                        $(".id").eq(item).text(response[item].ID.id);
+                        $(".name").eq(item).text(response[item].Xname);
+                        $(".code").eq(item).text(response[item].XdeviceCode);
+                        $(".isItEnable").eq(item).attr("id", response[item].ID.id);
+                        $(".green").eq(item).attr("for", response[item].ID.id);
+
+                        // 设备描述信息
+                        if(response[item].Xdescribtion =="" || response[item].Xdescribtion == undefined){
+
+                            $(".eqDescribe").eq(item).text("无");
+                        }else {
+                            $(".eqDescribe").eq(item).text(response[item].Xdescribtion);
+                        }
+
+                        if (response[item].XdevStatus) {
+                            $(".isItEnable").eq(item).prop("checked", true);
+                        }
+                        else {
+                            $(".isItEnable").eq(item).prop("checked", false);
+                        }
+                    }
+                }else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

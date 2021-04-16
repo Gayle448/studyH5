@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>声明周期钩子</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="root">{{a}}</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'#root',
+				data:{
+					a : '生命周期,你好呀'
+				},
+				beforeCreate:function(){
+					// this 指向vm 实例
+					console.log('a is :' + this.a)
+					console.log('beforeCreate -- ')
+				},
+				created:function(){
+					console.log('created -- ')
+				},
+				beforeMount:function(){
+					console.log('beforeMount -- ')
+				},
+				mounted:function(){
+					console.log('mounted -- ')
+				},
+				beforeUpdate:function(){
+					console.log('beforeupdate -- ')
+				},
+				updated:function(){
+					console.log('updated -- ')
+				},
+				beforeDestroy:function(){
+					console.log('beforedestory -- ')
+				},
+				destroyed:function(){
+					console.log('destroyed -- ')
+				}
+			})	;
+		</script>
+	</body>
+</html>

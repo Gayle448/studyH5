@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>发现子设备</title>
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script type="text/javascript" src="../../Javascript/rem.js"></script>
+    <script type="text/javascript" src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="../../Javascript/app.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <div class="container subDevices">
+        <ul class="list">
+            <li class="listInfo">
+                <div class="infoBetween">
+                    <div><span class="infoLeft">序列号:</span><span class="num"></span></div>
+                    <div><span class="infoLeft">端口类型:</span><span class="type"></span></div>
+                </div>
+                <div class="infoBetween">
+                    <div><span class="infoLeft">数据类型:</span><span class="outputType"></span></div>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoLeft">端口名称:</span><span class="name"></span>
+                </div>
+                <div class="infoBetween">
+                    <span class="infoLeft">Code:</span><span class="code"></span>
+                </div>
+                <!--<div class="infoBetween">
+                    <div><span class="infoLeft">硬件通行地址:</span><span class="address"></span></div>
+                </div>-->
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    let $List = $(".list");
+    let $Info = $List.html();
+    $List.html("");
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = decodeURI(window.location.search).substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    let deviceProfileId = getQueryString("deviceProfileId"); //设备运行配置id
+
+    let Data={
+        "ID":{
+            "id":deviceProfileId,
+        }
+    };
+
+    $.ajax({
+        type: "POST",
+        url: 'http://iot.gfmint/device/deviceService/discoverSubDevice',
+        //url: 'discoverSubDevices.json',
+        data:JSON.stringify(Data),
+        dataType: "JSON",
+        success: function (result) {
+            console.log(result);
+            let response = result.SubDeviceList;
+            // 获取用户信息
+            for (let item in response) {
+                $List.append($Info);
+
+                $(".name").eq(item).text(response[item].HumanName);
+                $(".code").eq(item).text(response[item].SubDevCode);
+                //$(".address").eq(item).text(response[item].PortAddr);
+
+                // 序列号
+                if(response[item].DevIndex === undefined || response[item].DevIndex === ""){
+                    $(".num").eq(item).text(0);
+                }else {
+                    $(".num").eq(item).text(response[item].DevIndex);
+                }
+
+                // 端口类型
+                let XportKindType = response[item].XportKindType;
+                switch(XportKindType) {
+                    case 0:
+                        $(".type").eq(item).text("开关类");
+                        break;
+                    case 1:
+                        $(".type").eq(item).text("调光类");
+                        break;
+                    default:
+                        $(".type").eq(item).text("无");
+                }
+
+                // 数据类型
+                let DataType = response[item].DataType;
+                switch(DataType) {
+                    case 4:
+                        $(".outputType").eq(item).text("int类型");
+                        break;
+                    case 5:
+                        $(".outputType").eq(item).text("bool类型");
+                        break;
+                    default:
+                        $(".outputType").eq(item).text("无");
+                }
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+</script>
+
+</body>
+</html>

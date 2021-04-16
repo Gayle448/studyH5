@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加点位</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="../../Javascript/rem.js"></script>
+    <script src="../../Javascript/app.js"></script>
+    <script src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container containerPad">
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span>点位名称</span>
+            </div>
+            <div class="conInfoRight">
+                <input id="RefSheetId" placeholder="请输入设备名称" type="text"/>
+            </div>
+        </div>
+        <div id="DoortoTimes" class="conInfo">
+            <div class="conInfoLeft">
+                <span>点位类型</span>
+            </div>
+            <div class="conInfoRight">
+                <select name="pronvince" class="typeclass" id="RepairTypeId">
+                    <option value="" style="display: none"></option>
+                </select>
+            </div>
+        </div>
+        <div class="describe">
+            点位描述
+        </div>
+        <div class="conInfo conInfoTop textareaInfo">
+            <div class="conInfoRight">
+                <textarea id="FailureDesc" placeholder="请输入设备的描述语"></textarea>
+            </div>
+        </div>
+        <div class="submitBtn" onclick="submitBtn()">保存</div>
+    </div>
+</div>
+</body>
+<script>
+    let responseData = '';
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: 'http://iot.gfmint/device/mpointService/listPointType',
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if (result.code === 200 || result.msg === "success") {
+                    responseData = JSON.parse(result.JsonData);
+                    let response = JSON.parse(result.JsonData);
+                    console.log(response);
+                    for (let item in response) {
+                        $(".typeclass").append("<option value='" + item + "'>" + response[item].KindName + "</option>");
+                    }
+                } else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    });
+
+    function submitBtn() {
+        let selectIndex = $("#RepairTypeId").val();
+        let selectData = responseData[selectIndex].KindCode;
+        let dataName = $("#RefSheetId").val();
+        let dataName2 = $("#FailureDesc").val();
+
+        let data = {
+            Xname: dataName,
+            XhumanName: dataName2,
+            XtypeCode: selectData
+        };
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/mpointService/create',
+            data: JSON.stringify(data),
+            dataType: "json",
+            success: function (result) {
+                console.log(result);
+                if (result.code === 200 || result.msg === "success") {
+                    dialogFunc();
+                } else {
+                    console.log(result.RpcMsg.errmsg);
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    //跳转点位列表
+    function dialogFunc() {
+        window.location.href = "pointsList.html";
+    }
+</script>
+
+</html>

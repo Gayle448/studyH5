@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建设备运行配置</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="../../Javascript/rem.js"></script>
+    <script src="../../Javascript/app.js"></script>
+    <script src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <style>
+        body{
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container containerPad">
+        <div class="CfgInfo">
+        </div>
+        <button class="submitBtn SubBtn" disabled="disabled" onclick="goDiscoverSubDevices()">发现子设备</button>
+        <button class="submitBtn SaveBtn"  onclick="submitBtn(this)">保存</button>
+    </div>
+</div>
+</body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = decodeURI(window.location.search).substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+    let XUuid = getQueryString("XUuid"); //驱动uuid
+    let XDevicesId = getQueryString("devicesId"); //设备表id
+    let deviceProfileId = ""; //设备运行配置id
+    let getLocalData = localStorage.getItem('EquipmentDriverCfgInfo'); // 获取本地缓存驱动配置模板信息
+    let json_obj = JSON.parse(getLocalData);
+    console.log(json_obj);
+    let DriverOptions = json_obj.DriverOptions;
+    console.log(DriverOptions);
+    for (let i = 0; i <DriverOptions.length ; i++) {
+        item=DriverOptions[i];
+        divid=item.Xgroup;
+        groupdiv=document.getElementById(divid);
+        if (groupdiv == undefined){
+
+            let listStr = '';
+            listStr = '<div class="configureGroup" id="'+divid+'">' + item.XgroupName +
+                         '<div class="configureInfo" data-Xcode="'+ item.Xcode +'">\n' +
+                             '<div class="conInfoLeft">\n' +
+                                 '<span>'+ item.Xname +'</span>\n' +
+                             '</div>\n' +
+                             '<div class="conInfoRight">\n' +
+                                 '<input placeholder="请输入'+ item.Xname +'" type="text" />\n' +
+                             '</div>\n' +
+                         '</div>'+
+                      '</div>';
+            $(".CfgInfo").append(listStr);
+        }else{
+            let str = '<div class="configureInfo" data-Xcode="'+ item.Xcode +'">\n' +
+                        '<div class="conInfoLeft">\n' +
+                            '<span>'+ item.Xname +'</span>\n' +
+                        '</div>\n' +
+                        '<div class="conInfoRight">\n' +
+                            '<input placeholder="请输入'+ item.Xname +'" type="text" />\n' +
+                        '</div>\n' +
+                      '</div>';
+            let s="#"+divid;
+            $(s).append(str);
+        }
+    }
+    // 保存
+    function submitBtn() {
+        let jsonsss =[];
+        $(".configureGroup").find('.configureInfo').each(function(){
+            let Xgroup= $(this).parent().attr("id");
+            let Xcode= $(this).attr("data-Xcode");
+            let inputVal= $(this).children().find("input").val();
+            console.log(Xcode);
+            console.log(inputVal);
+            console.log(Xgroup);
+            jsonsss.push({"Xgroup":Xgroup,"Xcode":Xcode,"inputVal":inputVal});
+            console.log(jsonsss);
+
+        });
+        console.log(jsonsss);
+        let requestjson = {}; //设备配置json
+
+        for ( let index in jsonsss) {
+            let item = jsonsss[index];
+            console.log(item);
+            ss = requestjson[item.Xgroup];
+            console.log(ss);
+            if (ss == undefined) {
+                let groups = {};
+                groups[item.Xcode] = item.inputVal;
+                requestjson[item.Xgroup] = groups;
+                console.log(requestjson);
+            } else {
+                ss[item.Xcode] = item.inputVal;
+                console.log(requestjson)
+            }
+        }
+        console.log(requestjson);
+
+        let equData={
+            "XdevicesId":XDevicesId,
+            "XdeviceCfg":JSON.stringify(requestjson),
+            "XdriverGuid":XUuid,
+        };
+        console.log(equData);
+        $.ajax({
+            type: "POST",
+            url: 'http://iot.gfmint/device/deviceService/saveProfile',
+            data:JSON.stringify(equData),
+            dataType: "JSON",
+            success: function (result) {
+                console.log(result);
+                console.log(result.DeviceCfg.ID.id);
+                deviceProfileId = result.DeviceCfg.ID.id;
+                $('.SubBtn').removeAttr("disabled").css("background","#ffffff");
+                $('.SaveBtn').hide();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    //发现子设备
+    function goDiscoverSubDevices() {
+        window.location.href = "discoverSubDevices.html?deviceProfileId="+deviceProfileId;
+    }
+
+</script>
+
+
+</html>

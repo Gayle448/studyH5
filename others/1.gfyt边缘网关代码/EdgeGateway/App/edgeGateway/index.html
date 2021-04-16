@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="../../style/layOut.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="../../Javascript/rem.js"></script>
+    <script src="../../Javascript/app.js"></script>
+    <script src="../../Javascript/jquery-3.1.0.min.js"></script>
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+        .conInfo{
+            width: 1.6rem;
+            text-align: center;
+            border: 1px solid #c5c5c5;
+        }
+        .conInfoLeft {
+            width: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="container containerPad">
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="driverList.html" onclick="submitBtn(this)">驱动列表</span>
+            </div>
+        </div>
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="deviceList.html" onclick="submitBtn(this)">设备列表</span>
+            </div>
+        </div>
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="createDevice.html" onclick="submitBtn(this)">增加设备</span>
+            </div>
+        </div>
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="createPoint.html" onclick="submitBtn(this)">增加点位</span>
+            </div>
+        </div>
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="pointsList.html" onclick="submitBtn(this)">点位列表</span>
+            </div>
+        </div>
+        <div class="conInfo">
+            <div class="conInfoLeft">
+                <span data-bind="controlInterface.html" onclick="submitBtn(this)">控制界面</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    function submitBtn(that) {
+        let address = $(that).attr("data-bind");
+        console.log(address);
+        window.location.href = address;
+    }
+</script>
+
+</html>

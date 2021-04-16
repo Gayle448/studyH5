@@ -1,0 +1,24 @@
+{
+    "list": [{
+            "id": "1",
+            "name": "测试灯1",
+            "type": "开关类灯",
+            "switch": "true",
+            "brightness": "40"
+        },
+        {
+            "id": "2",
+            "name": "测试灯1",
+            "type": "开关类灯",
+            "switch": "true",
+            "brightness": "20"
+        },
+        {
+          "id": "3",
+          "name": "测试灯1",
+          "type": "开关类灯",
+          "switch": "false",
+          "brightness": "80"
+        }
+    ]
+}
