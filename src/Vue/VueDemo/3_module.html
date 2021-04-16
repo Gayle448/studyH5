@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- 允许在HTML 里面写Vue,所有的Vue模版语法,都会被解析成合法的HTML(虚拟DOM渲染函数),所以各个浏览器都会正确解析. -->
+		<!-- 模板语法:1.插值:文本插值-双大括号法-mustache-最常见;但是这个只是单纯纯文本插入,不带HTML语法的哦;
+		v-once 表示只插一次值,后面这个变量变了该节点下对应响应无效,所有变量不会再变
+		-->
+		<span id ='sp' v-once> 
+			{{message}} 
+			<p>
+				P标签1: {{param}}
+			</p>
+		
+			<!-- 2.插值: 插入原始HTML标签 -->
+			<p>p标签2:注意这里产生两个span;
+				<span v-html="param"></span>
+			</p>
+		
+			<p v-html="param">
+				p标签3:这里的文字被span覆盖了为啥? todo
+			</p>
+			
+			<!-- 3.插值: HTML标签属性动态绑定变量值(响应式属性) v-bind:属性="变量" ;如下,div class属性对应一个变量,data里面定义变量值,对应css里的class 选择器名称-->
+			<div v-bind:class="divColor">
+				我要变颜色
+			</div>
+			
+			<button v-bind:disabled="isButtonDisabled" onclick="clickMe()">我是button</button>  <!-- disabled=true 设置或返回是否禁用按钮。 -->
+			<!-- 如果 isButtonDisabled 的值是 null、undefined 或 false，则 disabled attribute 甚至不会被包含在渲染出来的 <button> 元素中。 -->
+			
+			<!-- 4.插值:简单JS表达式 -->
+			<p>
+				{{num + 1}}
+			</p>
+			<p>
+				{{really ? "yes" : "no"}}
+			</p>
+			<p>
+				{{hei.split("").reverse().join()}}
+			</p>
+			
+			<div v-bind:id="'list-' + divid"></div> <!-- 字符与变量拼接 -->
+			<!-- 这些表达式会在所属 Vue 实例的数据作用域下作为 JavaScript 被解析。有个限制就是，每个绑定都只能包含单个表达式. -->
+			<!-- {{ var a = 1 }} 这是语句，不是表达式 -->
+			<!-- {{ if (ok) { return message } }} 流控制也不会生效，请使用三元表达式 -->
+			
+			<!-- 代理解:todo
+			 表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。
+			 -->
+			 
+			 <!-- 4.指令 v- 特殊attribute;职责是，当表达式的值改变时，将其产生的连带影响，响应式地作用于 DOM。
+			  -->
+			  
+			  <!-- 条件渲染 -->
+			  <p v-if="isshow">我显示吗</p>
+			  
+			  <!-- 参数:上面的v-bind:冒号后面可以接不同 属性参数,响应式更新HTML特性;
+			   v-on:也类似,接参数,用于监听DOM事件;对应Vue对象里面的methods-->
+			   <a v-bind:href="vueurl">我是官网连接</a>
+			   <div v-on:click="clickdiv1">
+				   <div v-on:click.stop="clickdiv2">
+						快来点我呀
+				   </div>
+			   </div>
+			   <!-- 动态参数:就是v-bind后面指定的属性类型 也可以是一个变量,用[]括起来,但是它的值预期是字符串,或者NULL(代表不响应),其他类型则警告;
+				而且[]里面不能有某些字符如:空格或引号,而且忽略大小写的,默认都专成小写-->
+				<a v-bind:[evntname]="vueurl">我也是一个链接哦</a>
+			   
+			   <!-- 修饰符 如,上面.stop,正常点击“快来点我呀”,会先调clickdiv2,再调clickdiv1,如果只想调2不想1,就在2那里加个stop -->
+			   
+			   <!-- 缩写-真的蛮爽的,用习惯了的话 -->
+				<!--1. v-bind:  <a :[evntname]="vueurl">我也是一个链接哦</a> -->
+				<!--2. v-on: <div @click.stop="clickdiv2"> 快来点我呀 </div> -->
+
+		</span>
+		
+		<!-- 学会给自己设立自己想做的东西与目标,运用实践自己所学的东西,并从中发现自己的短板和未知的东西.所谓学以致用,上下求索.
+		例如下面,旭提出的九九乘法表就是这样一种思想,不要怕难不要懒,不断试错才能在关键时刻一次通过.所谓厚积薄发亦是如此
+<!-- 		<div id="chenfakoujuebiao">
+			<div>乱七八糟的口诀表</div>
+			<button v-for="buttonList" itemBtn >{{itemBtn.btn_Id}}</button>
+		</div> -->
+		
+		<script>
+			var vm = new Vue({
+				el:'#sp',
+				data:{
+					message:'我是一个span',
+					param:'<span style="color:red">我是一段带有HTML标签的文本,而且有颜色-红色</span>',
+					divColor:'divClassName',
+					num:100,
+					really:5>8,
+					hei:'hello world!',
+					// buttonList: [
+					// 	{
+					// 		btn_Id:1,
+					// 		btn_rgb:{255,255,255}
+					// 	},
+					// 	{btn_Id:2}
+					// ]
+					divid:333,
+					isButtonDisabled:true,
+					isshow:false,
+					vueurl:'https://cn.vuejs.org',
+					evntname:'href',
+				},
+				methods:{
+					clickdiv1:function(){
+						console.log('我是打印事件1');
+					},
+					clickdiv2:function(){
+						console.log('我是打印事件2');
+					}
+				}
+			});
+			vm.$data.message = '哈哈,我变了吗';
+			
+			function clickMe() {
+				console.log('点击了按钮');
+			}
+		</script>
+		<style type="text/css">
+			.divClassName{
+				background-color: red;
+				font-size: 14;
+				color: aqua;
+			}
+		</style>
+	</body>
+</html>

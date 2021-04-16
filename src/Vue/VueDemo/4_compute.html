@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- 前面学了如果要把一个字符串反过来得,写一个比较长的表达式: -->
+		<div id="root">
+			<p>{{msg}}</p>
+			<p>{{msg.split('').reverse().join()}}</p>  <!-- 反序文本 -->
+			<!-- 这里有 更简洁的东东-计算属性,在Vue里面声明 一个属性,利用get函数获取属性的值,如下 :-->
+			<p>{{reversemsg}}</p>
+			<!-- 还有一种前面学的 methods 放在这个里面 -->
+			<p>{{reversemsgmethods()}}</p>
+			
+			<!-- 后面两种一个是用计算属性,一个使用函数调用
+			 不同的是 计算属性是基于它们的响应式依赖进行缓存的。只在相关响应式依赖发生改变时它们才会重新求值。
+			 意思是只要msg变量没变,计算属性,每次访问都会是上次的结果(有缓存),不会在走一遍计算过程,函数会走. 类似于一点点懒加载
+			 -->
+			 
+			 <!-- 计算属性于 侦听属性watch对比:
+			  -->
+			  <span>{{fullname}}</span>
+			  <span>{{longname}}</span>
+			  <input type="text" id="userName" @change="reveTextFunc()"/>
+			  <div>
+				  原用户值: {{userText}}
+				  新用户: {{reveText}}
+			  </div>
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#root',
+				data:{
+					msg:'hello world', //顺序文本
+					firstname:'chen',
+					lastname:'jian',
+					fullname:'chenjian',
+					userText:'hx'
+				},
+				watch:{
+					//1.监听 firstname 和 lastname变化时改变fullname
+					firstname:function(val){
+						this.fullname = val + this.lastname
+					},
+					lastname:function(val){
+						this.fullname = this.firstname + val
+					}
+				},
+				computed:{
+					reversemsg:function(){
+						return this.msg.split('').reverse().join("")//反序文本 - 注意这里,基于msg变量的值做的计算,如果msg变了,reversemsg也会发生变化; 
+					},
+					//2.使用计算属性 ,更方便监听相关依赖属性变量 的变化
+					longname:function(){
+						return this.firstname + this.lastname
+					},
+					reveText:function(){
+						return this.userText.split('').reverse().join("-")
+					}
+				},
+				methods:{
+					reversemsgmethods:function(){
+						return this.msg.split('').reverse().join()//反序文本
+					},
+					reveTextFunc:function(){
+						var v=document.getElementById("userName").value;
+						// var v=$("#userName").value
+						// $.ajax(
+						// 	url:fjwiefjwie,
+						// 	dats:fjwiejf,
+						// 	success:function{
+						// 	}
+						// )
+						
+						console.log('文本框值改变了:',v);
+						this.userText = v;
+					}
+				}
+			});
+			
+			vm.$data.firstname = 'han';
+			
+			vm.$data.lastname = 'xu';
+			
+		</script>
+		
+	</body>
+	
+</html>
