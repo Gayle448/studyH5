@@ -22,13 +22,19 @@
 			 
 			 <!-- 计算属性于 侦听属性watch对比:
 			  -->
-			  <span>{{fullname}}</span>
-			  <span>{{longname}}</span>
+			  <span>侦听：+{{fullname}}</span>
+			  <br />
+			  <span>计算属性：+{{longname}}</span>
+			  <br />
+			  <!-- 这里是手动加入了一个监听函数，当输入结束后会出发，后面会学到v-model 绑定一个变量会实时获取输入值，如下 -->
 			  <input type="text" id="userName" @change="reveTextFunc()"/>
+			  <!-- <input type="text" id='userName' v-model="userText" /> -->
+			  
 			  <div>
 				  原用户值: {{userText}}
 				  新用户: {{reveText}}
 			  </div>
+			  <span>{{allname}}</span>
 		</div>
 		
 		<script>
@@ -60,6 +66,19 @@
 					},
 					reveText:function(){
 						return this.userText.split('').reverse().join("-")
+					},
+					//3.计算属性 get/set方法
+					allname: {
+						get: function () {
+							return this.reveText + '(是我的人)' //2.这里新用户名变了，用到allname 变量（get）也会变
+							// return this.allname + '是谁的人' 是错误的！！！ $
+						},
+						set: function (newValue) {
+							var names = newValue.split(' '); //截取名字;这里面不能打,号 要打;号
+							this.firstname = names[0]
+							this.lastname = names[1]
+							// this.allname = newValue $ 这里不能这么写，不然报错，然后不执行下面的JS了？ 结论：只有get方法才能改计算属性的值，set方法只是一个传值，不能直接改变属性的值（可间接）？
+						}
 					}
 				},
 				methods:{
@@ -77,7 +96,10 @@
 						// )
 						
 						console.log('文本框值改变了:',v);
-						this.userText = v;
+						this.userText = v; //1.这里用户名变了，新用户名也会变；
+						
+						this.allname = this.userText; //3.这里调用allname set方法，所这这个函数里面会分辨调用get 和 set方法，set 之后，不影响
+						console.log('有没有输出？？？' + this.allname) //4.这里 this.allname 的值还是来自于get方法
 					}
 				}
 			});

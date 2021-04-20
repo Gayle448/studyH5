@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>class和style绑定</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- 在将 v-bind 用于 class 和 style 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。 -->
+		<!-- ** 绑定 HTML Class ** -->
+		<div id="classid">
+			---- class 绑定语法：
+			<!-- 1.字符串 -->
+			<div v-bind:class="colorstyle">
+				哈哈哈哈
+			</div>
+			
+			<!-- 2.对象 class，字符串-对象  列表将变为 "static active text-danger" -->
+			<div class="static" v-bind:class="{active:isActive,'text-danger':hasError}">
+				字符串包裹对象，用于动态切换多个class
+			</div>
+			<!-- 3.对象 class，字符串-变量-对象 -->
+			<div v-bind:class="clsObj">对应变量名</div>
+			<!-- 4.对象 class，字符串-计算属性-对象 -->
+			<div v-bind:class="clsCompute">对应计算属性名</div>
+			<!-- 5.数组语法  -->
+			<div v-bind:class="[activecls,errorcls]">对应数组变量名</div>
+			<div v-bind:class="[isActive ? activecls : '',errorcls]">对应数组变量名+三元运算符</div>
+			<div v-bind:class="[{active:isActive},errorcls]">对应数组变量名+对象</div>
+			<!-- 6.组件语法 todo -->
+			<!-- 7. -->
+			
+			
+		</div>
+		 <!-- ** 绑定内联样式 style ** -->
+		 <!-- 当 v-bind:style 使用需要添加浏览器引擎前缀的 CSS property 时，如 transform，Vue.js 会自动侦测并添加相应的前缀。 -->
+		 <div id="styleid">
+			 ---- style 绑定语法：
+			 <!-- 1.对象 style,字符串-对象 看着非常像 CSS，但其实是一个 JavaScript 对象。CSS property 名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用引号括起来) -->
+			 <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"> <!-- 注意⚠️ 这里面语法容易写错 -->
+			 		字符串包裹对象，可设置多个样式属性
+			 </div>
+			 <!-- 2.对象 style,字符串-变量-对象 -->
+			 <div :style="styleobj">
+				 对应变量名
+			 </div>
+			 <!-- 3.对象 style，字符串-计算属性-对象 -->
+			 <div :style="styleCompute">对应计算属性名，值返回一个对象</div>
+			 <!-- 4.数组 style，字符串-数组-变量 -->
+			 <div v-bind:style="[styleone,styletwo]">对应包含变量对象的数组字符串</div>
+		 
+		 <!-- 多重值：todo? 从 2.3.0 起你可以为 style 绑定中的 property 提供一个包含多个值的数组，常用于提供多个带前缀的值，例如 -->
+		 <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+		 <!-- 这样写只会渲染数组中最后一个被浏览器支持的值。在本例中，如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 display: flex。
+		  -->
+		  
+		<script>
+			var vm = new Vue({
+				el:'#classid',
+				data:{
+					colorstyle:'divClassName',
+					isActive : true,
+					hasError : true,
+					clsObj:{ //包含多个class ，true 就取相应key name -> class
+						active:true,
+						'text-danger':false
+					},
+					activecls:'active',
+					errorcls:'text-danger',
+				},
+				computed:{
+					clsCompute:function(){
+						return {
+							active:this.isActive,
+							'text-danger':this.hasError
+						}
+					}
+				}
+			});
+			var vm2 = new Vue({
+				el:'#styleid',
+				data:{
+					activeColor:'pink',
+					fontSize:15,
+					styleobj:{
+						fontSize:'25px',//这里直接设置数字没有起作用是因为要设置为加了px单位的字符
+						color:'red',
+					},
+					styleone:{
+						fontSize:'28'
+					},
+					styletwo:{
+						background:'yellow'
+					}
+				},
+				computed:{
+					styleCompute:function(){
+						return {
+							color:'green',
+							fontSize:'20px'
+						}
+					}
+				}
+			});
+		</script>
+		
+		<style type="text/css">
+			.divClassName{
+				background-color: red;
+				font-size: 14;
+				color: aqua;
+			}
+		</style>
+		
+		<style type="text/css">
+			div {
+				background-color: #00BFFF;
+				font-size: 18;
+			}
+		</style>
+		
+	</body>
+</html>

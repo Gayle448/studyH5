@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>侦听器</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="watch-example">
+			<p>
+				问一个是/否的问题：v-model是监听了输入框的输入，并把值赋给了绑定的变量;此处简单理解，后续会深入学习
+				<br />
+				<input v-model="msg" placeholder="我是默认文本" />
+			</p>
+			<p>
+				输入的值是：{{msg}}
+			</p>
+			<p>答案是：{{anwser}}</p>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'#watch-example',
+				data:{
+					msg:'输入问题',
+					anwser:'问一个问题我再回答'
+				},
+				watch:{
+					//msg 发生改变，下面函数会运行
+					msg:function () {
+						this.anwser = "等你输入完毕再说";
+						this.debouncedGetAnswer()
+					}
+				},
+				created:function(){ //todo 这里涉及一个知识盲区
+					// `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+					    // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+					    // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+					    // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+					    // 请参考：https://lodash.com/docs#debounce
+					    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+				},
+				methods:{
+					getAnswer:function(){
+						if(this.msg.indexOf('?') === -1) {
+							this.anwser = '问题通常包含一个备注;'
+							return
+						}
+						this.anwser = '好好想想'
+						var vm = this
+						axios.get('https://yesno.wtf/api')
+						        .then(function (response) {
+						          vm.answer = _.capitalize(response.data.answer)
+						        })
+						        .catch(function (error) {
+						          vm.answer = 'Error! Could not reach the API. ' + error
+						        })
+					}
+				}
+			});
+			//暂时没法理解：
+			// 在这个示例中，使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
+			// 除了 watch 选项之外，您还可以使用命令式的 vm.$watch API。
+		</script>
+	</body>
+</html>
