@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>v-for使用</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<!-- 便利数组,数组里面是对象 为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key attribute (方便数据渲染的同时数据变更,定位)-->
+				<li v-for="(item,index) in items" :key="item.message">
+					{{item.message}} - {{index}}
+				</li>
+			</ul>
+			<ul>
+				<li v-for="(value,name,index) in objects" :key="name">
+					{{name}} : {{value}} - {{index}}
+				</li>
+			</ul>
+			
+			<ul>
+				<li v-for="(num,index) in reverseNum">
+					{{num}} + {{index}}
+				</li>
+			</ul>
+			
+			<!-- todo 下面的二维数组遍历为啥会报错,参照的例子的? todo -->
+			<!-- <ul v-for="set in array">
+				<li v-for="(num,index) in getarr(set)">
+					{{num}} + {{index}}
+				</li>
+			</ul> -->
+			
+			<ul v-for="set in sets">
+			  <li v-for="n in even(set)">{{ n }}</li>
+			</ul>
+			
+			<!-- v-for 也可以接受整数。在这种情况下，它会把模板重复对应次数。n 必须是下面data里面的属性
+			 -->
+			 <span v-for="n in 10">{{ n }} </span>
+			 
+			 <!-- template 使用v-for -->
+			 <ul>
+			   <template v-for="item in items">
+			     <li>{{ item.message }}</li>
+			     <li class="divider" role="presentation">haha</li>
+			   </template>
+			 </ul>
+			 
+			 <!-- v-if 和 v-for同时使用,不建议 -->
+			 <!-- 当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。
+			 当你只想为部分项渲染节点时，这种优先级的机制会十分有用 -->
+			 <li v-for="todo in todos" v-if="todo>1">
+			   {{ todo }}
+			 </li>
+			 
+			 <!-- 有条件地跳过循环的执行，那么可以将 v-if 置于外层元素 -->
+			 <ul v-if="todos.length">
+			   <li v-for="todo in todos">
+			     {{ todo }}
+			   </li>
+			 </ul>
+			 <p v-else>No todos left!</p>
+			 
+		</div>
+		
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					items:[
+						{message:'zhao'},
+						{message:'qian'},
+						{message:'sun'},
+						{message:'li'}
+					],
+					// objects:[
+					// 	{title:'标题'},
+					// 	{content:'内容'},
+					// 	{end:'结尾'}
+					// ]
+					<!-- 便利对象,里面是键值对 -->
+					objects:{
+							title:'标题',
+							content:'内容',
+							end:'结尾'		
+					},
+					numbers:[
+						1,
+						2,
+						3,
+						4
+					],
+					// array:[
+					// 	[1,2,3,4,5],
+					// 	[6,7,8,9,0]
+					// ]
+					sets: [[ 1, 2, 3, 4, 5 ], [6, 7, 8, 9, 10]],
+					n:0,
+					todos:[1,2,3]
+				},
+				computed:{
+					reverseNum:function(){
+						return this.numbers.reverse()
+					}
+				},
+				methods:{
+					// getarr:function(set){ //filter 的使用见教程
+					// 	return set.reverse()
+					// },
+					
+					even: function (numbers) {
+					    return numbers.filter(function (number) {
+					      return number % 2 === 0
+					    })
+					  }
+				}
+			});
+			// 由于 JavaScript 的限制，Vue 不能检测数组和对象的变化。
+			// 变更数组 
+			vm.items.push({message:'zhou'}) //数组添加元素,视图跟着刷新
+			vm.items.pop({message:'zhou'}) //删除元素
+			vm.items.shift() //删除第一个元素
+			vm.items.unshift({message:'chen'}) //插入第一个元素
+			vm.items.sort() //排序
+			vm.items.reverse() //反序
+			// vm.items.splice({message:'han'}) todo
+			// 不改变原数组 获取新数组
+			vm.items = vm.items.filter(function(item){
+				return item.message.match(/li/) //赋值给原来数组
+			})
+			// concat() 和 slice() todo
+		</script>
+	</body>
+</html>
