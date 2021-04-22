@@ -107,7 +107,31 @@
 				对于单选按钮，复选框及选择框的选项，v-model 绑定的值通常是静态字符串 (对于复选框也可以是布尔值)：如下
 				想把值绑定到 Vue 实例的一个动态 property 上，这时可以用 v-bind 实现：如上
 				 -->
-				<input type="radio" v-model="picked" value="a">
+				<input type="radio" v-model="onepicked" value="a">
+				<br />
+				<!-- 值可以绑定为一个对象 -->
+				<select v-model="selectobj">
+					<option v-bind:value="{number:123}" v-on:change="selection">我是123</option> 
+					<!-- v-on:change 无效 ???todo 怎么监听，这个选择器某个选项被选中了呢？ click也无效 selection-->
+				</select>
+				
+			</span>
+			
+			<br />
+			
+			<span>
+				修饰符：
+				.lazy:
+				<!-- 在“change”时而非“input”时更新 -->
+				<input v-model.lazy="inputmsg">
+				<br />
+				.number:
+				<!-- 自动将用户输入值转为数值类型 -->
+				<input v-model.number="age" type="number" />
+				<br />
+				.trim:
+				<!-- 自动过滤用户输入的首尾空白符 -->
+				<input v-model.trim="inputmsg" />
 				
 			</span>
 			
@@ -139,8 +163,15 @@
 							value:'C'
 						}
 					],
-					vselect:''
+					vselect:'',
+					selectobj:{},
+					age:''
 				},
+				methods:{
+					selection:function(){
+						console.log('----'+this.selectobj.number)
+					}
+				}
 			});
 			
 		</script>
