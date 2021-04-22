@@ -9,20 +9,17 @@
 	<body>
 		<div id="app">
 			
-			<!-- <li v-for="(value,name,index) in objects" :key="name">
-				{{name}} : {{value}} - {{index}}
-			</li> -->
-			
-			<table border="1" bordercolor="yellow">
+			<table border="0.5" bordercolor="yellow" cellpadding="20">
 				<tr>
-					<td v-bind:class="hstyle">
+					<th v-bind:class="hstyle" colspan="9">
 						乘法口诀表
-					</td>
+					</th>
 				</tr>
 				
-				<tr v-for="(hang,index) in hangdata" :key="index">
-					<td v-for="(lie,index) in liedata">
-						{{hang.hang}} X {{lie.lie}}
+				<tr v-for="(hang,index) in defaultdata" :key="index">
+					<td v-for="(lie,index) in defaultdata" :key="index" v-bind:class="cstyle">
+						<!-- {{hang}} X {{lie}} -->
+						{{dealM(hang,lie)}}
 					</td>
 				</tr>
 				
@@ -35,38 +32,40 @@
 				el:'#app',
 				data:{
 					hstyle:'headercss',
-					hangdata:[
-						{hang : 1},
-						{hang : 2},
-						{hang : 3},
-						{hang : 4},
-						{hang : 5},
-						{hang : 6},
-						{hang : 7},
-						{hang : 8},
-						{hang : 9}
-					],
-					liedata:[
-						{lie : 1},
-						{lie : 2},
-						{lie : 3},
-						{lie : 4},
-						{lie : 5},
-						{lie : 6},
-						{lie : 7},
-						{lie : 8},
-						{lie : 9}
-					],
+					cstyle:'contentcss',
+					defaultdata:[
+							1,2,3,4,5,6,7,8,9
+					]
 				},
+				computed:{
+					results:function(){
+						return defaultdata
+					}
+				},
+				methods:{
+					dealM:function(hang,lie){
+						if(hang>lie){
+							return ''
+						}else {
+							var result = hang * lie
+							return hang + 'x' + lie + '=' + result
+						}
+					}
+				}
 			})
 			
 		</script>
 		
 		<style type="text/css">
 			.headercss{
-				background-color: yellow;
+				background-color: coral;
+				color: white;
+				font-size: 38;
+			}
+			.contentcss{
+				background-color: pink;
 				color: red;
-				font-size: 28;
+				font-size: 24;
 			}
 		</style>
 	</body>
