@@ -17,8 +17,8 @@
 				</tr>
 				
 				<!-- v-once 误打误撞 -->
-				<tr v-for="(hang,index) in defaultdata" :key="index" v-once>
-					<td v-for="(lie,index) in defaultdata" :key="index" v-bind:class="cstyle" v-bind:style="cstyleobj">
+				<tr v-for="(hang,index) in defaultdata" :key="index" v-once >
+					<td id="hang + lie" v-for="(lie,index) in defaultdata" :key="index" v-bind:class="cstyle" v-bind:style="cstyleobj" v-on:mouseenter="mouseenterevent" v-on:mouseleave="mouseleaveevent">
 						{{dealM(hang,lie)}}
 					</td>
 				</tr>
@@ -47,9 +47,6 @@
 					// },
 				},
 				computed:{
-					// cstyleobj:function(){
-						
-					// }
 					cstyleobj:{
 						get:function(){
 							this.counter+=1
@@ -57,7 +54,6 @@
 							return {background:'rgb('+ this.currenthang +',' + this.currentlie + ',' + this.currentresult +')'}
 						},
 						set:function(){
-							
 						}
 					}
 				},
@@ -75,6 +71,16 @@
 						}else {
 							return hang + 'x' + lie + '=' + result
 						}
+					},
+					// 鼠标移入表格
+					mouseenterevent:function(event){
+						console.log('鼠标移入')
+						// console.log('--' + event.target.id)
+						// var v=document.getElementById("inputid").value;
+					},
+					// 鼠标移出表格
+					mouseleaveevent:function(){
+						console.log('鼠标移出')
 					}
 				}
 			})
