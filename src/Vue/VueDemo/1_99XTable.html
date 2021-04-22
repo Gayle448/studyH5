@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> 99乘法表 </title>
+		<!-- tr 是行，td 是列 -->
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<!-- <li v-for="(value,name,index) in objects" :key="name">
+				{{name}} : {{value}} - {{index}}
+			</li> -->
+			
+			<table border="1" bordercolor="yellow">
+				<tr>
+					<td v-bind:class="hstyle">
+						乘法口诀表
+					</td>
+				</tr>
+				
+				<tr v-for="(hang,index) in hangdata" :key="index">
+					<td v-for="(lie,index) in liedata">
+						{{hang.hang}} X {{lie.lie}}
+					</td>
+				</tr>
+				
+			</table>
+			
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					hstyle:'headercss',
+					hangdata:[
+						{hang : 1},
+						{hang : 2},
+						{hang : 3},
+						{hang : 4},
+						{hang : 5},
+						{hang : 6},
+						{hang : 7},
+						{hang : 8},
+						{hang : 9}
+					],
+					liedata:[
+						{lie : 1},
+						{lie : 2},
+						{lie : 3},
+						{lie : 4},
+						{lie : 5},
+						{lie : 6},
+						{lie : 7},
+						{lie : 8},
+						{lie : 9}
+					],
+				},
+			})
+			
+		</script>
+		
+		<style type="text/css">
+			.headercss{
+				background-color: yellow;
+				color: red;
+				font-size: 28;
+			}
+		</style>
+	</body>
+</html>
