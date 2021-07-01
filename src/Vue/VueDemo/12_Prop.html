@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Prop 了解</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		
+		<div id="blog-post-demo">
+			
+			<!-- 可以这样传值 爽歪歪,相当于自定义里一个标签属性一样 -->
+			<blog-post title="我是标题一"></blog-post>
+			<blog-post title="我是标题二"></blog-post>
+			
+			<!-- ? 为每篇博文 渲染一个组件 -->
+			<!-- 如果 post 对象有很多属性,模板里面有很多个标签要用到这些,这里会赋值很多,推荐用 *One Methods* 方式 -->
+			<!-- <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:title="post.title"></blog-post> -->
+			<!-- *One Methods* -->
+			<blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post>
+		</div>
+		
+	<script>
+		
+		// 下面 props 字段对应一个数组,里面可以放很多个自定义属性名;可以像在data里一样被访问;
+		Vue.component(
+			'blog-post',
+			{
+				data:function(){
+					return {
+						test:'测试变量'
+					}
+				},
+				// props:['title'],
+				// template:'<h3>{{title}}</h3>'
+				//*One Methods* 
+				props:["post"],
+				template:'<div class="blog-post"> <h3>{{post.title}}</h3> <div v-html="post.content"> </div> </div>'
+			}
+		)
+		
+		var vm = new Vue({
+			el:'#blog-post-demo',
+			data:{
+				// 新概念 : 博文 数组
+				posts:[
+					{
+						id:1,title:'标题1'
+					},
+					{
+						id:2,title:'标题2'
+					},
+					{
+						id:3,title:'标题3'
+					}
+				]
+			}
+		})
+		
+		// 博文这个概念待了解
+		//  深入学习 Prop见:https://cn.vuejs.org/v2/guide/components-props.html
+	</script>
+	
+	</body>
+</html>
