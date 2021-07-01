@@ -6,17 +6,90 @@
 		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
 	</head>
 	<body>
-		<div id="app">
+		<p>
+			热烈庆祝党的100周年生日!
+		</p>
+		
+		<!-- *One* -->
+		<div id="app"> 
+			<button-counter></button-counter>
+			<!-- 组件可复用,复用一次相当于新建一个实例对象,数据互相是独立的.就是因为下面所说的,*Two* data返回的是一个函数返回值对象,每新建一个组件就拿到一个新的对象,所以相互独立. -->
+			<button-counter>哈哈</button-counter>
 			
+			<!-- 测试组件名字 说是可以采用这两种命名方法,换成大写字母就不行了,可能是这句话的原因:
+			 直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。
+			 -->
+			<test-name></test-name> 
+			<!-- <MyTestName></MyTestName> 换成这个名字不可以-->
 		</div>
 		
+		<!-- 错误示范: 记得要在 Vue根实例对象中使用组件
+		<div>
+			测试组件名字
+			<TestName></TestName>
+		</div>
+		-->
+		
+		
 		<script>
+		
+		// 组件 : 是可 复用 的Vue实例,第一个参数是组件的名字,明明可采用首字母大写命名法 ButtonCounter,或短横线分隔命名法.
+		// ⚠️注意要先注册组件,放在Vue对象New之前(这里放后面会报错)
+		// *One* 可以在一个 通过 new Vue 创建的Vue根实例中,把这个组件作为自定义元素来使用:
+		/*因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，
+		例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项
+		⚠️ 参数和意思可能差不多,但是形式和实现还是有点区别的.
+		*/
+		Vue.component('button-counter',{
+			data:function(){//question:这里是必须定义已 这种data:函数,返回值为对象,这种形式吗?(是的必须)*Two*
+				return {
+					count : 0
+				}
+			},
+				// data:{ 报错:说是必须是对应一个函数返回一个对象
+				// 	count : 0,
+				// },
+			template:'<button v-on:click="count++"> 点击了我{{count}}次</button>'
+		})
+		
+		Vue.component('test-name',{
+			data:function(){
+				return {
+					text:'生日快乐'
+				}
+			},
+			template:'<p>{{text}}</p>'
+		})
+		
+		// 组件注册:上面是全局注册,注册后可以在任何新创建的Vue根实例 的模板中.(id相应对应)
+		// 子组件 还可以在各自内部相互调用
+		
+		// 下面是局部注册:在Vue对象实例里面声明一个components属性,里面存放声明的JS变量
+		// 局部注册怎么运用到 DOM呢?
+		// 局部注册的组件之间不能够互相调用,需要嵌套调用,如下B调用A
+		var ComponentA = {
+			'key':1
+		}
+		var ComponentB = {
+			components:{
+				'component-a':ComponentA
+			},
+			'key':'haha'
+		}
+		
 			var vm = new Vue({
 				el:'#app',
 				data:{
-					counter:0,
+					// counter:0,
 				},
+				components:{
+					'component-a':ComponentA,
+					'component-b':ComponentB
+				}
 			});
+			
+			//❤️深入TODO: 模块系统中进行局部和全局注册 (https://cn.vuejs.org/v2/guide/components-registration.html)
+			
 		</script>
 	</body>
 </html>
