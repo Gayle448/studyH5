@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title> 99乘法表 </title>
+		<!-- tr 是行，td 是列 th 是表头-->
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<table border="0.5" bordercolor="yellow" cellpadding="20" >
+				<tr>
+					<th v-bind:class="hstyle" colspan="9">
+						乘法口诀表
+					</th>
+				</tr>
+				
+				<!-- v-once 误打误撞 -->
+				<tr v-for="(hang,index) in defaultdata" :key="index" v-once >
+					<td id="hang + lie" v-for="(lie,index) in defaultdata" :key="index" v-bind:class="cstyle" v-bind:style="cstyleobj" v-on:mouseenter="mouseenterevent" v-on:mouseleave="mouseleaveevent">
+						{{dealM(hang,lie)}}
+					</td>
+				</tr>
+				
+			</table>
+			
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					hstyle:'headercss',
+					cstyle:'contentcss',
+					defaultdata:[
+							1,2,3,4,5,6,7,8,9
+					],
+					currenthang:10,
+					currentlie:10,
+					currentresult:100,
+					
+					counter:0,
+					// cstyleobj:{
+					// 	// background:this.getcurrentbackgrou 无效
+					// 	background:'rgb(100,100,100)' //有效
+					// },
+				},
+				computed:{
+					cstyleobj:{
+						get:function(){
+							this.counter+=1
+							console.log('当前所在行：r=' + this.currenthang + '当前所在列：l=' + this.currentlie +'这是第' + this.counter)
+							return {background:'rgb('+ this.currenthang +',' + this.currentlie + ',' + this.currentresult +')'}
+						},
+						set:function(){
+						}
+					}
+				},
+				methods:{
+					dealM:function(hang,lie){
+						//这个列值被存储作为下一列的值
+						this.currenthang = hang * 10
+						this.currentlie = (lie+1) * 10
+						var currentr = this.currenthang * this.currentlie
+						this.currentresult = currentr > 255 ? 255 : currentr
+						
+						var result = hang * lie
+						if(lie>hang){
+							return ''
+						}else {
+							return hang + 'x' + lie + '=' + result
+						}
+					},
+					// 鼠标移入表格
+					mouseenterevent:function(event){
+						console.log('鼠标移入')
+						// console.log('--' + event.target.id)
+						// var v=document.getElementById("inputid").value;
+					},
+					// 鼠标移出表格
+					mouseleaveevent:function(){
+						console.log('鼠标移出')
+					}
+				}
+			})
+			
+		</script>
+		
+		<style type="text/css">
+			.headercss{
+				background-color: coral;
+				color: white;
+				font-size: 26px;
+			}
+			.contentcss{
+				/* background-color: pink; */
+				color: red;
+				font-size: 20px;
+			}
+		</style>
+	</body>
+	<!-- todo: -->
+	<!-- 1.换个模板 -->
+	<!-- 2.每一个格子的颜色，根据数值来 -->
+	<!-- 3.点击隐藏文字并随机换一个背景色 -->
+	<!-- 4.鼠标进区域，悬浮提示 -->
+	
+</html>

@@ -43,13 +43,16 @@
 		// data1.a = 'hehehe';
 		// vm.a = 'xixi'; 效果同上
 		vm.$watch('a',function(newVal,oldVal){
-			console.log(newVal,oldVal);
+			console.log('a变了'+ newVal,oldVal);
 		});
 		vm.$data.a = 'wao';
 	</script>
 	
-	<!-- 以上想要多个节点共有一份vue数据,这样是不行的,1,id不能重复,只能唯一哦;2,el也只能定义一个;上面就要搞两个id和两个Vue实例;
-	 想要达到目的,旭提供了如下代码:+++++++++++ Vue()实例的作用是,代表该节点下的所有代码又Vue来管理,管有{{}}括起来的对象.
+	<!-- 以上想要多个节点共有一份vue数据,这样是不行的,
+	1,id不能重复,只能唯一哦;
+	2,el也只能定义一个;上面就要搞两个id和两个Vue实例;
+	 想要达到目的,旭提供了如下代码:+++++++++++ 
+	 Vue()实例的作用是,代表该节点下的所有代码由Vue来管理,管有{{}}括起来的对象.
 	 -->
 	 <div id="rootNode">
 	 		<div>
@@ -79,7 +82,7 @@
 	 	// data1.a = 'hehehe';
 	 	// vm.a = 'xixi'; 效果同上
 	 	vm.$watch('a',function(newVal,oldVal){
-	 		console.log(newVal,oldVal);
+	 		console.log('a又变了 ' + newVal,oldVal);
 	 	});
 	 	vm.$data.a = 'wao';
 		vm.$data.b = '呵呵';

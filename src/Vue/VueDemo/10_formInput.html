@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单输入绑定</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<!-- v-model指令，在表单 <input> <textarea> <select> 元素上创建双向绑定数据；
+		 v-model 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：
+		 
+		 text 和 textarea 元素使用 value property 和 input 事件；
+		 checkbox 和 radio 使用 checked property 和 change 事件；
+		 select 字段将 value 作为 prop 并将 change 作为事件。
+		 -->
+		 
+		<div id="app">
+			<span>
+				文本：
+				<input v-model="inputmsg" placeholder="edit me" />
+				<p>inputmsg: {{inputmsg}} </p>
+			</span>
+			
+			<span>
+				多行文本：
+				<!-- style="white-space: pre-line;" 加上这个会换行 -->
+				<p v-bind:class="stylename" style="white-space: pre-line;">{{mulmsg}}</p> 
+				<textarea v-model="mulmsg" placeholder="add multiple lines"></textarea>
+			</span>
+			
+			<br >
+			
+			<span>
+				取 value
+				单个复选框:
+				<input type="checkbox" id='onecheckbox' v-model="checked" />
+				<label  for="onecheckbox">{{checked}}</label> <!-- for="onecheckbox" 有啥用？ -->
+				<br >
+				 多个复选框，绑定 到同一个 数组(选中☑️状态下会加入数组，未选中自动移除，羡慕啊)：
+				 <br >
+				 <input type="checkbox" id='chenjian' value="CJ" v-model="namearr" />
+				 <label for="chenjian">ChenJian</label>
+				 <input type="checkbox" id='hanxu' value="HX" v-model="namearr" />
+				 <label for="hanxu">HanXu</label>
+				 <input type="checkbox" id='child' value="CXY" v-model="namearr" />
+				 <label for="child">ChenXuYuan</label>
+				 <br >
+				 <span>
+					 选中的名字有：{{namearr}}
+				 </span>
+			</span>
+			
+			<br >
+			
+			<span>
+				单选按钮：
+				<input type="radio" id="oneselect" value="1" v-model="onepicked" />
+				<label for="oneselect">第一个选项</label>
+				<input type="radio" id="twoselect" value="2" v-model="onepicked" />
+				<label for="twoselect">第二个选项</label>
+				<br >
+				
+				<span>Picked: {{ onepicked }}</span>
+				
+			</span>
+			
+			<br >
+			
+			<span>
+				选择框：推荐提供一个值为空的禁用选项
+				<select id="select1" v-model="selected">
+					<option disabled value="">
+						请选择
+					</option>
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
+				</select>
+				<br />
+				<p>selected result:{{selected}}</p>
+			</span>
+			
+			<span>
+				多选时 (绑定到一个数组):???todo 怎么数组里面不包含所有选中的，也没看到多选效果？
+				<select id="select2" v-model="selectedt" multiple style="width: 50px;">
+					<!-- <option disabled value="">
+						请选择</option> -->
+					<option>A</option>
+					<option>B</option>
+					<option>C</option>
+				</select>
+				<br />
+				<p>selectedt result:{{selectedt}}</p>
+				
+				<br />
+				<select v-model="vselect">
+					<!-- v-bind:value 指定，选中当前选项时的值是 什么，默认是option自己的value -->
+					<option v-for="item in options" v-bind:value="item.value">
+						{{item.key}}
+					</option>
+				</select>
+				<br>
+				<p>vselect:{{vselect}}</p>
+				
+				<!-- 当选中时，`picked` 为字符串 "a" 
+				对于单选按钮，复选框及选择框的选项，v-model 绑定的值通常是静态字符串 (对于复选框也可以是布尔值)：如下
+				想把值绑定到 Vue 实例的一个动态 property 上，这时可以用 v-bind 实现：如上
+				 -->
+				<input type="radio" v-model="onepicked" value="a">
+				<br />
+				<!-- 值可以绑定为一个对象 -->
+				<select v-model="selectobj">
+					<option v-bind:value="{number:123}" v-on:change="selection">我是123</option> 
+					<!-- v-on:change 无效 ???todo 怎么监听，这个选择器某个选项被选中了呢？ click也无效 selection-->
+				</select>
+				
+			</span>
+			
+			<br />
+			
+			<span>
+				修饰符：
+				.lazy:
+				<!-- 在“change”时而非“input”时更新 -->
+				<input v-model.lazy="inputmsg">
+				<br />
+				.number:
+				<!-- 自动将用户输入值转为数值类型 -->
+				<input v-model.number="age" type="number" />
+				<br />
+				.trim:
+				<!-- 自动过滤用户输入的首尾空白符 -->
+				<input v-model.trim="inputmsg" />
+				
+			</span>
+			
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					stylename:'ss',
+					inputmsg:'',
+					mulmsg:'',
+					checked:false,
+					namearr:[],
+					onepicked:'',
+					selected:'',
+					selectedt:[],
+					options:[
+						{
+							key:'a',
+							value:'A'
+						},
+						{
+							key:'b',
+							value:'B'
+						},
+						{
+							key:'c',
+							value:'C'
+						}
+					],
+					vselect:'',
+					selectobj:{},
+					age:''
+				},
+				methods:{
+					selection:function(){
+						console.log('----'+this.selectobj.number)
+					}
+				}
+			});
+			
+		</script>
+		<style>
+			/* 注意，样式 ID 选择，后面直接就是接{}了，不需要：这是JS的做法 */
+			.ss{
+				background-color: #00BFFF;
+				color: brown;
+				font-size: '18px';
+			}
+		</style>
+	</body>
+</html>

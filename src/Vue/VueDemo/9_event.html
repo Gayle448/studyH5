@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件处理</title>
+		<script src="vue.js" type="text/javascript" charset="UTF-8"></script>
+	</head>
+	<body>
+		<div>
+			
+			所有的 Vue.js 事件处理方法和表达式都严格绑定在当前视图的 ViewModel 上，它不会导致任何维护上的困难。能轻松定位.
+			你无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
+			当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。
+			
+			注意v-on:可以绑定所有事件哦;不zhi只有click事件。
+		</div>
+		
+		<div>
+			事件修饰符：
+		</div>	
+		
+		<div id="app">
+			<!-- 一、
+			 .stop
+			 .prevent
+			 .capture
+			 .self
+			 .once
+			 .passive
+			 -->
+			<!-- 1.监听标签事件，触发JS代码：表达式直接操作变量 -->
+			<button v-on:click="counter += 1"> 点我+1 </button>
+			<span> {{ counter }} </span>
+			<!-- 2.直接操作定义的方法 - 这里只要写方法名就可以了 -->
+			<button v-on:click="addmethod">点我调用方法+1</button>
+			<!-- 3.直接操作定义的方法 - 这里可以直接写JS语句调用方法传参-->
+			<button @click="removemethod(1,$event)">点我可以-1</button>
+			
+			<br />
+			<!-- 4.不使用DOM事件处理细节，v-on提供了事件修饰符 .后缀 表示 -->
+			
+			<!-- ???? 下面理解起来不容易 -->
+			<!-- 阻止单击事件继续传播 ??? -->
+			<a @click.stop="doThis">点我把</a>
+			<!-- 提交事件不再重载页面 -->
+			<a @click.submit.prevent="onSubmit"></a>
+			<!-- 修饰符可以串联 -->
+			<a @click.stop.prevent="doThat"></a>
+			<!-- 只有修饰符 -->
+			<form @submit.prevent></form>
+			<!-- 添加事件 监听器 时 使用事件捕获模式 -->
+			<!-- 即内部元素触发的事件先在此处理，然后才交由内部元素进行处理 -->
+			<div @click.capture="doThis">...</div>
+			<!-- 只当在event.target 是当前元素自身时触发处理函数 -->
+			<!-- 即事件不是从内部元素触发的 -->
+			<div @click.self="doThat"></div>
+			
+			<!-- 使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。 -->
+			<button v-on:click.prevent.self="doThis">看下我进不进点击事件，实际进了点击事件，？？？到底怎么搞</button>
+		
+		<br >
+		<!-- 说是点击事件只会触发一次，拭目以待把 -- 生效 OK -->
+			<a v-on:click.once="doThis">我可以触发几次呢？</a>
+			
+		<!--  2.3.0 新增 Vue 还对应 addEventListener 中的 passive 选项提供了 .passive 修饰符。 -->
+		<!-- 滚动事件的默认行为 (即滚动行为) 将会立即触发 -->
+		<!-- 而不会等待 `onScroll` 完成  -->
+		<!-- 这其中包含 `event.preventDefault()` 的情况 -->
+		<!-- 不要把 .passive 和 .prevent 一起使用. .passive 会告诉浏览器你不想阻止事件的默认行为。-->
+		<div v-on:scroll.passive="onScroll">...</div>
+		
+		<!-- 二、按键修饰符：
+		.enter
+		.tab
+		.delete (捕获“删除”和“退格”键)
+		.esc
+		.space
+		.up
+		.down
+		.left
+		.right
+		 -->
+		 <!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` -->
+		 <input v-on:keyup.enter="submit">
+		 <!-- 直接将 KeyboardEvent.key 暴露的任意有效按键名转换为 kebab-case 来作为修饰符；处理函数只会在 $event.key 等于 PageDown 时被调用 -->
+		 <input v-on:keyup.page-down="onPageDown">
+		 
+		 <!-- 三、用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器 - 快捷键自定义可以:
+			.ctrl
+			.alt
+			.shift
+			.meta
+		  -->
+		  <!-- Alt + C -->
+		  <input v-on:keyup.alt.67="clear" id="inputid">
+		 
+		 <!-- Ctrl + Click -->
+		 <div v-on:click.ctrl="doSomething">Do something</div>
+		 
+		 <!-- 四、.exact 修饰符允许你控制由精确的系统修饰符组合触发的事件 -->
+		 <!-- 即使 Alt 或 Shift 被一同按下时也会触发 -->
+		 <button v-on:click.ctrl="onClick">A</button>
+		 
+		 <!-- 有且只有 Ctrl 被按下的时候才触发 -->
+		 <button v-on:click.ctrl.exact="onCtrlClick">A</button>
+		 
+		 <!-- 没有任何系统修饰符被按下的时候才触发 -->
+		 <button v-on:click.exact="onClick">A</button>
+		 
+		 <!-- 五、这些修饰符会限制处理函数仅响应特定的鼠标按钮
+		 .left
+		 .right
+		 .middle -->
+		 
+		</div>
+		
+		<script>
+			var vm = new Vue({
+				el:'#app',
+				data:{
+					counter:0,
+				},
+				methods:{
+					addmethod:function(event){ // event 没参数的时候，默认的把？
+						alert('点击我也+1哦')
+						this.counter+=1
+						if (event){ //'event' 是原生 DOM事件
+							console.log(event.target.tagName)
+						}
+					},
+					removemethod:function(num,event){ // evnet 是 标签里面 事件 js语句访问DOM事件 传参数过来的
+						this.counter-=num
+						if (event) {
+							console.log('--' + event.target.tagName )
+							event.preventDefault() //组织默认事件
+						}
+					},
+					doThis:function(){
+						console.log('进入this方法')
+					},
+					doThat:function(){
+						console.log('that方法')
+					},
+					clear:function(event){
+						console.log('调用清楚方法')
+						console.log('--' + event.target.tagName )
+						var v=document.getElementById("inputid").value;
+						console.log('输入的内容是'+v)
+						var i=document.getElementById("inputid")
+						// i.textContent = '' todo 怎么清除
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
