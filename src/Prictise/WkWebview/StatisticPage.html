@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试统计SDK API</title>
+
+    <style>
+
+        button{
+            font-size: 50px;
+            font-weight: bold;
+            color: coral;
+            background: yellow;
+            width: 250px;
+            height: 150px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<script>
+    function homepage() {
+        alert("你好啊，我是jc")
+        // window.webkit.messageHandlers.iOSBridge.postMessage( {"action":"home"})
+        iOS.homepage()
+    }
+
+    function columpage() {
+        console.log("栏目统计")
+        // window.webkit.messageHandlers.iOSBridge.postMessage( {"action":"colum"})
+        iOS.columpage()
+    }
+
+    function contentpage() {
+        // iOSBridge("哈哈哈哈哈")
+        window.webkit.messageHandlers.iOSBridge.postMessage( {"action":"content"})
+    }
+
+    function staytimestart() {
+        window.webkit.messageHandlers.iOSBridge.postMessage( {"action":"staytimestart"})
+    }
+
+    function staytimeend () {
+        window.webkit.messageHandlers.iOSBridge.postMessage( {"action":"staytimeend"})
+    }
+
+    function goodbye() {
+        alert("再见呀，jc")
+    }
+
+    // export let iOS = {
+    //     leftBtnImg: ""
+    // };
+    //
+    // iOS.nativeTokenSet = (token, id) => {
+    //
+    // };
+
+</script>
+
+<button type="button" onclick="homepage()">
+    首页统计
+</button>
+
+<button type="button" onclick="columpage()">
+    栏目统计
+</button>
+
+<button type="button" onclick="contentpage()">
+    内容统计
+</button>
+
+<button type="button" onclick="staytimestart()">
+    停留时间统计 开始
+</button>
+
+<button type="button" onclick="staytimeend()">
+    停留时间统计 结束
+</button>
+
+</body>
+</html>
