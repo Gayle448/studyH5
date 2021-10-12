@@ -7,11 +7,12 @@
 
 <!--JavaScript 是所有现代浏览器以及 HTML5 中的默认脚本语言。-->
 
-<!-- JavaScript 可以通过不同的方式来输出数据：
+<!-- JavaScript 没有任何打印或者输出的函数。
+但是 JavaScript 可以通过不同的方式来输出数据：
 
-使用 window.alert() 弹出警告框。
-使用 document.write() 方法将内容写到 HTML 文档中。
-使用 innerHTML 写入到 HTML 元素。
+使用 window.alert() 弹出警告框。 window.alert(5+6) = 11； window.alert("5"+"6") = "11"；
+使用 document.write() 方法将内容写到 HTML 文档中（整串代码，可新增标签等）。
+使用 innerHTML 写入到 HTML 元素（当前标签元素的值）。
 使用 console.log() 写入到浏览器的控制台。-->
 
 <head>
@@ -28,8 +29,18 @@
 
 
             // 您只能在 HTML 输出中使用 document.write - 如下面(2)。如果您在文档加载后使用该方法，会覆盖整个文档。
+            //意思是，如果按流程走，第一次进来会加载所有JS，这个时候write写入的元素是按顺序平铺显示的，如果页面加载之后，如调用事件里面使用write写入的元素会覆盖所有元素，就是把之前所有的代码删了重新开始写（已验证）。
+            document.open("text/html","replace");//默认会加上
             document.write("<h1>这是一个标题</h1>");
             document.write("<p>这是一个段落2</p>");
+            document.write("<button type=\"button\" onclick=\"didwriteagain()\">再次写入数据</button>")
+            document.close();//默认会加上
+        }
+
+        //上面写入数据后，再调下面方法，又覆盖写入了。
+        function didwriteagain(){
+            document.write("<h1>新增标题</h1>");
+            document.write("<p>新增段落</p>");
         }
     </script>
 </head>
@@ -61,13 +72,16 @@
     document.write("<p>这是一个段落2</p>");
 
     function changeImage(element) { //(5)动态改变HTML图像
-        // element = document.getElementById('myImage')
+        element = document.getElementById('myImage')
         if (element.src.match("dog")) //src 属性的值有没有包含 dog 这个字符串
         {
             element.src = "beauty.png"
         }else {
             element.src = "dog.png"
         }
+
+    //    上面使用三目运算更J简洁
+    //     element.src = element.src.match("dog") ? "beauty.png" : "dog.png"
     }
 
 
@@ -93,6 +107,8 @@
 
 <!--(8) 利用外部JS文件操作修改，似乎因为函数名字原因之前报错后面改了就好了-->
 <button type="button" onclick="changeFunction()"> 点我改变段落1的字体颜色 </button>
+
+<!-- 应该把这个JS引入放到最前面的，避免.JS 1017行报错,说 $ 未定义 ； 但是放前面又说要放到这个id 为demo 的后面，不然说找不到id 为demo的元素； 所以二者不可兼得，暂时隐藏 $ 相关代码-->
 <script src="helloworld.js"></script>
 
 <!--常见的HTML事件-->

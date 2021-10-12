@@ -4,7 +4,9 @@
 JavaScript 是 Web 的/轻量级的 编程语言。
 所有现代的 HTML 页面都使用 JavaScript。
 
-这是一个外部JS文件
+
+
+这是一个外部JS文件.
 */
 
 
@@ -148,7 +150,7 @@ function programa () {
 
         JavaScript 使用 Unicode 字符集。Unicode 覆盖了所有的字符，包含标点等字符。
 
-        用分号来结束语句是可选的。
+        用分号来结束语句是 可选的。
 
         JavaScript 会忽略多余的空格。您可以向脚本添加空格，来提高其可读性。
 
@@ -240,8 +242,11 @@ function model(){
 //MARK：JS允许重复定义函数，同名函数，最后一个会覆盖之前的，与参数无关，没有重载概念。
 function firtFunc() {
     console.log('测试第一个函数')
+    console.log('%s world','hello')
+    console.log('%d + 1 = 3' , 2)
+
 }
-firtFunc();
+firtFunc(); //下面firtFunc('') 就算不调用，但是函数有定义，这里打印都会是undefined ，因为变量提升的原因吧？ todo
 
 function firtFunc(arg) {
     console.log(arg)
@@ -321,11 +326,13 @@ function Demo(){
     return obj;
 }
 
-var one=Demo();
+var one = Demo();
 // 调用输出
 document.write(one.age);
 
-function Demo(){
+
+//之前这里的DemoT写的与上Demo同名，导致上面的one变量值为undefined;
+function DemoT(){
     this.name="张思";
     this.age=12;
     this.firstF=function(){
@@ -334,10 +341,10 @@ function Demo(){
     }
 }
 
-var one=new Demo
+var two=new DemoT
 
 // 调用输出
-document.write(one.age);
+document.write(two.age);
 
 
 //MARK：扩展 --
@@ -448,11 +455,11 @@ for (var i = 0; i < 10; i++) {
 }
 // 这里输出 i 为 10
 
-let i = 5;
-for (let i = 0; i < 10; i++) {
+let ij = 5;
+for (let ij = 0; ij < 10; ij++) {
     // 一些代码...
 }
-// 这里输出 i 为 5
+// 这里输出 ij 为 5
 // 在第一个实例中，使用了 var 关键字，它声明的变量是全局的，包括循环体内与循环体外。注意，在函数体内用var声明的变量也是局部作用域哦。
 //
 // 在第二个实例中，使用 let 关键字， 它声明的变量作用域只在循环体内，循环体外的变量不受影响。
@@ -520,7 +527,7 @@ var tx = 5 + 5 + "20"; //"1020"
 var ts = "" + 5 + 5 + "20" ; //"5520"
 var bx = true;
 var bb = bx + 10;   //11
-var bs = bx + "10"; //"110" 字符串与布尔值相加，布尔值转化成字符串。 ?? todo
+var bs = bx + "10"; //"110" 字符串与布尔值相加，布尔值转化成字符串。 !! 牛皮
 var sa = "5";   //字符串
 var sb = + sa;  // sb是一个数字 ,注意和上面不同
 sa = "chenjian";
@@ -542,6 +549,7 @@ var xa = null + bx; //1
 //undefined 除了与字符串进行累加时有效（undefined 视为字符串"undefined"处理），其他情况皆返回 NaN。
 
 //条件运算符 -- 三目运算符：
+let age = 16;
 var resultx = (age < 18) ? "未成年" : "已成年";
 
 // 取反! -- 首先把数据转化为布尔值，然后取反，结果为 true 或 false。
@@ -608,7 +616,7 @@ function testLoop() {
     for (let [key,value] of map) {
         console.log(value);
     }
-    for (let entry of map)) {
+    for (let entry of map) {
         console.log(entry); //打印键值对
     }
 
@@ -685,7 +693,7 @@ outerloop:
     }
 
 //MARK:typeof，null，undefined
-//使用typeof 操作符来检测变量的 数据类型 ；如果对象是 JavaScript Array 或 JavaScript Date ，我们就无法通过 typeof 来判断他们的类型，因为都是 返回 object。
+//JavaScript是弱类型语言，一般可以通过使用typeof 操作符来检测变量的 数据类型 ；如果对象是 JavaScript Array 或 JavaScript Date ，我们就无法通过 typeof 来判断他们的类型，因为都是 返回 object。
 typeof "jone" //string
 typeof 3 //number
 typeof false // boolean
@@ -769,8 +777,12 @@ function  changeType() {
     NaN 是一个特殊的数值，NaN 即非数值（Not a Number），这个数值用于本来要返回数值的操作数未返回数值的情况。
     NaN 与任何值都不相等，包括 NaN 本身。
     可以通过 isNaN() 方法来判断某个数值是否是NaN这个特殊的数，使用 isNaN() 方法会将传入的数值如果是非数值的会将其自动转换成数值类型，若能转换成数值类型，
-    那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。
+    那么这个函数返回 false，若不能转换成数值类型，则这个数就是 NaN，即返回 true。但是严格来讲，空格等某些符号它是判断不出来的，所以还要加上正则，保险起见。
     */
+
+    // if (isNaN(x) || x.replace(/(^\s*)|(\s*$)/g,"")=="") {
+    //     alert("不是数字")
+    // }
 
     // document.getElementById("demo").innerHTML = myVar;
     // 当你尝试输出一个对象或一个变量时 JavaScript 会自动调用变量的 toString() 方法。
@@ -1002,14 +1014,14 @@ xhr.onerror = function () {
     document.getElementById("demo").innerHTML="请求出错";
 }
 
-// 发送异步 GET 请求
+// 发送异步 GET 请求; 这里提示 拦截跨源请求，头部要配置东西： https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS/Errors/CORSMissingAllowOrigin
 xhr.open("GET", "https://www.runoob.com/try/ajax/ajax_info.txt", true);
-xhr.send();
+// xhr.send(); 隐藏此行，暂时避免拦截报错
 
 // todo XMLHttpRequest 的 onload 和 onerror 属性都是函数，分别在它请求成功和请求失败时被调用。如果你使用完整的 jQuery 库，也可以更加优雅的使用异步 AJAX：
-$.get("https://www.runoob.com/try/ajax/demo_test.php",function(data,status){
-    alert("数据: " + data + "\n状态: " + status);
-});
+// $.get("https://www.runoob.com/try/ajax/demo_test.php",function(data,status){
+//     alert("数据: " + data + "\n状态: " + status);
+// });
 
 //Mark: Promise 是一个 ECMAScript 6 提供的类，目的是更加优雅地书写复杂的异步任务。
 // 新建一个 Promise 对象：
@@ -1132,7 +1144,8 @@ var monthdaystr = functionNameb.toString();
 // 上面funcv修改：
 var funcvb = (a,b) => a*b;
 (function(){})() //匿名函数自动调用表达式
-(()=>{})() //箭头函数匿名自动调用表达式
+// (()=>{})() //箭头函数匿名自动调用表达式 todo ？？？ 报错，说不是一个函数： Uncaught TypeError: (intermediate value)() is not a function
+
 //默认参数，形参2个，实参1个，第二个隐式参数默认：undefined；实参多于形参 只能使用arguments对象来获取对应参数。
 function functionNameC (x,y){
     y = y || 0;
@@ -1159,7 +1172,7 @@ function findMax() {
     }
     return max;
 }
-// 函数仅仅只是获取值；不会修改参数值； todo ：待理解
+// 函数仅仅只是获取值；不会修改参数值； 理解: 参数只是个中介，房东要多少，它就告诉你是多少，你没法改变它系统里面录的价格，也不会帮你去跟房东谈。
 // 函数内部可以修改，函数外部属性值。也要是var声明的吧。。
 // functionNameE 不属于任何对象，默认是全局对象-HTML页面本身，functionNameE() = window.functionNameE();里面的this就是全局window对象。
 function functionNameE () {
@@ -1186,9 +1199,9 @@ nameF.firstName = "han";
 function myFunctionA(a, b) {
     return a * b;
 }
-myObjectA = myFunctionA.call(myObjectA, 10, 2);     // 返回 20 myObjectA是一个对象，像是把一个对象传入函数里面使用。todo 待理解运用。
+var myObjectA = myFunctionA.call(myObjectA, 10, 2);     // 返回 20 myObjectA是一个对象，像是把一个对象传入函数里面使用。todo 待理解运用。
 myArray = [10, 2];
-myObjectB = myFunctionA.apply(myObjectB, myArray);  // 返回 20
+var myObjectB = myFunctionA.apply(myObjectB, myArray);  // 返回 20
 //实例：
 var myObject, myArray;
 myObject={
