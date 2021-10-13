@@ -1,0 +1,96 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 10/13/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css动画</title>
+
+    <style>
+        #mydivAnimation {
+            width: 300px;
+            height: 200px;
+            /*设置背景颜色，背景图片，背景图片位置和大小等
+             background-color、background-position、background-size、background-repeat、background-origin、background-clip、background-attachment 和 background-image。*/
+            background: red url("finish.png") no-repeat top left/5px 5px;
+            /*!*-webkit-animation: mymove 5s infinite; !* Chrome, Safari, Opera  ⚠️ *!*!*/
+            /* nfinite 重复-><-><->循环效果 */
+            animation: mymove 5s infinite;
+        }
+
+        @keyframes mymove {
+            /*这个百分之50是干什么的？ todo*/
+            50% {background: blue bottom right/50px 50px;}
+        }
+
+        /* Chrome, Safari, Opera 注意⚠️一般要写两套做支持*/
+        /*@-webkit-keyframes mymove {*/
+        /*50% {background: blue bottom right/50px 50px;}*/
+        /*}*/
+
+    </style>
+
+</head>
+<body>
+
+<div>
+    一些css属性是可以有动画效果的，动画属性可以从尺寸大小、数量、百分比和颜色着手
+</div>
+
+<div id="mydivAnimation"></div>
+
+<p>background 属性是 *所有背景属性* 的简写属性。</p>
+<p>CSS 中仅有 background-color, background-position, 和 background-size 属性支持动画效果。</p>
+<p><b>注意：</b>Internet Explorer 9 及更早 IE 版本不支持 CSS 动画。</p>
+
+</body>
+</html>
+
+
+<!--原来一个页面可以写两个html但是，如果后面的样式 与前面的同名了，前面的样式 会被后面的覆盖掉 ?-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <style>
+        #myDIV1 {
+            width: 300px;
+            height: 200px;
+            /* center 是放在整个页面内容中心的意思， 加上 fixed是指图片一直放在整个可见区域的中心位置，也可理解为把位置固定在某个地方 */
+            background: red url("finish.png") fixed center;
+            animation: mymove1 5s infinite;
+        }
+
+        @keyframes mymove1 {
+            /* background-color */
+            50% {background-color: blue;}
+            50% {background-color: #0cabf4;}
+            50% {background-color: rgb(255,0,255);}
+        }
+
+        /*这两个区别？ */
+        /*@keyframes mymove1*/
+        /*{*/
+            /*!*这个相对mymove只有背景色效果 而且还不会渐变回退 ?  上面会渐变回来*!*/
+            /*from {background-color:red;}*/
+            /*to {background-color:blue;}*/
+        /*}*/
+
+    </style>
+</head>
+<body>
+
+<p>逐步改变背景颜色属性（红-蓝-黑-红）:<p>
+<div id="myDIV1"></div>
+
+<p>background-color 属性支持动画效果。</p>
+<p><b>注意：</b>Internet Explorer 9 及更早 IE 版本不支持 CSS 动画。</p>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 10/13/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>postion定位</title>
+
+    <style>
+        .textcolor{
+            color: purple;
+            background-color: yellowgreen;
+        }
+
+        .fixeds{
+            color: red;
+            position: fixed;
+            left: 90px;
+            background-color: yellow;
+        }
+        .leftmove {
+            position: relative;
+            left:-50px;
+            color: blue;
+        }
+        .rightmove {
+            position: relative;
+            left: 50px;
+            color: green;
+        }
+        .absoluteP {
+            position: absolute;
+            left: 0px;
+            top: 40px;
+            background-color: yellow;
+        }
+
+         .sticky {
+            position: sticky;
+            top: 0px;
+            border: 3px solid yellow ;
+             color: blue;
+             /*元素离边框的距离 只设置一个则为四个方向*/
+             padding: 50px;
+             background-color: yellow;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        元素可以使用的顶部，底部，左侧和右侧属性定位。然而，这些属性无法工作，除非是先设定position属性。
+    </div>
+
+    <div>
+        <p>
+            static : 默认值;不会受到 top, bottom, left, right影响;
+        </p>
+
+        <p>
+            fixed : 元素的位置相对于浏览器窗口是固定位置。即使窗口是滚动的它也不会移动.
+            Fixed定位使元素的位置与文档流无关，因此不占据空间。Fixed定位的元素和其他元素重叠。
+        </p>
+
+        <p>
+            relative : 相对定位，是指相对自己本应该的正常位置，做出的修改.
+            移动相对定位元素，但它原本所占的空间不会改变。
+        </p>
+
+        <p>
+            absolute : 绝对定位的元素的位置相对于最近的已定位父元素，如果元素没有已定位的父元素，那么它的位置相对于html标签的.
+            某个标签用了绝对定位，它后面的标签不会跟着这个走，受这个标签影响了，从上到下正常排铺。
+            absolute 定位使元素的位置与文档流无关，因此不占据空间。
+            absolute 定位的元素和其他元素重叠。
+        </p>
+
+        <p>
+            sticky 粘性定位，设定一个阀值，改变则固定在这个阀值，类似于tableview的组头固定，可以引申。
+        </p>
+
+        <p> z-index 堆叠元素，可为负数，默认应该是0吧，谁越大，就显示在上层。没有设置z-index,就看谁的代码写在后面就显示在上面，但是前面说的那几种定位就好像默认 都会提到最上面来的 </p>
+
+    </div>
+
+    <div class="textcolor">
+        <p class="absoluteP">
+            我是等会要绝对定位的文字,搞不懂top为什么和第一行不重叠 ??
+        </p>
+
+        <p>
+            我是要绝对定位的文字的后面一段文字
+        </p>
+    </div>
+
+    <div>
+        <p>
+            我是正常的元素
+        </p>
+        <p class="leftmove">
+            我是左移的元素
+        </p>
+        <p class="rightmove">
+            我是右移的元素
+        </p>
+    </div>
+
+
+    <div class="textcolor">
+        <p class="fixeds">我是固定元素</p>
+
+        <p class="sticky">
+            我是测试粘性定位的元素
+        </p>
+
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+        <p>
+            我是填充元素
+        </p>
+    </div>
+</body>
+</html>
