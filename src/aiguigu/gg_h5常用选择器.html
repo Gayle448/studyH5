@@ -12,6 +12,10 @@
             color: red;
         }
 
+        div{
+            color: pink;
+        }
+
         #p1 {
             color: yellow;
         }
@@ -24,36 +28,60 @@
             font-size: larger;
         }
 
-        4.选择器分组 以上并集
+        span{
+            color: cornflowerblue;
+        }
+
+        /*4.选择器分组 以上并集 都遵守以下样式，之前定义的会被覆盖*/
         /*p , #p1 , .p3 {*/
-            /*background-color: chartreuse;*/
+            /*background-color: yellow;*/
+            /*color: coral;*/
         /*}*/
 
         /*5.通配选择器-可以选中页面中所有元素、标签*/
-        *{
-            background-color: cyan;
-        }
+        /**{*/
+            /*background-color: cyan;*/
+        /*}*/
 
         /*6.交集-同时满足多个选择器要求的元素,例子，即是span，又用了class 为p3的标签*/
         span.p3 {
-            background-color: crimson;
+            background-color: blueviolet;
         }
 
 
-        /*7.指定父子元素的 选择器 语法：祖先元素 后代元素{} */
-        div span {
-            color:green;
-        }
-        /* 后代的后代 */
+        /*7.指定父子元素的 选择器 语法：祖先元素 后代元素{} ? 菜鸟的说法是，选择div标签里面所有的 span元素，但是我感觉不靠谱*/
+        /*div span {*/
+            /*color:green;*/
+        /*}*/
+        /* 7.1后代的后代 ? 下面有做测试，讲道理只要满足这种嵌套关系就行 */
         div p span {
             color: purple;
         }
-         /* 只要子元素，不要子的后代 (IE6不支持)*/
-        div > span {
-            color: coral;
-        }
 
-        /*8，类选择器与属性选择器优先级-，两种写法一样优先*/
+        /*第二组测试 不成立 div有毒*/
+        /*span p div {*/
+            /*color: olive;*/
+        /*}*/
+        /*成立*/
+        /*span div {*/
+            /*color: red;*/
+        /*}*/
+        /*不成立 ， 整不明白了，哈哈，可能div比较特殊，有些小崽子左右不了它把 ?? */
+        /*p div {*/
+            /*color: blue;*/
+        /*}*/
+
+         /* 7.2只要子元素，不要子的后代 (IE6不支持) ？ 菜鸟的说法是，选择所有父元素是div的 span元素*/
+        /*div > span {*/
+            /*color: coral;*/
+        /*}*/
+
+        /*7.3 ？ 菜鸟的意思是：选择所有紧跟在 <div> 元素之后的第一个 <p> 元素，但是下面测试无效*/
+        /*div + p {*/
+            /*color: cyan;*/
+        /*}*/
+
+        /*8，类选择器与属性选择器优先级-，两种写法一样优先，看先后顺序*/
         .header{
             color: red;
         }
@@ -70,6 +98,29 @@
         [id="header"] {
             color: cornsilk;
         }
+
+        /*10. 选择所有带有target属性元素 , 其他有中括号括起来的基本和属性有关*/
+        [target] {
+        }
+
+        /*11.和链接有关的选择器*/
+        a:link{
+            color: cyan;
+        }
+
+        a:visited{
+            color: grey;
+        }
+
+        a:active{
+            color: coral;
+        }
+
+        a:hover{
+            color: yellow;
+        }
+
+        /*等等等 具体参考菜鸟 ： https://www.runoob.com/cssref/css-selectors.html*/
 
     </style>
 </head>
@@ -110,7 +161,153 @@
 
 
     <div class="header">
-        我是测试选择器的
+        我是测试类选择器的
+    </div>
+
+    <div id="header">
+        我是测试ID选择器的
+    </div>
+
+    <span class="p3">
+        测试选择器交集
+    </span>
+
+    <div>
+        <span>
+            我是绿色的吗? 不是，被7.2 div > span 覆盖了
+        </span>
+    </div>
+
+    <div>
+        哈哈
+        <span>
+            那我是橙色的
+            <p>
+                上一级元素的样式与我无关，不管你用没用大于号
+            </p>
+        </span>
+
+    </div>
+
+    <div>
+        第一层div
+        <p>
+            第二层p
+            <span>
+                第三层span
+                <span>
+                    第四层span1
+
+                    <span>
+                    第五层span1
+                    </span>
+                </span>
+                <div>
+                    第四层div
+                    <span>
+                    第五层span2
+                    </span>
+                </div>
+             </span>
+
+        </p>
+
+        这里是个有趣的对比啊，本来像立即 div p span 这个组合的，没想到糊涂了，span下面的span中间隔了div就不生效，隔了p就生效，晕
+
+        <p>
+            第二层p2
+            <span>
+                第三层span2
+                <p>
+                    第四层p2
+                    <span>
+                        第五层span2
+                    </span>
+                </p>
+            </span>
+        </p>
+
+        再来个对比
+
+        <span>
+            第二层span3
+            <p>
+                第三层p3
+                <p>
+                    第四层p3
+                    <span>
+                        第五层span3，没想到成功了，这么看来只要满足这种嵌套关系就行，但是上面第一种被div打断了，难道是个例外？ todo
+                    </span>
+                </p>
+            </p>
+        </span>
+
+        再来一次
+
+        <div>
+            第二层div4
+            <p>
+                第三层p4
+                <div>
+                    第四层div4
+                    <span>
+                        第五层span4
+                        <span>
+                            第六层span4，我怎么感觉找到点原因了，待我改下 div p span 顺序看看
+                        </span>
+                    </span>
+                </div>
+            </p>
+        </div>
+    </div>
+
+
+<div>
+    第二组测试 后代后代关系
+</div>
+
+<span>
+    第一层1
+    <p>
+        第二层1
+        <div>
+            第三层1，什么鬼，为什么这个不成立，这么完美的组合都不成立，🥲
+        </div>
+    </p>
+</span>
+
+<span>
+    hahahah
+    <div>
+        divdivdiv有毒
+    </div>
+</span>
+
+<p>
+    ppp
+    <div>
+       divdiv
+    </div>
+</p>
+
+    <div>
+        测试7.3 div + p
+        <p>
+            第一个p
+        </p>
+    </div>
+
+    <div>
+        ------- 我是一条美丽的分割线 -------
+    </div>
+
+
+    <div>
+        <a href="https://baidu.com">我是百度网站</a>
+
+        <br>
+
+        <a href="https://qq.com">我也是百度网站</a>
     </div>
 
 </body>
