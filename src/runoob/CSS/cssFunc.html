@@ -1,0 +1,212 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 10/14/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css函数</title>
+
+    <style>
+        p{
+            color: red;
+            background-color: yellow;
+        }
+        div{
+            color: #F5F9F5;
+            /*background-color: attr(color);  为什么不能这么弄，因为是在css里面，值必需是它这个字段指定的数据类型吧，这个属性最好还是放到js里面用可以赋值给变量，方便存取 todo*/
+        }
+        div a:after{
+            /*不过为什么要用双引号这么括起来 还不知道 todo*/
+            content: "("attr(href)")";
+        }
+        :root {
+            --mainbgcolor:yellow;
+            --maincolor:red;
+            --bordercolor:green;
+        }
+        .mydiv {
+            width: 200px;
+            height: 100px;
+            background-color: var(--mainbgcolor);
+            color: var(--maincolor);
+            border: 10px solid var(--bordercolor);
+        }
+
+        .lengthDiv{
+            /*position: absolute; 把这里隐藏 left设置就无效了 */
+            background-color: yellow;
+            color: green;
+            border: coral 10px solid;
+            text-align: center;
+            left: 100px;
+            width: calc(100% - 200px);
+        }
+
+        .bezierdiv {
+            width: 100px;
+            height: 100px;
+            background: red;
+            transition: width 3s;
+            transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        }
+        .bezierdiv:hover {
+            width:300px;
+        }
+        .hlscolor1 {
+            color: hsl(0,50%,50%);
+            /*https://www.runoob.com/cssref/css-colornames.html 英文单词是预定义颜色名称，可参考，颜色还有十六进制、rgb()方式 */
+        }
+        .hlscolor2 {
+            color: hsl(120,80%,80%);
+        }
+        .hlscolor3 {
+            color: hsl(240,10%,10%);
+        }
+        .hlscolor4 {
+            color: hsla(240,10%,10%,0.5);
+        }
+
+        .gradient {
+            width: 100%;
+            height: 150px;
+            background-image: linear-gradient(to left top, red 30%, blue 60%, greenyellow 90%);
+        }
+        .repeatlinegra {
+            width: 80%;
+            height: 250px;
+            background-image: repeating-linear-gradient(45deg, red, blue 7%, green 10%);
+        }
+        .radialgradient {
+            width: 100px;
+            height: 100px;
+            background-image: radial-gradient(circle , red, green, yellow);
+        }
+        .repeatradialgra {
+            width: 200px;
+            height: 200px;
+            background-image: repeating-radial-gradient(red, yellow 10%, green 15%);
+        }
+        .pcolor1 {
+            background-color: rgb(100,100,100);
+        }
+        .pcolor2 {
+            background-color: rgb(200,20,200);
+        }
+        .pcolor3 {
+            background-color: rgba(100,100,100,0.5);
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <p>
+        attr()函数，获取对应属性值
+    </p>
+    <a href="https://baidu.com">
+        我是第一个可跳转的文字，后面带链接
+    </a>
+</div>
+<a href="//baidu.com">
+    我也是一个可跳转的文字，后面没有链接
+</a>
+
+<div>
+    <p>
+        var() 函数用于插入自定义的属性值，如果一个属性值在多处被使用，该方法就很有用。
+    </p>
+    <div class="mydiv">
+        取自定义属性的值赋值的颜色。
+    </div>
+</div>
+
+<div>
+    <p>
+        calc() 函数用于动态计算长度值,任何长度值都可以使用calc()函数进行计算,支持四则运算
+    </p>
+
+    <div class="lengthDiv">
+        这个div的宽度是根据lengthDiv样式里面的，calc()函数里的表达式 计算出来的
+        todo 这里引申出一个问题：此处用了绝对定位，影响了后面的布局，后面的元素，不会默认跟在这个元素之后排铺，而是放在它之前的元素之后
+        这就是它的讲解里面所说的:元素的位置与文档流无关，然后不占空间的意思吗？这种情况怎么处理呢？临时处理隐藏position设置
+    </div>
+</div>
+
+<div>
+    <p>
+        贝塞尔曲线，使用场景和概念理解还有待加强。示例是一个动画速度运用了这个曲线原理。
+    </p>
+
+    <div class="bezierdiv">
+    </div>
+</div>
+
+<div>
+    <p>
+        hsl() 色相、饱和度、亮度
+    </p>
+    <p class="hlscolor1">
+        颜色1
+    </p>
+    <p class="hlscolor2">
+        颜色2
+    </p>
+    <p class="hlscolor3">
+        颜色3
+    </p>
+    <p class="hlscolor4">
+        颜色4，有透明度
+    </p>
+</div>
+
+<div>
+    <p>
+        linear-gradient() 线性渐变函数，用于创建一个表示两种或多种颜色线性渐变的图片。可以指定方向轴角度，方向从哪到哪，多种颜色和其开始渐变位置.
+    </p>
+    <div class="gradient"></div>
+
+    <p>
+        repeating-linear-gradient() 函数用于创建重复的线性渐变 "图像"。
+    </p>
+    <div class="repeatlinegra"></div>
+
+</div>
+
+<div>
+    <p>
+        radial-gradient() 函数用径向渐变创建 "图像"。径向渐变由中心点定义。为了创建径向渐变你必须设置两个终止色。
+    </p>
+
+    <div class="radialgradient"></div>
+
+    <p>
+        repeating-radial-gradient() 函数用于创建重复的径向渐变 "图像"。
+    </p>
+    <div class="repeatradialgra"></div>
+</div>
+
+<div>
+    <p>
+        rgb() 函数使用红(R)、绿(G)、蓝(B)三个颜色的叠加来生成各式各样的颜色。值支持0-255，还有百分比。
+    </p>
+
+    <p class="pcolor1">
+        rgb 颜色1
+    </p>
+
+    <p class="pcolor2">
+        rgb 颜色2
+    </p>
+
+    <p class="pcolor3">
+        rgb 颜色3
+    </p>
+</div>
+</body>
+</html>
