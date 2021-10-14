@@ -57,6 +57,10 @@
   background-size,设置背景图像大小 *length* (宽 高) 只设置一个,另一个自动(怎么个自动法?)  |  *percentage* (百分比:宽 高)  |  cover(保持比例 满足短边,超出裁剪)  |  contain(保持比例 满足长边,完整显示)
 
   background-repeat ,设置背景图像是否重复怎么重复,默认 repeat(纵向横向重复),no-repeat(不重复),repeat-x(横向重复),repeat-y(纵向重复),inherit 可从父类继承
+  
+  background-blend-mode ,设置背景层混合模式
+  
+  
 
 * border 边框
 
@@ -65,6 +69,9 @@
   border-style, 边框样式, 上 右 下 左,可组合设,只有 none(无)、hidden(隐藏)、dotted(点状)、dashed(虚线)、solid(实线)、double(双实线)、groove、ridge、inset、outset (这几个是3D效果待使用时了解),可继承
 
   border-color,边框颜色, 上 右 下 左,十六进制、rgb等,transparent透明,可继承
+  
+  border-radius 属性是一个最多可指定四个 border -*- radius 属性的复合属性
+  
 
   border-bottom, 底部边框,宽度 样式 颜色, 可继承
 
@@ -73,6 +80,36 @@
   border-bottom-left-radius ,下 左 角边框的圆角弧度,长度或边框百分比
   
   border-bottom-right-radius, 下 右 角边框的圆角弧度,长度或边框百分比
+  
+  border-collapse 属性设置表格的边框是否被合并为一个单一的边框，还是像在标准的 HTML 中那样分开显示 (看着效果像是 实心/空心)。
+  
+  
+  border-top 简写属性把上边框的所有属性设置到一个声明中. 属性：border-top-width, border-top-style, and border-top-color.
+  
+  
+  border-left 简写属性把左边框的所有属性设置到一个声明中。 属性： border-left-width, border-left-style, and border-left-color.
+  
+  
+  border-right 简写属性把右边框的所有属性设置到一个声明中。 属性：：border-right-width, border-right-style, and border-right-color.
+  
+  
+  border-spacing 属性设置相邻单元格的边框间的距离（仅用于"边框分离"模式）。上 右 下 左 
+
+
+  border-image, 图片边框 各种设置简写
+  
+  border-image -width属性指定图像边界的宽度。
+  
+  border-image-source属性指定要使用的图像，而不是由border-style属性设置的边框样式。
+  
+  border-image -slice属性指定图像的边界向内偏移。（待理解）
+  
+  border-image -width属性指定图像边界的宽度。
+  
+  border-image-outset用于指定在边框外部绘制 border-image-area 的量。 （待理解）
+  
+  border-image-repeat 属性用于图像边界是否应重复（repeated）、拉伸（stretched）或铺满（rounded）。
+  
   
   [border-top-left-radius](https://www.runoob.com/cssref/css3-pr-border-top-left-radius.html) 、[border-top-right-radius](https://www.runoob.com/cssref/css3-pr-border-top-right-radius.html)、[border-top-left-radius](https://www.runoob.com/cssref/css3-pr-border-top-left-radius.html)、[border-top-right-radius](https://www.runoob.com/cssref/css3-pr-border-top-right-radius.html)
   
@@ -87,7 +124,11 @@
   box-shaow, boxShadow 属性把一个或多个下拉*阴影*添加到框上(多个逗号隔开)。*h-shadow 垂直阴影位置、 v-shadow 水平阴影位置、 blur模糊距离、 spread 阴影大小 、color 阴影颜色 、inset 由外到内改*. 例子:[旋转图像](https://www.runoob.com/try/try.php?filename=trycss3_image_gallery)还蛮有趣.
   
   
+* box 相关
   
+  box-align、box-flex、box-drection、 box-drection-group、box-lones、等等待了解 todo
+  
+    
   
   
 * postion 定位  static、relative、absolute、sticky、z-index

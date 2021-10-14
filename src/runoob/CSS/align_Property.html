@@ -1,0 +1,80 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 10/14/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>align相关的属性</title>
+
+    <style>
+
+        div{
+            color: red;
+        }
+        .p1 {
+            all: inherit;
+        }
+        .p2 {
+            all: initial;
+        }
+        .p3 {
+            all: unset;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div>
+    估摸着还没学到容器、盒子、模型，这些概念理解不够深入
+    <p>
+        align-content: stretch (默认)|center|flex-start|flex-end|space-between|space-around|initial|inherit;
+        align-content 属性在弹性容器内的各项没有占用交叉轴上所有可用的空间时对齐容器内的各项（垂直）。
+        代码测试先不写了，具体效果见： https://www.runoob.com/try/playit.php?f=playcss_align-content&preval=stretch
+        类似于 horizion
+    </p>
+
+    <p>
+        align-items: stretch (默认)|center|flex-start|flex-end|baseline|initial|inherit;
+        align-items 属性定义flex子项在flex容器的当前行的侧轴（纵轴）方向上的对齐方式。
+        没法用语言表单，看以后用到了，参考这个效果写吧：https://www.runoob.com/try/playit.php?f=playcss_align-items&preval=stretch
+    </p>
+
+    <p>
+        align-self 属性定义flex子项单独在侧轴（纵轴）方向上的对齐方式。
+        注意：align-self 属性可重写灵活容器的 align-items 属性。
+        理解是单独某一项元素执行上述items一样的效果：https://www.runoob.com/try/playit.php?f=playcss_align-self&preval=stretch
+    </p>
+
+    <p class="p1">
+        all inherit
+    </p>
+
+    <p class="p2">
+        all initial
+    </p>
+
+    <p class="p3">
+        all unset
+        修改所有元素属性或父元素的值为其父元素的值(如果有继承)或其初始值
+    </p>
+
+</div>
+
+<div>
+    appearance 属性允许您使元素看上去像标准的用户界面元素。所有主流浏览器都不支持 appearance 属性。
+    <p>
+
+    </p>
+</div>
+
+
+</body>
+</html>

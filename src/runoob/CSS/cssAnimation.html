@@ -18,14 +18,18 @@
             height: 200px;
             /*设置背景颜色，背景图片，背景图片位置和大小等
              background-color、background-position、background-size、background-repeat、background-origin、background-clip、background-attachment 和 background-image。*/
-            background: red url("finish.png") no-repeat top left/5px 5px;
+            /*background: red url("finish.png") no-repeat top left/5px 5px;*/
             /*!*-webkit-animation: mymove 5s infinite; !* Chrome, Safari, Opera  ⚠️ *!*!*/
-            /* nfinite 重复-><-><->循环效果 */
+            /* infinite 重复-><-><->循环效果 因素1 设置初始值 回退 因素2 */
+            background: red url("finish.png") no-repeat top left/5px 5px;
             animation: mymove 5s infinite;
         }
 
         @keyframes mymove {
-            /*这个百分之50是干什么的？ todo*/
+            /*这个百分之50 是动画回退 因素3 设置为100%则不会回退了，如果吧top为 初始background放这里，上面不设置初始值，就会后面突然会到刚开始0的画面，没有回退；
+            理解就是动画的完成节点要是对称的就可以，还有一个参数是是否可以反向播放的，那个参数也可以看下
+            */
+            /*0% {background: red url("finish.png") no-repeat top left/5px 5px;}*/
             50% {background: blue bottom right/50px 50px;}
         }
 
@@ -82,15 +86,85 @@
             /*to {background-color:blue;}*/
         /*}*/
 
+        .jcdiv {
+            width: 100px;
+            height: 100px;
+            background-color: cyan;
+            animation-name: jcanimation;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-delay: 2s;
+        }
+
+        @keyframes jcanimation {
+            50% {background-color: coral; width: 200px; height: 200px}
+        }
+
+        .funnydiv
+        {
+            width:100px;
+            height:100px;
+            background:red;
+            position:relative;
+            animation:funnydivanimation 5s infinite;
+            /*alternate 奇数次正，偶数次反(感觉这个效果可以通过只设置 50%的节点完成，不设置这个参数)； alternate-reverse (奇数次 反 偶数次 正) ； normal 默认值，正常播放；reverse 反向播放； 🉑️继承 */
+            animation-direction:alternate;
+            /*具体啥效果也还没弄懂，反正是一个开头和结尾时的设置*/
+            animation-fill-mode: forwards;
+            /*指定暂停和运行时的动画*/
+            animation-play-state: running;
+        }
+
+        @keyframes funnydivanimation
+        {
+            0%   {background:red; left:0px; top:0px;}
+            25%  {background:yellow; left:200px; top:0px;}
+            50%  {background:blue; left:200px; top:200px;}
+            75%  {background:green; left:0px; top:200px;}
+            100% {background:red; left:0px; top:0px;}
+        }
     </style>
 </head>
+
 <body>
 
 <p>逐步改变背景颜色属性（红-蓝-黑-红）:<p>
 <div id="myDIV1"></div>
 
 <p>background-color 属性支持动画效果。</p>
-<p><b>注意：</b>Internet Explorer 9 及更早 IE 版本不支持 CSS 动画。</p>
+<p>注意：Internet Explorer 9 及更早 IE 版本不支持 CSS 动画。</p>
+
+
+<div>
+
+    <p>
+        @keyframes 理解:
+        使用@keyframes规则，你可以创建动画。
+        创建动画是通过逐步改变从一个CSS样式设定到另一个。
+        在动画过程中，您可以更改CSS样式的设定多次。
+        指定的变化时发生时使用％，或关键字"from"和"to"，这是和0％到100％相同。
+        0％是开头动画，100％是当动画完成。
+
+        元素：动画名称、动画进度节点、动画样式 三个必需的
+    </p>
+
+    <p>
+        animation 动画：在css里面使用简写属性把 animation 绑定到一个div 元素；
+        animation: name (动画名) duration （动画时长） timing-function （动画速度可以使用 速度曲线函数） delay （动画延迟） iteration-count (播放次数 infinite是无数次) direction (正向 反向播放方式) fill-mode (动画开始和结束的时候显示的样式) play-state (指定暂停时/运行时的动画);
+        这些值也是一个单独的属性。
+    </p>
+
+    <div class="jcdiv">
+
+    </div>
+
+    <div class="funnydiv">
+
+    </div>
+
+</div>
+
+
 
 </body>
 </html>
