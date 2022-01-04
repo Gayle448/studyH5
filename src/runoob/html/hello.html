@@ -75,3 +75,372 @@
 
 </body>
 </html>
+
+
+
+<template lang="">
+    <div class="select_wrapper">
+        <div id="content_wrapper" class="studyAgeain_wrapper">
+            <div >
+                <!-- refreshState todo scrollview -->
+                <div class="studyAgeain-list" v-if="studyAgainList.length">
+                    <div class="studyAgeain-item" v-for="(item,index) in studyAgainList" :key="index">
+                        <div class="course-pic widthFix">
+                            <img :src="item.logo" />
+                        </div>
+                        <div class="course-info">
+                            <div class="course-title">
+                                {{item.className}}
+                            </div>
+                            <div class="time">
+                                下单时间
+                            </div>
+                            <button v-if="isshowticket(item.statusCode)" v-bind:class="getbuttoninfo(item).class" @click="getbuttoninfo(item).action">
+                                <!-- v-bind:data-info="getbuttoninfo(item)" -->
+                                <!-- todo 组件绑定的那些数据是否可以放到下面方法对象里 -->
+                                {{getbuttoninfo(item).html}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div v-else style="text-align:center;padding-top:100px;">
+                    暂无记录
+                </div>
+                <!-- TODO:
+                //       <modal hidden="{{showModal}}" no-cancel="{{img === 'under-review'}}" bindcancel="modalCancel" bindconfirm='modalConfirm' data-type="{{img}}" cancel-text="取消" confirm-text="{{img === 'failed' ? '重新申请' : img === 'adopt' ? '前往查看' : '我知道了'}}" confirm-color="#2DD19E">
+                //         <view class='modal-content {{img}}-content'>
+                //           <image mode='widthFix' src="{{onlineImg}}/{{img}}-img.png"></image>
+                //           <rich-text nodes="{{modalContent}}"></rich-text>
+                //         </view>
+                //       </modal>
+                 -->
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import util from '@/utils'
+    export default {
+        data() {
+            return {
+                onlineImg: "https://exam.ipmph.com/miniProgramLogo",
+                studyAgainList: []
+            };
+        },
+        computed: {},
+        components: {},
+        async created() {
+            let res = await this.$api.getstudyaginlist()
+            this.studyAgainList = res.data.classlist
+            console.log('申请重学列表接口返回数据===', res)
+        },
+        methods: {
+            //   方式三
+            isshowticket(statusCode) {
+                if (this.isapplystudyagain(statusCode) || this.isauditing(statusCode) || this.ispassed(statusCode) || this.isrefused(statusCode)) {
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            //  申请重学
+            isapplystudyagain(statusCode){
+                if (statusCode == "-1") {
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            //   审核中
+            isauditing(statusCode){
+                if (statusCode == "0") {
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            //  已通过
+            ispassed(statusCode){
+                if (statusCode == "1") {
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            //  未通过
+            isrefused(statusCode){
+                if (statusCode == "2") {
+                    return true;
+                }else {
+                    return false;
+                }
+            },
+            //  class name 和 html name
+            getbuttoninfo(item){
+                var data = {
+                    'html':'',
+                    'class':'',
+                    'type':'',
+                    'action':'',
+                    'classID': item.classID,
+                    'orderID': item.orderID
+                };
+
+                if (this.isapplystudyagain(item.statusCode)) {
+                    console.log("进了方法----");
+                    // data.html = '申请重学';
+                    // data.class = 'apply-btn';
+                    // data.type = 'apply';
+                    // data.action= 'modalShow';
+                    return {
+                        'html': '申请重学',
+                        'class': 'apply-btn',
+                        'type': 'apply',
+                        'action': 'modalShow()',
+                        'classID': item.classID,
+                        'orderID': item.orderID
+                    };
+                }else if (this.isauditing(item.statusCode)) {
+                    data.html = '审核中';
+                    data.class = 'under-review-btn';
+                    data.type = 'under-review';
+                    data.action = 'modalShow';
+                    // return {
+                    //   'html': '审核中',
+                    //   'class': 'under-review-btn',
+                    //   'type': 'under-review',
+                    //   'action': 'modalShow',
+                    //   'classID': item.classID,
+                    //   'orderID': item.orderID
+                    // };
+                }else if (this.ispassed(item.statusCode)) {
+                    data.html = '已通过';
+                    data.class = 'adopt-btn';
+                    data.type = 'adopt';
+                    data.action = 'modalShow';
+                    // return {
+                    //   'html': '已通过',
+                    //   'class': 'adopt-btn',
+                    //   'type': 'adopt',
+                    //   'action': 'modalShow',
+                    //   'classID': item.classID,
+                    //   'orderID': item.orderID
+                    // };
+                }else if (this.isrefused(item.statusCode)) {
+                    data.html = '未通过';
+                    data.class = 'failed-btn';
+                    data.type = 'failed';
+                    data.action = 'modalShow';
+                    // return {
+                    //   'html': '未通过',
+                    //   'class': 'failed-btn',
+                    //   'type': 'failed',
+                    //   'action': 'modalShow',
+                    //   'classID': item.classID,
+                    //   'orderID': item.orderID
+                    // };
+                }
+                return data;
+            },
+            modalShow(){
+                console.log("展示弹窗----");
+
+                // util.showModal({
+                //   title: '提示',
+                //   content: '您已作答完毕，是否重新作答',
+                //   cancelText:'取消',
+                //   cancelColor:'#999',
+                //   confirmText: '确认',
+                //   confirmColor: '#2DD0AE',
+                //   success: function(res) {
+                //     if (res.confirm) {
+                //       console.log('确定')
+                //     }
+                //   }
+                // })
+                // TODO:
+                // this.$dialog.confirm({
+                //     title: '提示',
+                //     message: `<div>您已成功开通<span class="adopt">“”</span>重学课程，请前往<span class="adopt">我的学堂</span>查看，祝您学习愉快！</div>`,
+                //     cancelButtonText:'取消',
+                //     cancelButtonColor:'#999',
+                //     confirmButtonText: '确认',
+                //     confirmButtonColor: '#2DD0AE'
+                //   }).then((res) => {
+                //     if (res) {
+                //       // wx.navigateTo({
+                //       //   url: '/pages/loginMode/loginMode',
+                //       // })
+                //     }
+                //   })
+                //   .catch(() => {
+                //     // on cancel
+                //   });
+            },
+            apply(data){
+                console.log("申请数据:" + data);
+
+                // var infodata = info.getAttribute("data-info");
+                // alert("The " + animal.innerHTML + " is a " + animalType + ".");
+
+            },
+            toSchoolReport(item){
+                console.log(item)
+                // v-bind:data-
+
+                if (item.useStatus == "0") {
+                    //   方式一
+                    //   this.$router.push({ path: `/couponDetail?batchId=${item.batchID}&couponID=${item.couponID}` })
+                    // url: `../schoolReport/schoolReport?classid=${dataSet.classid}&orderid=${dataSet.orderid}`
+                    //   方式二
+                    this.$router.push({
+                        name: 'schoolReport',
+                        query: item
+                    })
+                }
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    .select_wrapper {
+        background:#f5f5f5;
+        min-height: 100vh;
+    }
+
+    .studyAgeain_wrapper{
+        /* background:#f5f5f5;
+        min-height:calc(100vh - 88px); */
+        overflow-y: auto;
+        box-shadow:inset 0px 5px 5px -8px rgba(80,155,118,35);
+    }
+
+    .studyAgeain-list{
+        padding:15px;
+    }
+
+    .studyAgeain-item{
+        background:#fff;
+        margin:15px 0;
+        border-radius:10px;
+        overflow:hidden;
+        display:flex;
+        box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+    }
+
+    .course-pic{
+        width:100px;
+        position: relative;
+        height:100px;
+        overflow:Hidden;
+
+    img{
+        width:100%;
+    }
+
+    em{
+        width:44px;
+        position: absolute;
+        left:-1px;
+        top:10px;
+    }
+    }
+
+    .course-info{
+        width:calc(100% - 120px);
+        padding:0px 10px;
+        position: relative;
+
+    .course-title{
+        font-size:15px;
+        color:#333;
+        line-height:25px;
+        margin-top:10px;
+    }
+
+    .time{
+        font-size:12px;
+        color:#999;
+    }
+
+    button{
+        position: absolute;
+        right:0;
+        bottom:0;
+        border:none;
+        color:#fff;
+        width:60px;
+        height:30px;
+        line-height:30px;
+        padding:0;
+        font-size:12px;
+        border-radius:0;
+    }
+    .apply-btn{
+        background:#4073EA;
+    }
+
+    .under-review-btn{
+        background:#FC712E;
+    }
+
+    .failed-btn{
+        background:#EC2F2F;
+    }
+
+    .adopt-btn{
+        background:#2DD19E;
+    }
+    }
+
+    .modal-content{
+        color:#8C8C8C;
+        font-size:14px;
+        line-height:21px;
+    }
+
+    .adopt-content img,
+    .failed-content img{
+        width:125px;
+        display:block;
+        margin:0 auto 10px;
+    }
+
+    .adopt-content .title,
+    .failed-content .title{
+        color:#2DD19E;
+        text-align:center;
+        font-size:16px;
+        margin-bottom:15px;
+    }
+
+    .failed-content .title{
+        color:#EC2F2F;
+    }
+
+    .adopt{
+        color:#2DD19E;
+    }
+
+    .failed{
+        color:#EC2F2F;
+    }
+
+    .under-review-content>img{
+        width:100%;
+    }
+
+    .under-review-content .title{
+        text-align:center;
+        font-size:16px;
+        color:#333;
+        margin-bottom:15px;
+
+    img{
+        width:18px;
+        margin-right:5px;
+    }
+    }
+</style>

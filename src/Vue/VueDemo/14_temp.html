@@ -1,0 +1,120 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 11/4/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+
+
+
+<van-form @submit="loginForm">
+    <div class="input_wrapper">
+        <van-cell-group class="cell_wrapper">
+            <van-field v-model="nameValue" name="realName" label="甲方(姓名)" placeholder="请填写甲方姓名" @input="valueInput" :disabled="isSigned"/>
+        </van-cell-group>
+    </div>
+    <div class="input_wrapper">
+        <!-- <span class="cell_wrapper cell_textwrapper">性别</span> -->
+        <!-- todo 排列问题 选中问题 -->
+        <van-radio-group direction="horizontal" @change="radioChange" v-model="sex">
+            <van-radio v-for="(item,index) in items" :key="index" :name="item.value" checked-color="#2DD19E">{{item.name}}</van-radio>
+            <!-- :checked="item.checked" 还需不需要-->
+        </van-radio-group>
+    </div>
+    <div class="input_wrapper">
+        <van-cell-group class="cell_wrapper">
+            <!-- name是标识符 value是值 -->
+            <van-field type= "digit" v-model="IDValue" name="IDCardNo" label="身份证号" placeholder="请填写身份证号" :disabled="isSigned"/>
+        </van-cell-group>
+    </div>
+    <div class="input_wrapper">
+        <van-cell-group class="cell_wrapper">
+            <van-field v-model="userNameValue" name="userName" label="用户名" placeholder="请输入用户名" :disabled="isSigned"/>
+        </van-cell-group>
+    </div>
+    <div>
+        <van-cell-group class="cell_wrapper">
+            <van-field v-model="nameValue" readonly clickable :value="pickerValue" label="通讯地址" placeholder="请选择通讯地址" @click="showPicker= true" :disabled="isSigned"/>
+            <van-popup v-model="showPicker" position="bottom">
+                <van-picker
+                        show-toolbar
+                        :columns="columns"
+                        value-key="key"
+                        @confirm="bindMultiPickerChange"
+                        @cancel="showPicker = false"
+                />
+            </van-popup>
+        </van-cell-group>
+    </div>
+    <div class="input_wrapper">
+        <van-cell-group class="cell_wrapper">
+            <van-field v-model="addValue" name="address" label="街道地址" placeholder="请输入街道地址" @input="valueInput1" :disabled="isSigned"/>
+        </van-cell-group>
+    </div>
+    <div class="input_wrapper">
+        <van-cell-group class="cell_wrapper">
+            <van-field type= "tel" v-model="phoneValue" name="mobile" label="手机号" placeholder="请填写手机号" :disabled="isSigned"/>
+        </van-cell-group>
+    </div>
+    <button type="submit" class="submit" :disabled="isSigned">签 订</button>
+</van-form>
+</div>
+
+<div v-if="isSigned">
+    <div class="text_wrapper" style="margin-top: 16px;">
+        <span>乙方(姓名)：</span>
+        <span style="flex:1;">人民卫生电子音像出版社</span>
+    </div>
+    <div class="text_wrapper">
+        <span>通信地址：</span>
+        <span style="flex:1;">北京市朝阳区华威南路弘善家园415号底商二层</span>
+    </div>
+    <div class="text_wrapper">
+        <span>邮政编码：</span>
+        <span style="flex:1;">100021</span>
+    </div>
+    <div class="text_wrapper">
+        <span>联系人：</span>
+        <span style="flex:1;">人卫智网客服</span>
+    </div>
+    <div class="text_wrapper">
+        <span>联系电话：</span>
+        <span style="flex:1;">4001118166</span>
+    </div>
+</div>
+
+<div class="content">
+    <div style="overflow-x:auto;padding:0 45px;">
+        <span v-html="protocolContent" style="width:max-content"></span>
+    </div>
+    <div>
+        <div>
+            甲方：{{nameValue}}
+        </div>
+        <div>
+            <!-- {{curTime[0]}}年{{curTime[1]}}月{{curTime[2]}}日 -->
+            2020<span>年</span>11<span>月</span>4<span>日</span>
+        </div>
+    </div>
+    <div>
+        <div>
+            乙方：人民卫生电子音像出版社
+        </div>
+        <div>
+            <!-- {{curTime[0]}}年{{curTime[1]}}月{{curTime[2]}}日 -->
+            2020<span>年</span>11<span>月</span>4<span>日</span>
+        </div>
+    </div>
+
+</html>

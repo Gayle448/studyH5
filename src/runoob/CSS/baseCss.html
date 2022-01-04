@@ -11,6 +11,17 @@
 <head>
     <meta charset="UTF-8">
     <title>基础概念</title>
+
+    <style>
+        div {
+            background: chartreuse;
+        }
+
+        /*下面的意思是 父view div 下的最有一个 p元素产生如下效果*/
+        div p:last-child{
+            color: cornflowerblue;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,7 +30,8 @@
 </div>
 
 <div>
-
+    <p>第一自然段</p>
+    <p>第二自然段</p>
 </div>
 
 </body>

@@ -14,12 +14,16 @@
 				<li v-for="(item,index) in items" :key="item.message">
 					{{item.message}} - {{index}}
 				</li>
+				<!--todo why只取最后一个值-->
 			</ul>
 			<ul>
 				<!-- 按顺序读取的 value,key,index -->
 				<li v-for="(value,name,index) in objects" :key="name">
 					{{name}} : {{value}} - {{index}}
 				</li>
+				<!--<li v-for="(item,index) in objects" :key="item.title">-->
+					<!--{{item.title}} - {{index}}-->
+				<!--</li>-->
 			</ul>
 			
 			<ul>
@@ -82,12 +86,12 @@
 					// 	{title:'标题'},
 					// 	{content:'内容'},
 					// 	{end:'结尾'}
-					// ]
+					// ],
 					<!-- 便利对象,里面是键值对 -->
 					objects:{
 							title:'标题',
 							content:'内容',
-							end:'结尾'		
+							end:'结尾'
 					},
 					numbers:[
 						1,

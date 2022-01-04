@@ -283,7 +283,7 @@ function arrayTest() {
     }
     //遍历 - 剥洋葱理论
 
-    // Js还为数组对象内置了多种迭代方法, 处理数组时极为方便
+    // Js还为数组对象内置了多种迭代方法, 处理数组时极为方便 https://www.runoob.com/jsref/jsref-foreach.html
     myCars.forEach((value, index) => {
         //值、键 无返回值
     })

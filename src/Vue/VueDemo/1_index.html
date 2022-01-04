@@ -19,11 +19,20 @@
 	</script>
 	
 	<!-- 下面为问题代码 -->
-	<div id= "test1">
-		{{a}}
-	</div>
-	<div id='test1'>
-		{{b}}
+	<!--<div id= "test1">-->
+		<!--{{a}}-->
+	<!--</div>-->
+	<!--<div id='test1'>-->
+		<!--{{b}}-->
+	<!--</div>-->
+	<div id="test1">
+		<div>
+			{{a}}
+		</div>
+
+		<div>
+			{{b}}
+		</div>
 	</div>
 	<!-- 当vue的实例被创建时,会将data对象中所有的property加入到vue的响应式系统中
 	 当这些property发生改变时,视图也会“响应”重新渲染,参考的MVVM.

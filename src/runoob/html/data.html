@@ -1,0 +1,41 @@
+<!--
+  File Name: 
+  Author: miss.chen
+  Created Time: 11/1/21
+  Description:
+  Modify Records:
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html自定义属性data-嵌入自定义数据</title>
+
+    <script>
+        function showdetail(animal) {
+            var animaltype = animal.getAttribute("data-type");
+            console.log("点的动物是："+ animaltype);
+        }
+    </script>
+</head>
+<body>
+
+<div>
+    点击下面的名字，查看她们是什么物种把：
+</div>
+
+<ul>
+    <li onclick="showdetail(this)" data-type="brids">
+        owl
+    </li>
+    <li onclick="showdetail(this)" data-type="fish">
+        salmon
+    </li>
+    <li onclick="showdetail(this)" data-type="horse">
+        tarantule
+    </li>
+</ul>
+
+</body>
+</html>

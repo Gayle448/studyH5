@@ -128,8 +128,7 @@
   
   box-align、box-flex、box-drection、 box-drection-group、box-lones、等等待了解 todo
   
-    
-  
+   
   
 * postion 定位  static、relative、absolute、sticky、z-index
 
@@ -172,7 +171,9 @@
 
 * 对比 -- 字符间距:[letter-spacing](https://www.runoob.com/cssref/pr-text-letter-spacing.html),字与字之间 ; 段字空间:[word-spacing](https://www.runoob.com/cssref/pr-text-word-spacing.html),单词与单词之间;
 
-
+  caption-side 属性设置表格标题的位置.(上 下)
+  
+  
 
 TODO:
 
