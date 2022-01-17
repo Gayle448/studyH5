@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>样式表</title>
+
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <style>
+        /* 外部样式表: 样式应用于多页面 */
+        /* 内部样式表: 单个文档特殊样式 */
+        body{
+            background-color: red;
+        }
+        /* 内联样式: 在相关标签内使用样式(style)属性,style属性可包含任何css属性 */
+
+        /* 多重样式: 某些属性在不同样式表中同样的选择器定义,属性值将从更具体的样式表中被继承过来(TODO) 
+        ??? 优先级一般: (内联样式) > (内部样式) > (外部样式) > (浏览器默认样式)
+        内联样式 > id 选择器 > 类选择器 = 伪类选择器 = 属性选择器 > 标签选择器 = 伪元素选择器
+        ??? 什么权重优先级法则带了解 TODO:
+        */
+
+        .background {
+            background-color: red;
+            /* 默认情况下，背景图像进行平铺重复显示，以覆盖整个元素实体. */
+            background-image:url('https://static.runoob.com/images/mix/gradient2.png');
+            background-repeat: repeat-x;
+            /* 设置定位与不平铺 */
+            background-repeat: no-repeat;
+            background-position: right top;
+            /* 背景图片是否随着页面/元素滚动而滚动 ; 默认滚动scroll */
+            background-attachment: scroll;
+            /* 其他相关属性:https://www.runoob.com/cssref/pr-background-blend-mode.html */
+        }
+
+        /* 简写 */
+        .testbackground {
+            background:red url('haha.png') no-repeat right top
+        }
+
+    </style>
+</head>
+<body>
+    dywn9kbn12nm -- hehe
+    <p style="color:red;margin-left:20px">我是段落</p>
+
+</body>
+</html>
