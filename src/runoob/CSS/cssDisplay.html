@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>display的使用</title>
+    <style>
+        .displayhidden {
+            display: none;
+        }
+        .visiblehidden {
+            visibility: hidden;
+        }
+        .displayblock {
+            display: block;
+        }
+        .displayinline {
+            display: inline;
+        }
+        .displayblockinline {
+            display: inline-block;
+            background-color: pink;
+            margin: 20px;
+            content: 100px 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 隐藏元素: display不会占位;visibility只会把元素隐藏,然后显示空白占位-->
+    <div class="displayhidden">
+        我是一个元素
+    </div>
+    <div>
+        我不隐藏1
+    </div>
+    <div class="visiblehidden">
+        我是另外一个元素
+    </div>
+    <div>
+        我不隐藏2
+    </div>
+
+    <!-- 内联元素: 只需要必要的宽度,意思就是宽高间距都不可改,是自适应的,不会换行; 例如 span 、a 、 img、 input、 label、 u  -->
+    <span>
+        span1
+    </span>
+    <span>
+        span2
+    </span>
+    <a>
+        a1
+    </a>
+    <a>
+        a2
+    </a>
+    <!-- 块元素: 占用全部宽度,宽高间距都可改,前后都有换行符; 例如 h1 、 p 、 div 、form、 ul、 li   -->
+    <p>
+        段落1
+    </p>
+    <p>
+        段落2:段落有段落间距,div没有
+    </p>
+    <div>
+        div 1
+    </div>
+    <div>
+        div 2
+    </div>
+
+    <!-- 内联元素和块元素可以转换: -->
+    <span class="displayblock">
+        span3
+        <div>
+            div 3
+            <div>
+                div4
+            </div>
+        </div>
+    </span>
+    <span class="displayblock">
+        span4
+    </span>
+    <p class="displayinline">
+        段落3
+    </p>
+    <p class="displayinline">
+        段落4
+    </p>
+
+    <!-- 可变元素: 根据上下文关系确定是块元素还是内联元素,666 例如button 、 iframe 、map 、 object -->
+    <!-- 经过下面的测试,似乎是前后都是块元素的情况下可变元素会是块元素,其他是内联元素. -->
+    <button>
+        我是一个可变元素1
+    </button>
+
+    <p>
+        我是一个段落
+    </p>
+
+    <button>
+        我是一个可变元素2
+    </button>
+
+    <a href="#">
+        哈哈哈,我是内联
+    </a>
+
+    <p>
+        我是一个段落1
+    </p>
+
+    <button>
+        我是一个可变元素3
+    </button>
+
+    <p>
+        我是一个段落2
+    </p>
+
+    <!-- 还有一种内联块元素 顾名思义,就是结合版; 显示一行,但是可改变宽高边距属性 -->
+    <p class="displayblockinline">
+      元素1  
+    </p>
+    <p class="displayblockinline">
+      元素2  
+    </p>
+    <p class="displayblockinline">
+      元素3  
+    </p>
+</body>
+
+</html>

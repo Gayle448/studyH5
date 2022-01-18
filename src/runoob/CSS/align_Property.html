@@ -27,6 +27,94 @@
             all: unset;
         }
 
+        /* 对齐方式 */
+        /* 元素居中对齐:要设置元素宽度才有效,使用margin:auto */
+        .center {
+            width: 50%;
+            margin: auto;
+            border: 5px solid yellow;
+            padding: 10px;
+        }
+        /* 元素左右对齐:使用position:absolute */
+        .positionright {
+            position: absolute;
+            right: 0px;
+            width: 100px;
+            border: 5px solid green;
+            padding: 10px;
+        }
+        /* 元素左右对齐:使用position:absolute */
+        .floatright {
+            float: right;
+            width: 100px;
+            height: 100px;
+            border: 5px solid green;
+            padding: 10px;
+            
+        }
+        .parent {
+            /* height: 50px;
+            width: 200px; 这里设置了宽高则会显示滚动条*/
+            background-color: pink;
+            /* 测试 overflow 父元素上添加 overflow: auto; 来解决子元素溢出的问题 */
+            overflow: auto;
+        }
+        /* 文本对齐: */
+        .textcenter {
+            text-align: center;
+        }
+
+        /* 测试 clearfix: 父元素上添加 overflow: auto; 来解决子元素溢出的问题 */
+        div {
+            border: 3px solid #4CAF50;
+            padding: 5px;
+        }
+        .img1 {
+            float: right;
+        }
+        .clearfix {
+            overflow: auto;
+        }
+        .img2 {
+            float: right;
+        }
+
+        /* 使用padding 对元素实现垂直居中 */
+        .horiation {
+            padding: 20px 20px;
+        }
+
+        /*  */
+        .lineheight {
+            height: 200px;
+            line-height: 200px;
+            border: 5px solid red;
+            /* text-align: center; */
+        }
+
+        .lineheight p {
+            background-color: yellowgreen;
+            line-height: 1.5;
+            /* vertical-align: center; 没有这行也会垂直居中,why??
+            file:///Users/miss.chen/Documents/7.%E6%88%91%E7%9A%84Hub/some_git/html5/src/runoob/CSS/align_Property.html
+            */
+            display: inline-block;
+        }
+
+        /* 垂直居中 - 使用 position 和 transform */
+        .transformcenter {
+            height: 200px;
+            position: relative;
+            border: 3px solid blue;
+        }
+        .transformcenter p {
+            margin: 0;
+            position: absolute;
+            top:50%;
+            left: 50%;
+            /* 旋转是针对自身平移 */
+            transform: translate(-50%,-50%);
+        }
     </style>
 </head>
 
@@ -79,6 +167,63 @@
     <img src="finish.png" height="126" width="126" />
     <p>我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段我是第二自然段</p>
 
+</div>
+
+<!-- 对齐方式 -->
+<div class="center textcenter">
+    我是一个居中的块,但是内容不一定居中;然后内容也居中了;
+</div>
+
+<div class="positionright">
+    我是一个右对齐的块;
+</div>
+<!-- 疑问🤔️,使用定位方式,使div失去了 块元素前后换行的特性吗? TODO: -->
+
+<p>
+    我是隔开上下两个定位/布局的,不然他们就重叠了,不知道有没有起到作用
+    请看看我现在的显示效果;真真是奇怪哦.哈哈.
+</p>
+
+<!-- 图片居中除了margin:auto还要设置为块元素 display:block -->
+<img src="finish.png" class="center" style="display: block;">
+
+<!-- 子元素使用浮动布局,且子元素超出父元素,父元素使用overflow:auto,让子元素显示完整(文本显示进度条,图片好像自适应宽高TODO:) -->
+<div class="parent">
+    <div class="floatright">
+        我是另一个右对齐的块;
+    </div>
+</div>
+<div class="parent">
+    <img class="floatright" src="finish.png">
+</div>
+
+<!-- 测试 clearfix: 父元素上添加 overflow: auto; 来解决子元素溢出的问题 -->
+<p>以下实例图在父元素中溢出，很不美观:</p>
+<div>
+<img class="img1" src="finish.png" alt="Pineapple" width="170" height="170">
+菜鸟教程 - 学的不仅是技术，更是梦想！！！</div>
+<p style="clear:right">在父元素上通过添加 clearfix 类，并设置 overflow: auto; 来解决该问题:</p>
+<div class="clearfix">
+<img class="img2" src="finish.png" alt="Pineapple" width="170" height="170">
+菜鸟教程 - 学的不仅是技术，更是梦想！！！</div>
+
+<!-- 使用padding 对*元素*实现垂直居中 -->
+<div class="horiation">
+    哈哈哈哈
+</div>
+
+<!-- 使用line-height 对*元素*实现垂直居中 -->
+<div class="lineheight">
+    <p>
+        我要居中
+    </p>
+</div>
+
+<!-- 垂直居中 - 使用 position 和 transform -->
+<div class="transformcenter">
+    <p>
+        文字左边起点是中心点,然后2D平移.
+    </p>
 </div>
 
 </body>

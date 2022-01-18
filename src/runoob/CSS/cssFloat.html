@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css的float,会使元素向左或向右移动,其周围的元素也会重新排列.往往用于图像和布局.</title>
+
+    <style>
+        img {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+        .clear{
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        我是一堆文字哈哈哈哈哈哈哈皇后危机感i哦微结构额外i价格为机构诶今晚i哦感觉鹅肝酱我IE国际为国家为己哦呃感觉我ij
+    </p>
+
+    <img src='finish.png'>
+
+    <p>
+        我是一堆文字哈哈哈哈哈哈哈皇后危机感i哦微结构额外i价格为机构诶今晚i哦感觉鹅肝酱我IE国际为国家为己哦呃感觉我ij
+    </p>
+
+    <!-- 相邻的浮动元素,位置会根据窗口变化而变化 -->
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <!-- 清除两端浮动样式,避免自己受影响 -->
+    <p class="clear">
+        我受影响了吗?
+    </p>
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+    <img src="finish.png">
+
+</body>
+</html>
