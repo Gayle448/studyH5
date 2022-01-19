@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪类:用来添加一些选择器的特殊效果</title>
+
+    <style>
+        /* 语法 --  标签:事件 {https://www.runoob.com/css/css-pseudo-classes.html}*/
+        /* 伪类: 链接 */
+        /* 未访问的连接 */
+        a:link {
+            color: black
+        }
+        /* 已访问的连接*/
+        a:visited {
+            color: gray;
+        }
+        /* 鼠标滑过链接,顺序必须放在前面两者之后才有效 */
+        a:hover {
+            color: pink;
+        }
+        /* 已选中之后,顺序比方放在hover后才有效 */
+        a:active{
+            color: blue;
+        }
+        /* 伪类、伪元素可与CSS选择器配合: */
+        a.yellow:active {
+            color:yellow
+        }
+        /* 伪类 P(陈氏子女)为例子 */
+        /* p:first-child -- 匹配所有指定的这个标签,是他父元素的第一个子元素的(作为陈氏家族的大房的) */
+        p:first-child {
+            color: yellowgreen;
+        }
+        /* p:first-child i -- p 陈氏家族所有大房的所有后代i */
+        p:first-child i {
+            color: red;
+        }
+        /* p>i:first-child -- p 陈氏家族各房的第一个后代是i的 */
+        p>i:first-child {
+            color: blue;
+        }
+
+        /* p:empty -- p 陈氏家族子女无名字且没有老婆孩子的. */
+        p:empty {
+            background-color: plum;
+            width: 100px;
+            height: 50px;
+        }
+
+        /* lang伪类使你有能力为不同的语言定义特殊的规则 TODO: */
+
+        /* input:checked -- 表单单选/复选框选中时样式设定 */
+        input:checked {
+            background-color: blueviolet;
+        }
+        /* input:disabled -- 输入元素禁用时的样式设置 [可添加条件] */
+        input:disabled {
+            background-color: gray;
+        }
+        input[type="text"]:disabled {
+            background-color: black;
+        }
+        /* input:enabled -- 输入元素启用时的样式设置 [可添加条件] */
+        input:enabled {
+            background-color: black;
+        }
+        input[type="text"]:disabled {
+            background-color: black;
+        }
+
+        /* p:first-line  -- 文本首行设置样式(只适用于块元素 ) */
+        p:first-line {
+            font-size: 30px;
+            font-variant: small-caps;
+        }
+
+        /* p:first-letter  -- 每个元素内容文本首字母设置样式(只适用于块元素 ) */
+        p:first-letter {
+            color: blanchedalmond;
+        }
+
+        /* p:before -- 在元素内容前插入新内容 */
+        p:before {
+            content: url(finish.png);
+        }
+        /* p:after -- 在元素内容后插入新内容 */
+        p:after {
+            content: url(finish.png);
+        }
+
+        /* input:focus -- 输入元素获取焦点时设置样式 */
+        input:focus {
+            background-color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <!-- 以下实例可多写几个便于理解 -->
+    <div>
+        a元素和p元素使用 first-child伪类
+        <a class="yellow" href="https://baidu.com">
+            我是百度
+        </a>
+        <div>
+            我是男的
+            <p>我是<i>大儿子</i>我是<i>双胞胎</i></p>
+            <p>我是<i></i>二儿子</i</p>
+        </div>
+        <div>
+            我是女的
+            <span>
+                我是<i>大女儿</i>
+            </span>
+            <p>
+                112
+                <span>haha</span>我是<i>二女儿</i>
+                334
+                <!-- TODO:p标签里面不能嵌套 div 和 p -->
+            </p>
+            <p>
+                我是
+                <i>
+                    三女儿
+                </i>
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <p>
+            我是陈氏B族分支<br>
+            我是第二行
+        </p>
+        <p>我是第三行</p>
+        <p></p>
+    </div>
+
+    <div>
+        姓名:
+        <input type="text">
+        
+        </input>
+    </div>
+</body>
+</html>
