@@ -27,7 +27,7 @@
     </style>
 </head>
 <body>
-    <!-- 隐藏元素: display不会占位;visibility只会把元素隐藏,然后显示空白占位-->
+    <!-- 隐藏元素: display:none不会占位(1);visibility:hidden只会把元素隐藏,然后显示空白占位(2);visibility:collapse处理方式根据不同元素可变,效果同(1)/(2)-->
     <div class="displayhidden">
         我是一个元素
     </div>
@@ -54,7 +54,9 @@
     <a>
         a2
     </a>
-    <!-- 块元素: 占用全部宽度,宽高间距都可改,前后都有换行符; 例如 h1 、 p 、 div 、form、 ul、 li   -->
+    <!-- 块元素: 占用全部宽度,宽高间距都可改,前后都有换行符; 例如 h1 、 p 、 div 、form、 ul、 li   
+    !!! 所以平常对内联元素的宽高设置可能是无效的.
+    -->
     <p>
         段落1
     </p>

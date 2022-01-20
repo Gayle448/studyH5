@@ -26,8 +26,13 @@
             color: blue;
         }
         /* 伪类、伪元素可与CSS选择器配合: */
+        /* class为yellow的啊标签被点击后 */
         a.yellow:active {
             color:yellow
+        }
+        /* class为 drowpdown 移动鼠标过来后,的子元素class为dropbtn的样式*/
+        .drowpdown:hover .dropbtn {
+            color: yellowgreen;
         }
         /* 伪类 P(陈氏子女)为例子 */
         /* p:first-child -- 匹配所有指定的这个标签,是他父元素的第一个子元素的(作为陈氏家族的大房的) */

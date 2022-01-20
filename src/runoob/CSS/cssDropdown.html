@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS下拉菜单</title>
+
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            /* 这里自适应宽度 */
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: yellowgreen;
+            min-width: 100%;
+            /* 这里的宽度同父div */
+            box-shadow: 0px 8px 16px 0px rgb(0, 0, 0,0.2);
+            padding: 12px 16px;
+            /* 这个设置决定这个下拉内容模块坐标是从右到左还是从左到右,默认是left:0,左-右 */
+            right: 0;
+        }
+        /* 鼠标移到父div 时下面子class样式 */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            /* 链接不显示下划线 */
+            text-decoration: none;
+            display: block; 
+            /* 不设置block,则宽高度效果不够 */
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropbtn {
+            background-color: chartreuse;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+        /* 似乎效果相同 */
+        /* .dropdown .dropbtn:hover {
+            background-color: #3e8e41;
+        } */
+
+        </style>
+</head>
+<body>
+    <h2>鼠标移动到文字上显示下拉div</h2>
+    <div class="dropdown">
+        <span>我是一个下拉菜单触发区域</span>
+        <div class="dropdown-content">
+            <p>下拉框内容</p>
+            <p>哈哈哈哈哈</p>
+        </div>
+    </div>
+
+    <h2>创建下拉菜单,允许选择下拉列表某一个</h2>
+    <div class="dropdown">
+        <button class="">移动触发下拉菜单</button>
+        <div class="dropdown-content">
+            <a>下拉1</a>
+            <a>下拉2</a>
+            <a>下拉3</a>
+        </div>
+    </div>
+</body>
+</html>

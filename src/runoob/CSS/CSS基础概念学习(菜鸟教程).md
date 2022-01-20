@@ -183,7 +183,7 @@ CSS声明总以;结束,总以大括号{}括起来;
 
 * Opacity 不透明度 0是透明,1是不透明
 
-* [outline](https://www.runoob.com/cssref/pr-outline.html) border边框外围的一层框
+* [outline](https://www.runoob.com/cssref/pr-outline.html) 轮廓border边框外围的一层框
 
 * 对比 -- 字符间距:[letter-spacing](https://www.runoob.com/cssref/pr-text-letter-spacing.html),字与字之间 ; 段字空间:[word-spacing](https://www.runoob.com/cssref/pr-text-word-spacing.html),单词与单词之间;
 
