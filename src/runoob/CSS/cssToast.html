@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基础提示框</title>
+
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            top: 50px;
+        }
+        .tooltip .tooltiptext {
+            /* display: none; */
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            margin: 0px 10px;
+            /* 定位 */
+            position: absolute;
+            z-index: 1;
+            /* 显示在左侧,相对于父元素 */
+            /* right: 100%; */
+            /* 显示在上面 */
+            bottom: 100%;
+            /* 居中对齐 */
+            /* 我的左边 在父元素的50%的位置 */
+            left: 50%;
+            margin-left: -60px;
+            /* TOOD: margin-left使用方式原理,我的左边坐移60 */
+            /* transform: translate(-50%,0%);不行,这些百分比的偏移量都是只相对于父元素的 */
+            /* transform: translate(-60px,0px); ?? */
+
+            /* 淡入效果,一秒内,透明度 0-100% */
+            opacity: 0;
+            /* 触发该元素的opacity属性的值的改变的动作都将在1s内完成 */
+            transition: opacity 1s;
+        }
+        .tooltip:hover .tooltiptext{
+            visibility: visible;
+            /* display: inline; 使用display 没有淡入效果 */
+            opacity: 1;
+        }
+        /* 箭头样式 */
+        .tooltip .tooltiptext::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            /* 为了居中 */
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            /* 方形分4块,一块黑,三块透明 */
+            border-color: black transparent transparent transparent;
+            /* border-color: transparent transparent black transparent; */
+        }
+    </style>
+</head>
+<body style="text-align: center;">
+    <div class="tooltip">
+        移动鼠标过来
+        <span class="tooltiptext">
+            提示文本
+        </span>
+    </div>
+
+</body>
+</html>

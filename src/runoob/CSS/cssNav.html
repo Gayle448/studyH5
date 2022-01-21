@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>垂直导航栏、水平导航栏</title>
+
+    <style>
+    /* 列表中删除边距和填充 */
+    ul {
+        /* 不显示序号 */
+       list-style-type: none; 
+       margin: 0;
+       padding: 0;
+       width: 252px;
+
+       /* 固定导航条 */
+       /* position: fixed; */
+    }
+    /* 垂直导航栏 */
+    a {
+        display: block;
+        width: 250px;
+        background-color: yellowgreen;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    li {
+        border-top: solid 1px black;
+        border-left: solid 1px black;
+        border-right: solid 1px black;
+        border-bottom: solid 0px black;
+    }
+    li:last-child {
+        border-bottom: solid 1px black;
+    }
+
+    /* 鼠标移动修改背景色 */
+    li a:hover {
+        background-color: yellow;
+        color: white;
+    }
+    li a:visited {
+        background-color: green;
+    }
+    li a.active {
+        background-color: pink;
+    }
+    /* 特殊语法:not(满足前面条件下,不满足下面这个条件的元素) */
+    li a:hover:not(.active) {
+        color: red;
+    }
+
+    /* 内联 */
+    ul.horision {
+        margin: 10px;
+    }
+    li.horision {
+        display:inline;
+        margin: 10px;
+        padding: 5px;
+    }
+    /* 浮动 */
+    ul.float {
+        margin: 10px;
+    }
+    li.float {
+        float: left;
+        margin: 10px;
+        padding: 5px;
+    }
+    </style>
+</head>
+<body>
+    <div>导航条基本是一个链接列表</div>
+    <ul>
+        <li>
+            <a href="#home1" class="active">
+                主页1
+            </a>
+        </li>
+        <li>
+            <a href="#news1">
+                新闻1
+            </a>
+        </li>
+        <li>
+            <a href="#contact1">
+                联系1
+            </a>
+        </li>
+        <li>
+            <a href="#about1">
+                关于1
+            </a>
+        </li>
+    </ul>
+
+    <div>水平导航栏</div>
+    <ul class="horision">
+        <li class="horision">
+            首页
+        </li>
+        <li class="horision">
+            新闻
+        </li>
+        <li class="horision">
+            关于
+        </li>
+    </ul>
+
+    <ul class="float">
+        <li class="float">
+            首页
+        </li>
+        <li class="float">
+            新闻
+        </li>
+        <li class="float">
+            关于
+        </li>
+    </ul>
+
+    <!-- TODO: 还有一些使用实例:https://www.runoob.com/css/css-navbar.html 见更多实例,待学习 -->
+</body>
+</html>
