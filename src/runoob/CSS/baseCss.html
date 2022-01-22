@@ -13,14 +13,27 @@
     <title>基础概念</title>
 
     <style>
+        @font-face {
+            font-family: myfont;
+            src:url(test.off);
+            font-weight: bold;
+        }
+
         div {
+            width: 200px;
+            height: 100px;
+            border: 2px red solid;
             background: chartreuse;
+            /* resize属性指定一个元素是否是由用户调整大小的。both是宽高都可; 要配合 overflow才有效果 */
+            resize: both;
+            overflow:auto;
         }
 
         /*下面的意思是 父view div 下的最有一个 p元素产生如下效果*/
         div p:last-child{
             color: cornflowerblue;
         }
+
     </style>
 </head>
 <body>

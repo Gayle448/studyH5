@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式网页布局实例</title>
+
+    <style>
+
+    /* 作用好像是去掉外部元素的margin,不然下面 75 % \ 25 % 不够用; */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 10px;
+            background: #f1f1f1;
+        }
+
+        .header {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: yellow;
+        }
+        .topnav a {
+            float: left;
+            text-align: center;
+            padding: 14px 16px;
+            display: block;
+            color: pink;
+            text-decoration: none;
+        }
+        .topnav a:hover {
+            color: white;
+            background-color: pink;
+        }
+
+        .leftcolumn {
+            float: left;
+            width: 75%;
+        }
+        .rightcolumn {
+            float: left;
+            width: 25%;
+            background-color: yellow;
+            padding-left: 20px;
+        }
+        
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .fakeimg {
+            background-color: yellowgreen;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .footer {
+            padding : 20px;
+            text-align: center;
+            background-color: yellow;
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width:800px) {
+            .leftcolumn,.rightcolumn {
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width:400px) {
+            .topnav a {
+                float: none;
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <h1>我的网页</h1>
+        <p>重置浏览器大小查看效果</p>
+    </div>
+
+    <div class="topnav">
+        <a>链接1</a>
+        <a>链接2</a>
+        <a>链接3</a>
+        <a>链接4</a>
+        <a style="float: right;">链接5</a>
+    </div>
+
+<!-- 内容 -->
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <h2>文章标题1</h2>
+                <h5>2019 年 4 月 17日</h5>
+                <div class="fakeimg" style="height:200px;">图片</div>
+                <p>一些文本...</p>
+                <p>菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程
+            </div>
+            <div class="card">
+                <h2>文章标题2</h2>
+                <h5>2019 年 4 月 17日</h5>
+                <div class="fakeimg" style="height:200px;">图片</div>
+                <p>一些文本...</p>
+                <p>菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程
+            </div>
+        </div>
+        <div class="rightcolumn">
+            <div class="card">
+              <h2>关于我</h2>
+              <div class="fakeimg" style="height:100px;">图片</div>
+              <p>关于我的一些信息..</p>
+            </div>
+            <div class="card">
+              <h3>热门文章</h3>
+              <div class="fakeimg"><p>图片</p></div>
+              <div class="fakeimg"><p>图片</p></div>
+              <div class="fakeimg"><p>图片</p></div>
+            </div>
+            <div class="card">
+              <h3>关注我</h3>
+              <p>一些文本...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h2>底部区域</h2>
+    </div>
+
+</body>
+</html>

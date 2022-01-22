@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计数器</title>
+
+    <style>
+        body {
+            counter-reset: section;
+        }
+        h1 {
+            counter-reset: subsection;
+        }
+        /* 元素前添加计数值 */
+        h1::before {
+            counter-increment: section;
+            content: "第" counter(section) "章节:";
+        }
+        h2::before {
+            counter-increment: subsection;
+            content: counter(section) "." counter(subsection) " ";
+        }
+
+        /* 计数器也可用于列表中，列表的子元素会自动创建。这里我们使用了 counters() 函数在不同的嵌套层级中插入字符串:666 */
+        ol {
+            counter-reset: olsection;
+            list-style-type: none;
+        }
+        /* li::before {
+            counter-increment: olsection;
+            content: counter(olsection) ".";
+        } */
+        li::before {
+            counter-increment: olsection;
+            content: counters(olsection,".") " ";
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>HTML 教程:</h1>
+    <h2>HTML 教程</h2>
+    <h2>CSS 教程</h2>
+
+    <h1>Scripting 教程:</h1>
+    <h2>JavaScript</h2>
+    <h2>VBScript</h2>
+
+    <h1>XML 教程:</h1>
+    <h2>XML</h2>
+    <h2>XSL</h2>
+    
+    <div>
+        计数器运用于列表:
+    </div>
+    <br>
+    <ol>
+        <li>章</li>
+        <li>章   
+            <ol>
+              <li>节</li>
+              <li>节</li>
+              <li>节
+                <ol>
+                    <li>点</li>
+                    <li>点</li>
+                    <li>点</li>
+                </ol>
+              </li>
+              <li>节</li>
+            </ol>
+        </li>
+        <li>章</li>
+        <li>章</li>
+    </ol>
+      
+    <ol>
+      <li>章</li>
+      <li>章</li>
+    </ol>
+</body>
+</html>

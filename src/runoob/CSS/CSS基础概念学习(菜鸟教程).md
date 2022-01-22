@@ -41,6 +41,8 @@ CSS声明总以;结束,总以大括号{}括起来;
 
 * 复习一下div span的区别
 * 盒模型 是啥东东?
+* @media 规则允许在相同样式表为不同媒体设置不同的样式。
+* CSS 中的 !important 规则用于增加样式的权重,将覆盖任何其他声明(慎用)。
 
 
 
@@ -48,11 +50,13 @@ CSS声明总以;结束,总以大括号{}括起来;
 
 * initial : 是所有css属性都有用的一个值/字段,系统提供的默认值;
 
+* appearance : 使元素呈现其他样式(注意浏览器兼容问题).
+
 * background  背景属性集合
 
   background-color, 设置背景颜色 #十六进制 、 rgb、英文单词,设置透明,inherit 从父类继承
 
-  background-image, 值:none默认无背景图,url("图片URL,可支持线上和本地相对路径");
+  background-image, 值:none默认无背景图,url("图片URL,可支持线上和本地相对路径"),逗号隔开,可设置多张图片第一张显示在顶端;
 
   可通过以下函数创建渐变图:
 
@@ -64,9 +68,9 @@ CSS声明总以;结束,总以大括号{}括起来;
 
   background-position, 设置背景图像位置[第一个是水平位置,第二个是垂直位置], 设置英文单词 空格隔开 (left top)表示左上,设置百分比 空格隔开 (50% 50%)表示在中间位置,设置其他单位 (50px 50px),inherit 从父类继承
 
-  background-Origin, 属性指定background-position属性相对什么位置生效(如果attachment是fixed则设置无效), padding-box (默认,背景图片相对填充框,人话就是在内侧边框), border-box(背景图片相对外侧边框), content-box(背景图片相对内容框)
+  background-Origin, 属性指定背景图background-position属性相对什么位置生效(如果attachment是fixed则设置无效), padding-box (默认,背景图片相对填充框,人话就是在内侧边框), border-box(背景图片相对外侧边框), content-box(背景图片相对内容框). 一个元素由外到内布局: border-box -> padding-box(默认) -> conetent-box.
 
-  background-clip, 属性置顶 背景图的绘制位置(裁剪区域), border-box(默认,背景图显示区域包含边框), padding-box 背景图显示区域不包含边框), content-box(背景图仅显示内容下) 
+  background-clip, 属性置顶 背景的绘制位置(裁剪区域), border-box(默认,背景显示区域包含边框), padding-box 背景显示区域不包含边框), content-box(背景仅显示内容下) 
 
   background-attachment , 背景图片是否固定,默认scroll,是页面滚动而滚动(也可以认为是固定在某个元素那里); **local, 这个不理解todo**,说是随元素内容滚动而滚动;  fixed 固定在屏幕某个点,不会随页面滚动而滚动; inherit可从父类继承
 
@@ -86,7 +90,7 @@ CSS声明总以;结束,总以大括号{}括起来;
 
   border-color,边框颜色, 上 右 下 左,十六进制、rgb等,transparent透明,可继承
   
-  border-radius 属性是一个最多可指定四个 border -*- radius 属性的复合属性
+  border-radius 属性是一个最多可指定四个角(顺时针) border -*- radius 属性的复合属性
   
 
   border-bottom, 底部边框,宽度 样式 颜色, 可继承
@@ -137,7 +141,7 @@ CSS声明总以;结束,总以大括号{}括起来;
   
   [border-spacing](https://www.runoob.com/cssref/pr-border-spacing.html) 属性设置相邻单元格的边框间的距离（仅用于"边框分离"模式）
   
-  box-shaow, boxShadow 属性把一个或多个下拉*阴影*添加到框上(多个逗号隔开)。*h-shadow 垂直阴影位置、 v-shadow 水平阴影位置、 blur模糊距离、 spread 阴影大小 、color 阴影颜色 、inset 由外到内改*. 例子:[旋转图像](https://www.runoob.com/try/try.php?filename=trycss3_image_gallery)还蛮有趣.
+  盒阴影box-shaow, boxShadow 属性把一个或多个下拉*阴影*添加到框上(多个逗号隔开)。值:*h-shadow 垂直阴影位置、 v-shadow 水平阴影位置、 blur模糊距离、 spread 阴影大小 、color 阴影颜色 、inset 由外到内改*. 例子:[旋转图像](https://www.runoob.com/try/try.php?filename=trycss3_image_gallery)还蛮有趣.
   
   
 * box 相关

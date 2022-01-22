@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹性盒子、弹性容器、弹性子元素 使用还是得多应用和实践才能理解</title>
+
+    <!-- 弹性容器外及弹性子元素内是正常渲染的.弹性子元素通常显示一行. -->
+    <style>
+        /* 设置 direction 属性为 rtl (right-to-left),弹性子元素的排列方式也会改变，页面布局也跟着改变: */
+        /* body { */
+            /* direction: rtl; */
+        /* } */
+        .flex-container {
+            display: flex;
+            width: 500px;
+            height: 250px;
+            background-color: yellowgreen;
+            /* flex-direction 属性指定了弹性子元素在父容器中的排列 */
+            flex-direction: row-reverse;
+            /* flex-direction: column; */
+
+            /* justify-content属性,左右排列内容间隙、位置,主线轴 */
+            justify-content: flex-start;
+            /* -webkit-justify-content: space-between */
+
+            /* align-items属性,在纵轴方向上对齐方式 */
+            /* align-items: center; */
+            /* 设置了高度,stretch就拉伸不了,只能拉伸到max-height */
+            /* align-items: stretch; */
+
+            /* flex-wrap 属性指定了弹性盒子子元素的换行方式,默认单行 */
+            /* flex-wrap: wrap; */
+            /* 反转排列 */
+            flex-wrap: wrap-reverse;
+
+            /* align-content属性 用于修改flex-wrap属性的行为. 但是不是设置子元素的对齐,是各个行的对齐(待理解,目前看效果似乎差不多,然后,它和justify-content是相反的)*/
+            /* 默认 strecth 会伸展以占用剩余的空间 */
+            align-content: stretch;
+            /* 各行向弹性盒容器的结束位置堆叠 */
+            align-content: space-around;
+        }
+        .flex-item {
+            background-color: yellow;
+            width: 100px;
+            height: 80px;
+            margin: 20px;
+        }
+        /* 弹性子元素属性 */
+        .first {
+            /* 定义排列顺序,数值小的在前面,可为负值 */
+            order: -1;
+        }
+        .flex-item:first-child {
+            /* 对齐 : */
+            /* 自动获取弹性容器中剩余的空间,以使弹性子元素在弹性容器的两上轴方向都完全居中。 */
+            /* margin: auto; 那为什么这里设置了,但是只有下面一行才对齐了,上面没有? */
+            /* 将剩余的空间放置在元素的右侧： */
+            margin-right: auto;
+        }
+        /* align-self 属性用于设置弹性子元素自身在侧轴（纵轴）方向上的对齐方式。 */
+        /* flex 属性用于指定弹性子元素如何分配空间。以下实例中，第一个弹性子元素占用了 2/4 的空间，其他两个各占 1/4 的空间: */
+        .item1 {
+            align-self: flex-start;
+            flex:2;
+        }
+        .item2 {
+            align-self: flex-end;
+            flex:1;
+        }
+        .item3 {
+            align-self: center;
+            flex:1;
+        }
+        .item4 {
+            align-self: baseline;
+            flex:1;
+        }
+        .item5 {
+            align-self: stretch;
+            flex:1;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-item item1">
+            flex item 1item 1item 1
+        </div>
+        <div class="flex-item item2">
+            flex item 2 item 2 item 2
+        </div>
+        <div class="flex-item first item3">
+            flex item 3 item 3 item 3
+        </div>
+        <div class="flex-item item4">
+            flex item 4 item 4 item 4
+        </div>
+        <div class="flex-item item5">
+            flex item 5 flex item 5 flex item 5
+        </div>
+    </div>
+</body>
+</html>

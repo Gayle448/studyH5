@@ -7,6 +7,16 @@
     <title>css网页布局</title>
 
     <style>
+        /* 意思是,所有元素设置的宽度和高度,包含元素的内容,内边距和边框 */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin:0;
+            counter-reset: section;
+        }
+
+        /* 头部样式 */
         .header {
             background-color:#f5f5f9;
             text-align:center;
@@ -17,11 +27,12 @@
             /* border: 5px solid yellowgreen; 简写 效果一样 */
             padding: 10px;
         }
-
+        /* 导航条 */
         .topnav {
             overflow: hidden;
             background-color: yellow;
         }
+        /* 导航链接 */
         .topnav a {
             text-align: center;
             color: pink;
@@ -30,6 +41,32 @@
             padding: 15px 20px 15px 20px;
             float: left;
         }
+        /* 导航链接悬浮 */
+        .topnav a:hover {
+            background-color: yellowgreen;
+        }
+        /* 创建三个相等的列 */
+        .column {
+            float: left;
+            width: 33.333%;
+        }
+        /* 列后清除浮动 */
+        .row::after {
+            content: "";
+            display: table;
+            clear:both;
+        }
+        h2::before {
+            counter-increment: section;
+            content: "第" counter(section) "列";
+        }
+        /* 响应式布局 - 小于600px 改为上下布局 */
+        @media screen and (max-width:600px) {
+            .column {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -42,6 +79,32 @@
         <a href="https://www.baidu.com/">今日搜索</a>
         <a href="https://m.toutiao.com/">今日头条</a>
         <a href="https://open.weibo.com/">今日微博</a>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <h2>哈
+            </h2>
+            <p>
+                菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！
+            </p>
+        </div>
+
+        <div class="column">
+            <h2>哈
+            </h2>
+            <p>
+                菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！
+            </p>
+        </div>
+
+        <div class="column">
+            <h2>哈
+            </h2>
+            <p>
+                菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！
+            </p>
+        </div>
     </div>
 </body>
 </html>
