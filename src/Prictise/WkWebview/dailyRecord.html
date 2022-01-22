@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            overflow: auto;
+            counter-reset: titlecounter;
+        }
+        .title {
+            text-align: center;
+            font: 34px "Microsoft YaHei";
+            margin: 15px;
+            padding: 15px;
+        }
+        ul {
+            counter-reset: contentcounter;
+            list-style: none;
+            display: block;
+            /* background-color: yellow; */
+            margin: 15px;
+            padding: 15px;
+            font-family: "Microsoft YaHei";
+            font-size: 26px;
+        }
+        ul::before {
+            counter-increment: titlecounter;
+            content: counter(titlecounter,cjk-ideographic) "、";
+        }
+        li {
+            /* background-color: yellowgreen; */
+        }
+        li::before {
+            counter-increment: contentcounter;
+            content: counter(contentcounter) ".";
+        }
+        .content,.empty {
+            padding: 5px 30px;
+            font: 20px "宋体, sans-serif";
+            color: rgb(19, 17, 18);
+        }
+        .percent {
+            margin: 15px;
+            font: italic 20px "宋体, sans-serif";
+        }
+        .footer {
+            margin: 15px;
+            padding: 15px 65px;
+            font: 22px "Microsoft YaHei";
+        }
+        .name {
+            margin-left: -50px;
+            padding-top: 20px;
+            /* padding: 5px 30px; */
+            font: 20px "Microsoft YaHei";
+        }
+        .namevalue {
+            font: 20px "宋体, sans-serif";
+        }
+        .phone {
+            color: blue;
+        }
+        .line {
+            background-color: rgb(205, 205, 205);
+            height: 1px;
+            margin-top: 100px;
+        }
+        img {
+            /* margin-top: 50px;设置有效 */
+            /* margin-bottom: 100px;设置无效 */
+            position: absolute;
+            width: 300px;
+            height: auto;
+            left: 50%;
+            margin-left: -150px;
+            padding: 50px;
+        }
+    </style>
+    
+</head>
+<body>
+    
+<div>
+
+    <div class="title">
+        韩旭工作日报
+    </div>
+
+    <div>
+        <ul>
+            本周工作内容：
+            <li class="content">
+                熟悉 opentelemetry opentracker等链路追踪方案协议
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                整理出一份 链路追踪 方案文档
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                配合运营平台,实现涉及堡垒机相关功能
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                配合运营平台,讨论协调涉及插件管理相关功能
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                <span class="percent">
+                    （20%）
+                </span>
+            </li>
+        </ul>
+    </div>
+    
+    <div>
+        <ul>
+            问题：
+            <li class="content">
+                熟悉 opentelemetry opentracker等链路追踪方案协议
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                整理出一份 链路追踪 方案文档
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                配合运营平台,实现涉及堡垒机相关功能
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                配合运营平台,讨论协调涉及插件管理相关功能
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                <span class="percent">
+                    （20%）
+                </span>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            建议：
+            <div class="empty">
+                无
+            </div>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            下周工作计划：
+            <li class="content">
+                出一份 年后 go招聘 面试题 笔试题
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                整理出一份 链路追踪 方案文档
+                <span class="percent">
+                    (80%)
+                </span>
+            </li>
+            <li class="content">
+                配合运营平台,联调涉及堡垒机,插件管理服务相关功能
+                <span class="percent">
+                    (100%)
+                </span>
+            </li>
+            <li class="content">
+                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                <span class="percent">
+                    (50%)
+                </span>
+            </li>
+        </ul>    
+    </div>
+    
+    <div>
+        <ul>
+            附件：
+            <div class="empty">
+                无
+            </div>
+        </ul>
+    </div>
+
+    <div class="footer">
+        如有疑问,请及时联系,谢谢!
+        
+        <div class="name">
+            联系人:
+            <span class="namevalue">
+                韩旭
+            </span>
+        </div>
+
+        <div class="name">
+            电话:
+            <span class="namevalue phone">
+                17673135932
+            </span>
+        </div>
+
+        <div class="name">
+            邮箱:
+            <span class="namevalue phone">
+                hanxu@firecloud.ai
+            </span>
+        </div>
+
+        <div class="name">
+            公司:
+            <span class="namevalue">
+                长沙火线云网络科技有限公司
+            </span>
+        </div>
+
+        <div class="name">
+            地址:
+            <span class="namevalue">
+                长沙高新开发区麓谷信息港A座2501室
+            </span>
+        </div>
+
+        <div class="name">
+            网址:
+            <span class="namevalue phone">
+                http://www.zving.com
+            </span>
+        </div>
+
+        <div class="line"></div>
+        <img src="https://exmail.qq.com/cgi-bin/viewfile?type=signature&picid=ZX3614-8FCxi8HdFIVkbkMiLDxFXcd&uin=764496544">
+    </div>
+</div>
+
+
+</body>
+</html>
