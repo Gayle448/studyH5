@@ -7,25 +7,31 @@
     <title>Document</title>
 
     <style>
+        /* 根元素字体大小 rem都是相对于它 */
+        html {
+            font-size: 16px;
+        }
         body {
             overflow: auto;
             counter-reset: titlecounter;
+            box-sizing: content-box;
+            /*  */
         }
         .title {
             text-align: center;
-            font: 34px "Microsoft YaHei";
-            margin: 15px;
-            padding: 15px;
+            font: 2rem "Microsoft YaHei";
+            /* margin: 15px; */
+            padding: 1rem;
         }
         ul {
             counter-reset: contentcounter;
             list-style: none;
             display: block;
             /* background-color: yellow; */
-            margin: 15px;
-            padding: 15px;
+            /* margin: 15px; */
+            padding: 1rem;
             font-family: "Microsoft YaHei";
-            font-size: 26px;
+            font-size: 1.6rem;
         }
         ul::before {
             counter-increment: titlecounter;
@@ -39,45 +45,50 @@
             content: counter(contentcounter) ".";
         }
         .content,.empty {
-            padding: 5px 30px;
-            font: 20px "宋体, sans-serif";
+            padding: 0.3rem 1.8rem;
+            font: 1.2rem "宋体, sans-serif";
             color: rgb(19, 17, 18);
         }
         .percent {
-            margin: 15px;
-            font: italic 20px "宋体, sans-serif";
+            margin: 1rem;
+            font: italic 1.2rem "宋体, sans-serif";
         }
         .footer {
-            margin: 15px;
-            padding: 15px 65px;
-            font: 22px "Microsoft YaHei";
+            margin: 1rem;
+            padding: 1rem 4.1rem;
+            font: 1.3rem "Microsoft YaHei";
         }
         .name {
-            margin-left: -50px;
-            padding-top: 20px;
+            margin-left: -3rem;
+            padding-top: 1.2rem;
             /* padding: 5px 30px; */
-            font: 20px "Microsoft YaHei";
+            font: 1.2rem "Microsoft YaHei";
         }
         .namevalue {
-            font: 20px "宋体, sans-serif";
+            font: 1.2rem "宋体, sans-serif";
         }
         .phone {
             color: blue;
         }
         .line {
             background-color: rgb(205, 205, 205);
-            height: 1px;
-            margin-top: 100px;
+            height: 0.1rem;
+            margin-top: 6rem;
         }
         img {
             /* margin-top: 50px;设置有效 */
             /* margin-bottom: 100px;设置无效 */
             position: absolute;
-            width: 300px;
-            height: auto;
             left: 50%;
-            margin-left: -150px;
-            padding: 50px;
+            width: 25%;
+            margin-left: -12.5%;
+            padding: 3rem 0rem;
+        }
+
+        @media screen and (max-width:500px) {
+            html {
+                font-size: 12px;
+            }
         }
     </style>
     
