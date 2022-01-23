@@ -38,20 +38,28 @@
             content: counter(titlecounter,cjk-ideographic) "、";
         }
         li {
-            /* background-color: yellowgreen; */
-        }
-        li::before {
-            counter-increment: contentcounter;
-            content: counter(contentcounter) ".";
         }
         .content,.empty {
             padding: 0.3rem 1.8rem;
             font: 1.2rem "宋体, sans-serif";
             color: rgb(19, 17, 18);
+            /* background-color: yellowgreen; */
+        }
+        .text {
+            display: inline-block;
+            width: 85%;
+        }
+        .text::before {
+            counter-increment: contentcounter;
+            content: counter(contentcounter) ".";
+            /* background-color: pink; */
         }
         .percent {
-            margin: 1rem;
+            /* margin: 1rem; */
             font: italic 1.2rem "宋体, sans-serif";
+            /* background-color: yellow; */
+            text-align: right;
+            display: inline;
         }
         .footer {
             margin: 1rem;
@@ -105,31 +113,53 @@
         <ul>
             本周工作内容：
             <li class="content">
-                熟悉 opentelemetry opentracker等链路追踪方案协议
+                <span class="text">
+                    熟悉 opentelemetry opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                整理出一份 链路追踪 方案文档
+                <span class="text">
+                    熟悉 opentelemetry opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                配合运营平台,实现涉及堡垒机相关功能
+                <span class="text">
+                    整理出一份 链路追踪 方案文档
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                配合运营平台,讨论协调涉及插件管理相关功能
+                <span class="text">
+                    配合运营平台,实现涉及堡垒机相关功能
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                <span class="text">
+                    配合运营平台,讨论协调涉及插件管理相关功能
+                </span>
+                <span class="percent">
+                (100%)
+                </span>
+            </li>
+            <li class="content">
+                <span class="text">
+                    在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                </span>
                 <span class="percent">
                     （20%）
                 </span>
@@ -137,41 +167,41 @@
         </ul>
     </div>
     
-    <div>
+    <!-- JC 方式一: <div>
         <ul>
             问题：
             <li class="content">
+                <span class="percent">
+                    (100%)
+                </span>
                 熟悉 opentelemetry opentracker等链路追踪方案协议
+            </li>
+            <li class="content">
                 <span class="percent">
                     (100%)
                 </span>
-            </li>
-            <li class="content">
                 整理出一份 链路追踪 方案文档
+            </li>
+            <li class="content">
                 <span class="percent">
                     (100%)
                 </span>
-            </li>
-            <li class="content">
                 配合运营平台,实现涉及堡垒机相关功能
+            </li>
+            <li class="content">
                 <span class="percent">
                     (100%)
                 </span>
-            </li>
-            <li class="content">
                 配合运营平台,讨论协调涉及插件管理相关功能
-                <span class="percent">
-                    (100%)
-                </span>
             </li>
             <li class="content">
-                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
                 <span class="percent">
                     （20%）
                 </span>
+                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
             </li>
         </ul>
-    </div>
+    </div> -->
 
     <div>
         <ul>
@@ -184,34 +214,62 @@
 
     <div>
         <ul>
-            下周工作计划：
+            本周工作内容：
             <li class="content">
-                出一份 年后 go招聘 面试题 笔试题
+                <span class="text">
+                    熟悉 opentelemetry opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                整理出一份 链路追踪 方案文档
+                <span class="text">
+                    熟悉 opentelemetry opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                    opentracker等链路追踪方案协议
+                </span>
                 <span class="percent">
-                    (80%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                配合运营平台,联调涉及堡垒机,插件管理服务相关功能
+                <span class="text">
+                    整理出一份 链路追踪 方案文档
+                </span>
                 <span class="percent">
-                    (100%)
+                (100%)
                 </span>
             </li>
             <li class="content">
-                在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                <span class="text">
+                    配合运营平台,实现涉及堡垒机相关功能
+                </span>
                 <span class="percent">
-                    (50%)
+                (100%)
                 </span>
             </li>
-        </ul>    
+            <li class="content">
+                <span class="text">
+                    配合运营平台,讨论协调涉及插件管理相关功能
+                </span>
+                <span class="percent">
+                (100%)
+                </span>
+            </li>
+            <li class="content">
+                <span class="text">
+                    在route,fcsdk,堡垒机上开始实验性接入链路追踪功能
+                </span>
+                <span class="percent">
+                    （20%）
+                </span>
+            </li>
+        </ul>
     </div>
-    
+
     <div>
         <ul>
             附件：
