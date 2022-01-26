@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式网格视图(注意不是网格布局)、图片、视频布局</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            font-family: "Lucida Sans",sans-serif;
+        }
+        .header {
+            border: 1px solid red;
+            padding: 15px;
+            background-color: #9933cc;
+        }
+        /* .menu {
+            width: 25%;
+            float: left;
+            padding: 15px;
+            border: 1px solid blue;
+        } */
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .menu li {
+            margin: 7px;
+            padding: 8px;
+            background-color: #33b5e5;
+            color: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0,0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+        .menu li:hover {
+            background-color: #0099cc;
+        }
+        .main {
+            width: 75%;
+            float: left;
+            padding: 15px;
+            border: 1px solid yellow;
+        }
+        .main img {
+            /* 这个是相对于 img的父元素的,注意. */
+            /* 按照父类宽度填充完整 */
+            width: 100%;
+            height: auto;
+        }
+        .main video {
+            width: 100%;
+            height: auto;
+        }
+        /* 属性选择器 */
+        [class*="col-"] {
+            float: left;
+            padding: 15px;
+            border: 1px solid yellow;
+        }
+        /* 分为12列,左右相对的块 */
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+
+        .row:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+        .aside {
+            background-color: #33b5e5;
+            padding: 15px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+            background-image: url(finish.png);
+            background-repeat: no-repeat;
+            /* contain 按比例自适应内容区域,一条边顶到父类边上. 和不舍之是有区别的*/
+            background-size: contain;
+            /* 设置为 "100% 100%" ，背景图片将延展覆盖整个区域 */
+            background-size: 100% 100%;
+            /* cover 按比例填满,超出截取掉*/
+            background-size: cover;
+        }
+        /* max-width 是浏览器宽度; max-device-width 是设备宽度; */
+        @media only screen and (max-width:768px) {
+            [class*="col-"] {
+                width: 100%;
+            }
+        }
+        /* 
+        portrait：指定输出设备中的页面可见区域高度大于或等于宽度.
+        landscape： 除portrait值情况外，都是landscape
+        */
+        @media screen and (orientation:portrait) {
+            body {
+                background-color: lightblue;
+            }
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>
+            china
+        </h1>
+    </div>
+    <div class="col-3 menu">
+        <ul>
+            <li>
+                provence
+            </li>
+            <li>
+                city
+            </li>
+            <li>
+                tour
+            </li>
+        </ul>
+    </div>
+    <div class="col-6 main">
+        <h1>
+            city
+        </h1>
+        <p>
+            hahaha
+        </p>
+        <p>
+            hehehe
+        </p>
+        <img src="finish.png">
+        <video width="400" controls>
+            <source src="http://jm.ipmph.com/upload/flv/hd/YHushi/Ehls00/shjjsc/81004b2d-76ca-4a18-8977-2ec45c1e18bc.flv" type="video/flv">
+            你的浏览器不支持这种格式
+        </video>
+    </div>
+    <div class="col-3 aside">
+        <h1>
+            city
+        </h1>
+        <p>
+            hahaha
+        </p>
+        <p>
+            hehehe
+        </p>
+    </div>
+    <!-- 同一个div父元素,数字加起来要是12,why?? 下面col-3改成col-1为啥 col-1模块会跑到上面那一行去;原因似乎是因为,row里面清除了左右的浮动特效. -->
+    <div class="row">
+        <div class="col-3">
+            hengheng
+        </div>
+        <div class="col-9">
+            huhu
+        </div>
+    </div>
+
+    <div>
+        图片随屏幕大小变化
+    </div>
+    <!-- 可以使用picture定义多张图,实现不同设备宽度下,显示不同图片 -->
+    <picture>
+        <source srcset="finish.png" media="(max-width:600px)">
+        <source srcset=" SinaWeiBo.png">
+        <img src="" alt="flowers" style="width: auto;">
+    </picture>
+
+    <!-- 视频 -->
+    <video width="400" controls>
+        <source src="http://jm.ipmph.com/upload/flv/hd/YHushi/Ehls00/shjjsc/81004b2d-76ca-4a18-8977-2ec45c1e18bc.flv" type="video/flv">
+        你的浏览器不支持这种格式
+    </video>
+</body>
+</html>

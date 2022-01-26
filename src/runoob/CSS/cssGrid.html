@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网格布局</title>
+
+    <style>
+        /* 网格布局 由一个父元素及一个或多个子元素组成;
+        要使 HTML 元素变成一个网格容器，可以将 display 属性设置为 grid 或 inline-grid。
+        网格容器内放置着由列和行内组成的网格元素。
+        */
+
+        /* 一个网格单元是在一个网格元素中最小的单位,类似于一个表格的单元格 */
+        /* 网格元素可以向行或者列的方向或者一个或多个单元,并且创建一个网格区域, 网格区域是一个矩形.*/
+        /* 网格区域的垂直方向成为列column,水平线方向称为行row;
+        两个网格单元之间的横向间距/纵向间距称之为网格间距(grid-column/row-gap) 逐渐被column/row-gap替代. grid-gap是简写.
+        grid-area: 2 / 1 / span 2 / span 3; 只某个网格元素 从第 2 行开始和第 1 列开始， 横跨 2 行 3 列;
+        grid-column/row: 1 / 5; 属性定义了网格元素列/行的开始和结束位置,结束为止可以span 跨度,也可为当前在第几条网格线。
+        */
+        /* 行与行,列与列之间的交界处就是网格线,可通过设置一个网格元素的网格线起止来规划对应方向上的网格区域.
+        */
+
+        
+        /* 当一个html元素将display设置为 GRID 或 inline-grid时,它就变成了网格容器,它的直系子元素就成为网格元素  */
+
+        /* 网格轨道:格子空间.使用grid-template-columns和grid-template-rows属性定义网格的行和列 */
+
+        /* fr单位是指网格可用空间 1等份 */
+
+        /* grid属性: 所有网格容器的简写属性,可设置:
+        grid-template-columns/rows : 设置列和行的尺寸。
+        grid-template-areas : 指定网格布局使用的网格项名称. (注意和grid-area,结合使用的方式,''里代表一行所占的网格元素名称,空格隔开,. 号表示没有名称的网格项.可设置多行 -- 可以立即为相同名字的网格元素合并为一个区域 TODO: )
+        grid-auto-columns/rows : auto(默认值)|max-content(取最大网格元素值)|min-content(取最小网格元素值)|length(自定义长度大小)|minmax(min,max)大于min小于max的长度.
+        指定列/行的自动尺寸. (自动布局可选择行/列 自动 列/行要指定 布局算法可以指定) grid-template-columns 属性会覆盖该属性;但是容器的这个属性一个值设置一列,每列都要设置注意.
+        grid-template 属性用于网格布局，设置网格中行、列与分区.
+        是这些的简写 [grid-template-rows : 属性用于设置网格布局中的行数及高度, grid-template-columns:用于设置网格布局中的列数及宽度, grid-template-areas]
+        例子: grid-template: 150px / auto auto auto; 一个三列网格布局，其中第一行高 150 像素.
+        grid-auto-flow : 网格容器的填充方式,逐列还是逐行.
+        */
+
+        /* justify-content 属性用于 设置如何分配顺着弹性容器主轴(或者网格行轴) 的元素之间及其周围的空间. 和弹性盒子中的使用类似.
+        网格的总宽度必须小于容器的宽度才能使 justify-content 属性生效.以下同理
+
+        align-content 属性用于设置垂直方向上的网格元素在容器中的对齐方式。
+        
+        
+        */
+    </style>
+</head>
+<body>
+    <div>
+        网格是一组橡胶的水平线和垂直线,它定义了网格的列和行.
+        CSS提供了一个基于网格的布局系统,带有行和列,可以让我们无需使用浮动和定位的轻松设计网页<div class=""></div>
+    
+    
+    </div>
+</body>
+</html>
