@@ -1,0 +1,68 @@
+.container {
+    background-color: yellow;
+    p{
+        color: red;
+    }
+
+    a {
+        color: blue;
+        &:hover {
+            color: pink;
+        }
+    }
+}
+$version:123;
+/*
+这是一个版本信息 #{$version}
+*/
+
+.article {
+//  article 下所有叫 section的子元素.
+    section {color: yellow;}
+//  article 同层全体article1选择器
+    ~ article1 { border-top: 1px dashed #ccc }
+// article 下第一个子元素且叫section的选择器下的
+    > section { background: #eee }
+    dl > {
+      dt { color: #333 }
+      dd { color: #555 }
+    }
+// nav 同层后相邻第一个元素叫 article的选择器下的
+    nav + & { margin-top: 0 }
+    &-sliderbar {border: 1px yellow solid;}
+  }
+
+  .nav {
+    //   属性嵌套 border-left、border-right
+    border: 1px solid #ccc {
+    left: 0px;
+    right: 0px;
+    }
+
+    // 混合器调用方式一:
+    // @include testmixcolor(yellowgreen, pink, purple)
+    // 混合器调用方式二:传值方式还可以这样,顺序可打乱,人性化;
+    @include testmixcolor($noraml:yellowgreen,$hover:pink,$visite:purple);
+    @include textanothercolor(red);
+  }
+
+@mixin testmixcolor($noraml,$hover,$visite) {
+    color: $noraml;
+    &:hover {
+        color: $hover;
+    };
+    &:visited {
+        color: $visite;
+    };
+}
+// 混合器,参数可赋值默认值
+@mixin textanothercolor ($normal,$hover:$normal,$visite:yellow) {
+    color: $normal;
+    &:hover {
+        color:$hover
+    };
+    &:visited {
+        color: $visite;
+    }
+}
+
