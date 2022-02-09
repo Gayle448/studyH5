@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性和值选择器</title>
+    <style>
+        /* 设置了标题属性的所有元素 */
+        [title] {
+            color:blue;
+        }
+        /* 属性等于指定值 */
+        [title=test] {
+            color: red;
+        }
+        /* 属性包含指定值 */
+        /* 字符串可拆出这个单词 */
+        [title*=test] {
+            color: yellowgreen;
+        }
+        /* 包含独立的单词 */
+        [title~=test] {
+            color: yellow;
+        }
+        /* 属性后面以这个value结尾 */
+        [lang$=en] {
+            color: purple;
+        }
+        /* 属性前面以这个value开头 */
+        [lang^=en] {
+            color: pink;
+        }
+        /* 属性中必须是完整且唯一的单词，或者以 - 分隔开 */
+        [lang|=en] {
+            color: green;
+        }
+        /* 表单元素使用方式 */
+        input[type="text"] {
+            width: 100px;
+            display: block;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <h3 title="test">测试标题元素</h3>
+    <p>我是有颜色的吗</p>
+    <div title="haha">我呢</div>
+    <div title="hehe test">hehe test</div>
+    <div title="higeowjgetestheowjgig">higeowjgetestheowjgig</div>
+    <p lang="en-us">嘿嘿1</p>
+    <p lang="enjiugoej">嘿嘿2</p>
+    <p lang="jaogejigojwen">嘿嘿3</p>
+    <input placeholder="测试" type="text">
+    <input type="button" placeholder="测试2" style="width:100px;background-color: yellow;">
+</body>
+</html>

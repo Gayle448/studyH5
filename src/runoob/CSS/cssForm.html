@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表单 元素</title>
+
+    <style>
+        .testone {
+            display: none;
+        }
+
+        input {
+            width: 300px;
+        }
+        input[title=haha] {
+            background-color: yellowgreen;
+        }
+        input[type|=text] {
+            padding: 12px 90px;
+            background-color: yellow;
+            color: yellowgreen;
+
+            background-image: url(finish.png);
+            background-position: 10px 0px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            /* 设置的宽度包含边框宽度 */
+            box-sizing: border-box;
+        }
+        input[type|=text] {
+            transition:width 0.4S ease-in-out;
+        }
+        input[type|=text]:focus {
+            width: 100%;
+        }
+        input[type$=button] {
+            padding: 12px 12px;
+            border: 1px yellowgreen dotted;
+            background-color: pink;
+        }
+        /* 去掉聚焦时蓝色边框轮廓 */
+        input[type^=password]:focus {
+            outline: none;
+            background-color: orange;
+        }
+
+        /* 文本框 */
+        textarea {
+            resize: vertical;
+        }
+
+        /* 下拉菜单 */
+        select {
+            width: 200px;
+            padding: 15px;
+            border: orchid 1px solid;
+            border-radius: 5px;
+        }
+
+        /* 响应式表单样式 */
+        * {
+            box-sizing: border-box;
+        }
+        .col-25 {
+          float: left;
+          width: 25%;
+          margin-top: 6px;
+        }
+
+        .col-75 {
+          float: left;
+          width: 75%;
+          margin-top: 6px;
+        }
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        .row::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="testone">
+        <input title="haha" placeholder="输入框1">
+        <input type="text" placeholder="输入文本">
+        <input type="password" placeholder="输入密码">
+        <input type="button" name="按钮" value="我是按钮">
+        <input type="reset" name="reset" value="重置">
+        <input type="submit" name="haha" value="提交">
+
+        <textarea>我是文本框,默认可拖拽更改内容区域大小</textarea>
+
+        <br>
+        <form>
+            下拉菜单
+
+            <select id="coutry" name="国家">
+                <option value="au">澳大利亚</option>
+                <option value="ca">加拿大</option>
+                <option value="us">美国</option>
+            </select>
+        </form>
+    </div>
+
+    <p>响应式表单实例:输入用户姓、名,选择国家,输入描述文字,提交按钮</p>
+
+    <div class="container">
+        <!-- action属性,是否对应接口调用? -->
+        <form>
+            <div class="row">
+                <div class="col-25">
+                    <label for="name">姓氏</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="name" name="firstname" placeholder="输入姓" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="lname">名字</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" id="name" name="lastname" placeholder="输入名字" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="country">国家</label>
+                </div>
+                <div class="col-75">
+                    <select id="coutry" name="国家">
+                        <option value="au">澳大利亚</option>
+                        <option value="ca">加拿大</option>
+                        <option value="us">美国</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="subject">描述</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="subject" name="lastname" placeholder="输入名字" style="height:200px">
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="提交">
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>
