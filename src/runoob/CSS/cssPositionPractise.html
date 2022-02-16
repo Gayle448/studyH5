@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>postion定位实例</title>
+
+    <style>
+
+        /* 默认 static 效果 */
+        .box1 {
+            height: 100px;
+            background-color: red;
+        }
+        .box2 {
+            height: 100px;
+            background-color: orange;
+        }
+        .box3 {
+            height: 100px;
+            background-color: yellow;
+        }
+        .box4 {
+            height: 100px;
+            background-color: greenyellow;
+        }
+        .box5 {
+            height: 100px;
+            background-color: skyblue;
+        }
+
+        /* 第二个box relative 效果:
+        第二个box 位置相对自身移动,宽高按原来不变,后面的布局相对的是原来所占的位置.
+        */
+        /* .box2 {
+            height: 100px;
+            background-color: orange;
+            position: relative;
+            left: 50px;
+            top: 50px;
+        } */
+
+        /* absolute 效果 (第五个box):
+        元素如果没有设置宽度/高度,宽高自适应(同float)
+        没有设置位置,位置还在原来那个位置,但是相当于是站起来了,后面的元素会往前挤,坐在他原来的位置.
+        (试试改成第四个为absolute就知道了).
+        */
+        .box5 {
+            height: 100px;
+            background-color: skyblue;
+            position: absolute;
+        }
+        /* absolute 效果 (第五个box):
+        元素如果没有设置宽度/高度,宽高自适应(同float)
+        设置了位置,如果所有的父元素*没有*设置相对/绝对定位,则相对根元素定位;
+        否则是相对最近的一个父元素定位.
+        */
+        /* 1.相对根元素 */
+        .box5 {
+            height: 100px;
+            background-color: skyblue;
+            position: absolute;
+            left: 50px;
+            top: 50px;
+        }
+        /* 2.相对父元素 */
+        /* 1) */
+        /* body {
+            position: absolute;
+        } */
+
+        /* 2) 测试绝对定位多种情况,多层嵌套
+        box5 相对第三层偏移位置
+        .container1 宽度以最宽子元素的宽度为准.
+        */
+        /* .container1 {
+            height: 900px;
+            position: absolute;
+            background-color: pink;
+        }
+        .container2 {
+            height: 700px;
+            position: relative;
+            background-color: plum;
+        }
+        .container3 {
+            height: 500px;
+            position: relative;
+            background-color: seashell;
+        } */
+        /* 3) 测试绝对定位多种情况,多层嵌套
+        box5 相对第一层偏移位置
+        */
+        /* .container1 {
+            height: 900px;
+            position: absolute;
+            background-color: pink;
+        }
+        .container2 {
+            height: 700px;
+            background-color: plum;
+        }
+        .container3 {
+            height: 500px;
+            background-color: seashell;
+        } */
+        /* 4) 测试绝对定位多种情况,多层嵌套
+        box5 相对第一层偏移位置
+        .container2和.container3都是绝对布局,脱离了文档流,所以没撑开外侧容器.
+        我的理解是:设置为绝对absolute的容器,自适应展示到 非absolute/float的元素的宽高.
+        absolute 的各管各的.
+        */
+        /* .container1 {
+            height: 900px;
+            position: absolute;
+            background-color: pink;
+        }
+        .container2 {
+            height: 700px;
+            position: absolute;
+            background-color: plum;
+        }
+        .container3 {
+            height: 500px;
+            position: absolute;
+            background-color: seashell;
+        } */
+        .container1 {
+            height: 900px;
+            position: absolute;
+            background-color: pink;
+        }
+        .container2 {
+            height: 700px;
+            position: absolute;
+            top: 50px;
+            background-color: plum;
+        }
+        .container3 {
+            height: 500px;
+            position: absolute;
+            top: 50px;
+            background-color: seashell;
+        }
+        .container3 .box2 {
+            height: 100px;
+            background-color: greenyellow;
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- 默认 static -->
+    <div class="box1">
+        box1box1box1box1box1box1box1box1box1box1
+    </div>
+    <div class="box2">
+        box2box2box2box2box2box2box2box2box2box2
+    </div>
+    <div class="box3">
+        box3box3box3box3box3box3box3box3box3box3
+    </div>
+    <div class="box4">
+        box4box4box4box4box4box4box4box4box4box4
+    </div>
+    <div class="box5">
+        box5box5box5box5box5box5box5box5box5box5
+    </div>
+
+    <div style="color: red; font-size: 38px;">
+        测试绝对定位的多种情况:
+    </div>
+
+    <div class="container1">
+        第一层
+        <div class="container2">
+            第二层
+            <div class="container3">
+                第三层
+                <div class="box1">
+                    box1box1box1box1box1box1box1box1box1box1
+                </div>
+                <div class="box2">
+                    box2box2box2box2box2box2box2box2box2box2box2box2
+                </div>
+                <div class="box3">
+                    box3box3box3box3box3box3box3box3box3box3box3box3box3box3box3box3box3box3
+                </div>
+                <div class="box4">
+                    box4box4box4box4box4box4box4box4box4box4
+                </div>
+                <div class="box5">
+                    box5box5box5box5box5box5box5box5box5box5
+                </div>
+                (3)
+            </div>
+            (2)
+        </div>
+        (1)
+    </div>
+</body>
+
+</html>

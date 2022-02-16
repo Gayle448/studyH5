@@ -66,3 +66,12 @@ $version:"123";
     }
 }
 
+//通过选择器继承继承样式
+.error {
+    border: 1px solid red;
+    background-color: #fdd;
+}
+.seriousError {
+    @extend .error;
+    border-width: 3px;
+}
