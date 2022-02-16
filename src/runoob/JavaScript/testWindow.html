@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!-- 所有浏览器都支持window对象，它表示浏览器中打开的窗口。所有JS全局对象、函数以及变量都自动成为window对象的成员。 -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>测试Window对象</title>
+
+        <style>
+            a {
+                font-size: 30px;
+                color: blue;
+                border: 1px dotted pink;
+                /* padding: 20px; TODO: 设置后起点..
+                margin: 10px; */
+                box-sizing: content-box;
+                display: block;
+            }
+            button {
+                display: block;
+                margin: 20px;
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <!-- 常用 window对象方法 -->
+        <script> 
+
+            resizeTo(1080,1920);
+
+            function hello() {
+                var hello = '大家好';//Uncaught DOMException: String contains an invalid character
+                var ecode = btoa('hello');
+                var dcode = atob(ecode);
+                window.alert(dcode);
+            }
+            function makefriend () {
+                var m = window.confirm("交个朋友吧");
+                if (m == true) {
+                    var p = window.prompt('告诉我你的名字吧');
+                    if (p != null && p!= "") {
+                        begin(p);
+                    }
+                }else {
+                    window.alert('再见');
+                }
+            }
+            var second = 1;
+            function begin (name) {
+                window.document.getElementById('name').innerHTML = name;
+                // var timebegin = window.setInterval( OK
+                //     function(){
+                //         console.log('时间+1');
+                //         second +=1;
+                //         window.document.getElementById('sencond').innerHTML = second;
+                //     },1000
+                // );
+
+                // ⚠️注意是 count 不是 count()
+                var timebegin = window.setInterval(
+                    count,1000
+                );
+                // 修改隐藏属性
+                window.document.getElementById('txt').hidden = false;
+
+                window.setTimeout(
+                    function(){
+                        // 指定
+                        window.clearInterval(timebegin);
+                    },20000
+                );
+            }
+            function count(){
+                console.log('时间+1');
+                second +=1;
+                window.document.getElementById('sencond').innerHTML = second;
+            }
+            // 打开其他浏览器
+            function openother () {
+                window.open("https://baidu.com")
+            }
+        </script>
+
+        <button onclick="hello()">
+            打招呼
+        </button>
+
+        <button onclick="makefriend()"">
+            认识我
+        </button>
+        
+        <p id="txt" hidden>
+            <span id="name">
+            </span>
+            我们已经认识了
+            <span id="sencond">
+                1
+            </span>
+            秒了
+        </p>
+
+        <button onclick="openother()">
+            别处见
+        </button>
+
+
+        <!-- window属性 -->
+        <script>
+            var info = "navigator对象:" + "<br>" + "浏览器的代码名:" + window.navigator.appCodeName + "<br>" + "浏览器的名称:" + window.navigator.appName + "<br>" + "浏览器的平台和版本信息:" + window.navigator.appVersion + "<br>" + "浏览器中是否启用 cookie:" + window.navigator.cookieEnabled + "<br>" + "浏览器的操作系统平台:" + window.navigator.platform + "<br>" + "user-agent 头部的值:" + window.navigator.userAgent + "<br>";
+            document.write(info)
+
+            var screen = "<br>" + "screen对象:" + "<br>" + "屏幕高度:（不包括Windows任务栏）" + window.screen.availHeight + "<br>" + "屏幕总高度:" + window.screen.height + "<br>" + "屏幕宽度:" + window.screen.availWidth + "<br>" + "屏幕总宽度:" + window.screen.width + "<br>" + "调色板比特深度:" + window.screen.colorDepth + "<br>" + "屏幕分辨率:" + window.screen.pixelDepth + "<br>";
+            document.write(screen);
+
+            var net = "<br>" + "location对象:" + "<br>" + "URL:" + window.location.href + "<br>" + "URL路径名:" + window.location.pathname + "<br>" + "URL的主机名和端口:" + window.location.host + "<br>" + "URL的主机名:" + window.location.hostname + "<br>" + "URL的端口号:" + window.location.port + "<br>" + "URL协议:" + window.location.protocol + "<br>" + "URL的查询部分:" + window.location.search + "<br>" + "返回一个URL的锚部分:" + window.location.hash + "<br>";
+            document.write(net);
+            
+            var historynum =  "<br>" + "history URl:" + window.history.length + "个" + "<br>"
+            document.write(historynum);
+
+            function refresh() {
+                window.location.reload()
+            }
+            function newpage() {
+                window.location.assign("http://www.runoob.com")
+            }
+            function replacepage() {
+                window.location.assign("https://developer.apple.com")
+            }
+
+            function back() {
+                window.history.back()
+            }
+            function forward () {
+                window.history.forward()
+            }
+            function goTwo() {
+                window.history.go(2)
+            }
+        </script>
+
+        <button onclick="refresh()">
+            重新载入当前文档
+        </button>
+
+        <button onclick="newpage()">
+            载入一个新的文档
+        </button>
+
+        <button onclick="replacepage()">
+            用新的文档替换当前文档
+        </button>
+
+        <button onclick="back()">
+            返回上一页
+        </button>
+
+        <button onclick="forward()">
+            进入下一页
+        </button>
+
+        <button onclick="goTwo()">
+            前进两页
+        </button>
+
+        <a href="https://baidu.com">
+            百度一下
+        </a>
+
+        <!-- 存储对象见 storage.html -->
+        <a href="../html/storage.html">
+            存储对象
+        </a>
+</html>

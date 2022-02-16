@@ -18,7 +18,7 @@
 * 所有的JS对象都会从一个prototype(原型对象)中继承属性和方法.
 *
 * BOM - Browser Object Model 浏览器对象模型，使得JS有能力与浏览器"对话"
-* 所有浏览器都支持window对象，它表示浏览器窗口。所有JS全局对象、函数以及变量都自动成为window对象的成员。
+* 所有浏览器都支持window对象，它表示浏览器中打开的窗口。所有JS全局对象、函数以及变量都自动成为window对象的成员。
 * 全局变量是window对象的属性，全局函数是window对象的方法，HTML DOM的document也是window对象的属性之一。
 * Window尺寸：
 * 1. window.innerHeight/innerWidth

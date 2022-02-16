@@ -2,10 +2,13 @@
 
 <!-- HTML DOM 教程
 DOM - 文档对象模型，是HTML和XML文档的编程接口。
-HTML DOM 定义了访问和操作HTML文档的标准(W3C)方法；
+`W3C 文档对象模型 （DOM） 是中立于平台和语言的接口，它允许程序和脚本动态地访问和更新文档的内容、结构和样式。`
+HTML DOM 定义了访问和操作HTML文档的标准(W3C)方法；**HTML DOM 定义了所有 HTML 元素的对象和属性，以及访问它们的方法。**
 DOM以树结构表达HTML文档；在HTML DOM中，所有事物都是节点。DOM是被视为节点树的HTML。
 文档节点、元素节点、文本节点、属性节点。
 节点树中的节点彼此拥有层级关系：节点父、子和同胞。
+**可通过 JavaScript （以及其他编程语言）对 HTML DOM 进行访问。**
+所有 HTML 元素被定义为对象，而编程接口则是对象方法和对象属性。
 HTML DOM方法：是我们可以在节点上执行的动作。
 HTML DOM属性：是我们可以在节点设置和修改的值。
 所有HTML元素被定义为属性，拥有对象方法和属性。
@@ -25,6 +28,17 @@ DMO 根节点：
 document.documentElement - 全部文档
 document.body - 文档的主体
 除了innerHTML属性，也可以使用childNodes(列表) 和 nodeValue(值)来获取元素的内容
+
+我的理解:
+* html 是 超文本标记语言,html文档运行在浏览器上,浏览器来解析.
+* dom 是 html 文档的编程接口,定义了访问和操作html/xml文档的标准方法. 是万维网联盟(W3C)的标准.
+* dom 以树结构表达 html文档, 被视为节点树的 html.
+* html dom 定义了所有 html元素的对象和属性还有访问方法.
+
+w3school : 
+在html dom 中 attr对象表示html属性,html属性始终属于html元素.
+每个载入浏览器的html的文档都会成为document对象,该对象使我们可从脚本中对html页面中所有元素访问.
+document对象使window对象的一部分.
 
 -->
 
