@@ -172,4 +172,33 @@
         <a href="../html/storage.html">
             存储对象
         </a>
+
+        <script>
+            // 使用document对象创建cookie , 键值对存储.一条条新增.
+            function savecookies () {
+                window.document.cookie = "name=jc;";
+                window.document.cookie = "age=18;"
+                window.document.cookie = "mail=112913399@qq.com;"
+            }
+            // 指定字段,指定过期时间为一个过去时间
+            function deletecookies () {
+                window.document.cookie = "mail=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+            }
+            // 显示
+            function showcookies() {
+                console.log('显示');
+                alert(window.document.cookie);
+            }
+        </script>
+
+        <button onclick="savecookies()">
+            新增cookie
+        </button>
+        <button onclick="deletecookies()">
+            删除邮箱cookie
+        </button>
+        <button onclick="showcookies()">
+            显示所有cookies
+        </button>
+    </body>
 </html>
