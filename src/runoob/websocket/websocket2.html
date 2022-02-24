@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+        // 监听window的加载方法:
+        window.addEventListener("load", function(evt) {
+            var output = document.getElementById("output");
+            var input = document.getElementById("input");
+            var ws;
+            // 声明一个函数变量:
+            var print = function(message) {
+                var d = document.createElement("div");
+                d.innerHTML = message;
+                // id 为output的节点追加子节点
+                output.appendChild(d);
+            };
+            // 获取id为open 的节点的点击事件的回调:
+            document.getElementById("open").onclick = function(evt) {
+                if (ws) {
+                    return false;
+                }
+                ws = new WebSocket("ws://localhost:9998/echo");
+                ws.onopen = function(evt) {
+                    print("OPEN");
+                }
+                ws.onclose = function(evt) {
+                    print("CLOSE");
+                    ws = null;
+                }
+                ws.onmessage = function(evt) {
+                    print("RESPONSE: " + evt.data);
+                }
+                ws.onerror = function(evt) {
+                    print("ERROR: " + evt.data);
+                }
+                return false;
+            };
+            // 获取id为send 的节点的点击事件的回调:
+            document.getElementById("send").onclick = function(evt) {
+                if (!ws) {
+                    return false;
+                }
+                print("SEND: " + input.value);
+                // websocket发送消息
+                ws.send(input.value);
+                return false;
+            };
+            // 关闭连接
+            document.getElementById("close").onclick = function(evt) {
+                if (!ws) {
+                    return false;
+                }
+                ws.close();
+                return false;
+            };
+        });
+    </script>
+</head>
+<body>
+    <table style="background-color: antiquewhite;">
+        <tr>
+            <td valign="top" width="50%">
+                <p>Click "Open" to create a connection to the server,
+                    "Send" to send a message to the server and "Close" to close the connection.
+                    You can change the message and send multiple times.
+                    <br>一个不错的例子.
+                </p>
+                <form>
+                    <button id="open">Open</button>
+                    <button id="close">Close</button>
+                    <input id="input" type="text" value="Hello world!">
+                    <button id="send">Send</button>
+                </form>
+            </td>
+            <td valign="top" width="50%">
+                <div id="output"></div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

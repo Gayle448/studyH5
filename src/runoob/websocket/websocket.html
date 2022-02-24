@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>
+        webscoket教程
+    </title>
+    <script type="text/javascript">
+        function websocketTest(){
+            if("WebSocket" in window) {
+                alert("您的浏览器支持websocket");
+
+                // 打开一个websocket
+                var ws = new WebSocket("ws://localhost:9998/echo");
+
+                ws.onopen = function()
+               {
+                  // Web Socket 已连接上，使用 send() 方法发送数据
+                  ws.send("发送数据");
+                  alert("数据发送中...");
+               };
+                //    或者添加监听
+                // ws.addEventListener('open',function(event){
+                //     socket.send('');
+                // });
+                
+               ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  // 服务器数据可能是文本,也可能是二进制数据 (blob对象或 arraybuffer对象)
+                  if(typeof received_msg === String) {
+                  }
+                  if (received_msg instanceof ArrayBuffer) {
+                  }
+                  alert("数据已接收...");
+               };
+                
+               ws.onclose = function()
+               { 
+                  // 关闭 websocket
+                  alert("连接已关闭..."); 
+               };
+            //    当前连接状态
+               switch (socket.readyState) {
+                    case socket.CONNECTING:
+                        break;
+                    case socket.OPEN:
+                        break;
+                    case socket.CLOSING:
+                        break;
+                    case socket.CLOSED:
+                        break;
+                    default:
+                        break;
+                }
+            }else {
+                // 浏览器不支持 websocket
+                alert("您的浏览器不支持 websocket");
+            }
+        }
+    </script>
+    <body>
+        <div id="test">
+            <a href="javascript:websocketTest()">运行websocket</a>
+        </div>
+    </body>
+</html>
+
+<!-- 
+
+安装pywebsocket:
+(1) git clone https://github.com/googlearchive/pywebsocket
+(2) python setup.py build
+(3) sudo python setup.py install
+(4) pydoc mod_pywebsocket (查看文档说明,可跳过)
+(5) sudo python standalone.py -p 9998 -w ../example/ (进入到pywebsocket/mod_pywebsocket 目录下执行)
+
+执行:
+sudo python standalone.py -p 9998 -w ../example/
+ 终端报错: 
+[WARNING] __main__.WebSocketRequestHandler: ::ffff:127.0.0.1 - code 404, message File not found.
+原因: 未执行步骤 (2)
+
+第二次尝试OK.
+
+ -->
