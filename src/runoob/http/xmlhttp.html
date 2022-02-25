@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+    <title>测试xmlhttpRequest</title>
+    <head>
+        <script>
+            function showHint(str) {
+                if(str.length == 0) {
+                    document.getElementById("txtHint").innerHTML="";
+                    return;
+                }
+                if(window.XMLHttpRequest) {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        console.log('readystate='+xmlhttp.readyState);
+                        console.log('status='+xmlhttp.status);
+                        console.log('header='+xmlhttp.getAllResponseHeaders());
+                        // if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                        // }
+                    }
+                    xmlhttp.open("GET","https://www.runoob.com/try/demo_source/gethint.php?q="+str,true);
+                    xmlhttp.send();
+                    // 已拦截跨源请求：同源策略禁止读取位于 https://www.runoob.com/try/demo_source/gethint.php?q=j 的远程资源。（原因：CORS 头缺少 'Access-Control-Allow-Origin'）。状态码：200。
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <h4>输入内容,查询相关信息:</h4>
+        <form action="">
+            你的名字:
+            <input type="text" id="txt1" onkeyup="showHint(this.value)"/>
+        </form>
+        <p>查询结果:
+            <span id="txtHint">
+
+            </span>
+        </p>
+        <p>
+            请求头:
+            <span id="header">
+
+            </span>
+        </p>
+    </body>
+</html>

@@ -5,4 +5,4 @@
 
 ### 基础知识查漏补缺
 1. float 和 display的结合使用
-2.  !DOCTYPE 声明 的作用
+2.  

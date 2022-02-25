@@ -44,4 +44,9 @@ ansi windows 自动使用系统默认编码
 2.w3school
 3.慕课网
 
-4.08 -
+基础知识补充:
+* !DOCTYPE 声明 的作用:
+  声明必须是HTML文档的第一行,作用是指示浏览器使用哪个HTML版本进行编写.
+  <!DOCTYPE html> 表示 HTML5
+  
+
