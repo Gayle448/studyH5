@@ -1,0 +1,10 @@
+{
+         
+             
+    "name": "Html",
+    "type": "firefox",
+    "request": "launch",
+    "reAttach": true,
+    "file": "${file}"
+
+}
